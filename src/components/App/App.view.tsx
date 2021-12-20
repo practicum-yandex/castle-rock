@@ -1,11 +1,16 @@
 import React from "react";
 
+import Button from "@/share/Button";
+import { GlobalStyles } from "@/utils/resetStyles";
+
 import { Title } from "./App.styles";
 
 const App: React.FC = () => (
-	<div>
+	<>
+		<GlobalStyles />
 		<Title>Мой апп.</Title>
-	</div>
+		<Button>Test button</Button>
+	</>
 );
 
 export default App;

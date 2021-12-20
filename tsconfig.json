@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "lib": [
       "dom",
       "es2017"
@@ -17,7 +21,6 @@
     "skipLibCheck": true,
     "declaration": false,
     "sourceMap": false,
-    "baseUrl": ".",
     "outDir": "./dist",
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
   },
@@ -28,5 +31,5 @@
   ],
   "exclude": [
     "**/*.js"
-  ]
+  ],
 }

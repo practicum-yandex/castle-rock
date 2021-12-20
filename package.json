@@ -8,8 +8,8 @@
     "build": "webpack",
     "lint:check": "npm run eslint:check && npm run prettier:check",
     "eslint:check": "eslint src/**/*.{js,ts,tsx}",
-    "prettier": "prettier -w src/**/*.{js,ts,tsx}",
-    "prettier:check": "prettier -c src/**/*.{js,ts,tsx}"
+    "prettier": "prettier -w src/**/*.{js,ts,tsx,json}",
+    "prettier:check": "prettier -c src/**/*.{js,ts,tsx,json}"
   },
   "repository": {
     "type": "git",
