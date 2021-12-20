@@ -4,7 +4,12 @@
   "description": "",
   "main": "./src/index.tsx",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot"
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack",
+    "lint:check": "npm run eslint:check && npm run prettier:check",
+    "eslint:check": "eslint src/**/*.{js,ts,tsx}",
+    "prettier": "prettier -w src/**/*.{js,ts,tsx}",
+    "prettier:check": "prettier -c src/**/*.{js,ts,tsx}"
   },
   "repository": {
     "type": "git",
@@ -17,8 +22,14 @@
   },
   "homepage": "https://github.com/practicum-yandex/castle-rock#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5.7.0",
+    "@typescript-eslint/parser": "5.7.0",
+    "eslint": "8.5.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-config-typescript": "3.0.0",
     "html-webpack-plugin": "5.5.0",
     "path": "0.12.7",
+    "prettier": "2.5.1",
     "ts-loader": "9.2.6",
     "typescript": "4.5.4",
     "webpack": "5.65.0",

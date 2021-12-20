@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Мой апп.</h1>
-      </div>
-    );
-  }
-}
-export default App; 
+import { Title } from "./App.styles";
+
+const App: React.FC = () => (
+	<div>
+		<Title>Мой апп.</Title>
+	</div>
+);
+
+export default App;
