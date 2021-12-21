@@ -11,7 +11,7 @@ type Colors = {
 
 interface Theme {
 	colors: Colors;
-	spacing: (scale: number) => string;
+	spacing: (scale?: number) => string;
 }
 
 declare module "styled-components" {
@@ -22,7 +22,15 @@ const getColor = (baseColor: string) => {
 	return (opacity = 1) => `rgba(${baseColor}, ${opacity})`;
 };
 
-const spacingList = [4, 8, 16];
+const getSpacing = (scale = 0) => {
+	if (scale < 0 || scale > 3) {
+		throw new Error("Wrong scale value");
+	}
+
+	const spacingList = [4, 8, 16, 32];
+
+	return `${spacingList[scale]}px`;
+};
 
 export const theme: Theme = {
 	colors: {
@@ -30,5 +38,5 @@ export const theme: Theme = {
 		default: getColor("0, 0, 0"),
 		danger: getColor("255, 47, 47"),
 	},
-	spacing: (scale = 0) => `${spacingList[scale]}px`,
+	spacing: getSpacing,
 };
