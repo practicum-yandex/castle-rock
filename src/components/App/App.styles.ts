@@ -1,6 +1,20 @@
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+
+import { resetStyles } from "@/utils/resetStyles";
 
 export const Title = styled.h2`
-	font-size: 24px;
-	color: blue;
+	${({ theme }) => `
+		font-size: 24px;
+		color: ${theme.colors.primary()};
+		margin-bottom: ${theme.spacing(1)};
+	`}
+`;
+
+export const GlobalStyles = createGlobalStyle`
+	${resetStyles}
+
+	body {
+			font-size: 14px;
+			color: ${({ theme }) => theme.colors.default()};
+		} 
 `;
