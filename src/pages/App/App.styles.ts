@@ -1,6 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-import { resetStyles } from "@/utils/resetStyles";
 import CustomTitle from "@/share/Title";
 
 export const Title = styled(CustomTitle)`
@@ -10,7 +9,11 @@ export const Title = styled(CustomTitle)`
 `;
 
 export const GlobalStyles = createGlobalStyle`
-	${resetStyles}
+	* { 
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 
 	* {
 		box-sizing: border-box;
