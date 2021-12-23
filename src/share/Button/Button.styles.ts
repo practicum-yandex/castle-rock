@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const CustomButton = styled.button`
 	${({ theme }) => `
+		border: none;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
