@@ -1,71 +1,59 @@
-import { theme } from "@/utils/theme";
+import { stylesVariables, theme } from "@/utils/theme";
 import styled from "styled-components";
 
-const labelSize = '8px'
-const inputPadding = '8px'
-
-type LabelProps = {
-    inputWidth?: string
-}
-
-type FieldProps = {
-    transition?: string
-}
-
-type PlaceholderProps = {
-    color?: string
-    transition?: string
-}
+const labelSize = '8px';
+const inputPadding = '8px';
+const transition = stylesVariables.transition;
 
 type MessageProps = {
     color?: string
-    transition?: string
     isVisible?: boolean
-}
+};
 
-export const Label = styled.label<LabelProps>`
+export const Label = styled.label`
     position: relative;
     display: block;
-    width: ${({ inputWidth }) => inputWidth ? inputWidth : '100%' };
+    width: 100%;
     margin-top: ${labelSize};
 `;
 
-export const Field = styled.input<FieldProps>`
+export const Field = styled.input`
     width: 100%;
     padding: ${inputPadding} 0;
     border: none;
+    color: inherit;
     border-bottom: 2px ${theme.colors.primary()} solid;
-    transition: border-color ${({ transition }) => transition ? transition : '.1s' };
+    transition: border-color ${transition};
 
-    &:focus {
+    :focus {
         border-color: ${theme.colors.primary(0.5)};
     }
   
-    &:focus, 
-    &:not(:placeholder-shown) {
+    :focus, 
+    :not(:placeholder-shown) {
         & ~ span {
             top: -${inputPadding};
             font-size: ${labelSize};
         }
     }
 
-    &[invalid] {
+    [invalid] {
         border-color: ${theme.colors.danger()};
     }
 `;
 
-export const Placeholder = styled.span<PlaceholderProps>`
+export const Placeholder = styled.span`
     position: absolute;
     top: ${inputPadding};
     left: 0;
-    color: ${({ color }) => color ? color : theme.colors.default() };
-    transition: font-size 0.2s ${({ transition }) => transition ? transition : '.1s' }, 
-                top 0.2s ${({ transition }) => transition ? transition : '.1s' };
+    letter-spacing: 0.4px;
+    color: ${theme.colors.secondary()};
+    transition: font-size 0.2s ${transition}, top 0.2s ${transition};
 `;
 
 export const Message = styled.span<MessageProps>`
     opacity: ${({ isVisible }) => isVisible ? '1' : '0' };;
     margin-top: 0.5em;
     font-size: 9px;
-    color: ${({ color }) => color ? color : theme.colors.danger() };
+    color: ${theme.colors.danger()};
 `

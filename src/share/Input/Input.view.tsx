@@ -1,34 +1,25 @@
-import React, { FormEventHandler, useEffect, useRef, useState } from "react";
+import React, { InputHTMLAttributes } from "react";
 import { Component } from "@/utils/components";
 import { Field, Label, Placeholder, Message } from "./Input.styles";
 
 type Props = {
-    inputWidth?: string
-    labelText?: string
-    errorMessage?: string
-    inputHanlder: FormEventHandler<HTMLInputElement>
-}
+    label?: string;
+    errorMessage?: string;
+    errorMessageVisibility: boolean;
+};
 
-const Input: Component<Props> = (props) => {
-    const inputRef = useRef(null);
-    const [messageIsVisible, setMessageVisibility] = useState(false);
+type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-    useEffect(() => {
-        // пока я не знаю как правильно прокинуть валидаторы
-        setMessageVisibility(false)
-    }, [messageIsVisible]);
-
+const CustomInput: Component<Props & InputProps> = ({className, ...props}) => {
     return (
-        <>
-            <Label inputWidth={props.inputWidth}>
-                <Field ref={inputRef} onInput={props.inputHanlder} placeholder=" "/>
-                <Placeholder>{props.labelText}</Placeholder>
-                <Message isVisible={messageIsVisible}>
-                    {props.errorMessage}
-                </Message>
-            </Label>
-        </>
+        <Label className={className}>
+            <Field {...props} placeholder=" "/>
+            <Placeholder>{props.label}</Placeholder>
+            <Message isVisible={props.errorMessageVisibility}>
+                {props.errorMessage}
+            </Message>
+        </Label>
     )
 };
 
-export default Input;
+export default CustomInput;
