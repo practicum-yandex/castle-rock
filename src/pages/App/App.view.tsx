@@ -1,7 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import {   Routes, Route, Link, HashRouter } from "react-router-dom";
-import { Title, GlobalStyles } from "./App.styles";
+import { Routes, Route, Link, HashRouter } from "react-router-dom";
 
 import { theme } from "@/utils/theme";
 import Layout from "@/share/Layout";
@@ -12,27 +11,31 @@ import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
 
+import { Title, GlobalStyles, Nav } from "./App.styles";
+
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
 		<GlobalStyles />
 		<Layout>
 			<Title level={1}>Castle Rock</Title>
 			<HashRouter>
-				<Link to="/">
-					<Button>Main</Button>
-				</Link>
-				<Link to="/auth">
-					<Button>Auth</Button>
-				</Link>
-				<Link to="/board">
-					<Button>Board</Button>
-				</Link>
-				<Link to="/forum">
-					<Button>Forum</Button>
-				</Link>
-				<Link to="/game">
-					<Button>Game</Button>
-				</Link>
+				<Nav>
+					<Link to="/">
+						<Button>Main</Button>
+					</Link>
+					<Link to="/auth">
+						<Button>Auth</Button>
+					</Link>
+					<Link to="/board">
+						<Button>Board</Button>
+					</Link>
+					<Link to="/forum">
+						<Button>Forum</Button>
+					</Link>
+					<Link to="/game">
+						<Button>Game</Button>
+					</Link>
+				</Nav>
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/auth" element={<Auth />} />

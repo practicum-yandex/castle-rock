@@ -8,6 +8,14 @@ export const Title = styled(CustomTitle)`
   `}
 `;
 
+export const Nav = styled.nav`
+	${({ theme }) => `
+		> *:not(:last-child) {
+			margin-right: ${theme.spacing()};
+		}
+	`}
+`;
+
 export const GlobalStyles = createGlobalStyle`
 	* { 
 		box-sizing: border-box;
@@ -20,8 +28,12 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
-			font-family: 'Arial', sans-serif;
-			font-size: 14px;
-			color: ${({ theme }) => theme.colors.default()};
-		}
+		font-family: 'Arial', sans-serif;
+		font-size: 14px;
+		color: ${({ theme }) => theme.colors.default()};
+	}
+
+	a {
+		text-decoration: none;
+	}
 `;
