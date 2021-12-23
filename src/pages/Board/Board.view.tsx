@@ -22,6 +22,10 @@ const leadersData = [
 		name: "name3",
 		score: 15,
 	},
+	{
+		name: "name4",
+		score: 125,
+	},
 ];
 
 const renderLeader = (leader: Leader, index: number) => {

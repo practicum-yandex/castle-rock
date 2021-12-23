@@ -12,6 +12,7 @@ type Colors = {
 interface Theme {
 	colors: Colors;
 	spacing: (scale: number) => string;
+	border: ReturnType<Color>;
 }
 
 declare module "styled-components" {
@@ -24,12 +25,15 @@ const getColor = (baseColor: string) => {
 
 const spacingList = [4, 8, 16];
 
+const secondary = getColor("153, 153, 153");
+
 export const theme: Theme = {
 	colors: {
 		primary: getColor("51, 105, 243"),
-		secondary: getColor("153, 153, 153"),
+		secondary,
 		default: getColor("0, 0, 0"),
 		danger: getColor("255, 47, 47"),
 	},
 	spacing: (scale = 0) => `${spacingList[scale]}px`,
+	border: secondary(0.4),
 };

@@ -3,25 +3,25 @@ import styled, { css } from "styled-components";
 export const CustomTable = styled.table`
 	width: 100%;
 	background-color: white;
+	border-collapse: collapse;
 `;
 
 const cellStyles = css`
 	${({ theme }) => `
     padding: ${theme.spacing(1)} ${theme.spacing(2)};
+		border: 1px solid ${theme.border};
   `}
 `;
 
 export const Body = styled.tbody``;
 
-export const Row = styled.tr`
-	${({ theme }) => `
-    border-bottom: 1px solid ${theme.colors.secondary(0.4)};
-  `}
-`;
+export const Row = styled.tr``;
 
 export const Head = styled.thead`
 	${Row} {
-		border-width: 3px;
+		${({ theme }) => `
+			border-bottom: 3px solid ${theme.border};
+		`}
 	}
 `;
 
@@ -33,4 +33,8 @@ export const HeadCell = styled.th`
 
 export const Cell = styled.td`
 	${cellStyles}
+
+	${({ theme }) => `
+		border: 1px solid ${theme.colors.secondary(0.4)};
+	`}
 `;
