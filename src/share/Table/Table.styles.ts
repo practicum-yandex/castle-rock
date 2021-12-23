@@ -33,8 +33,4 @@ export const HeadCell = styled.th`
 
 export const Cell = styled.td`
 	${cellStyles}
-
-	${({ theme }) => `
-		border: 1px solid ${theme.colors.secondary(0.4)};
-	`}
 `;
