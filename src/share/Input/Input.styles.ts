@@ -1,9 +1,9 @@
-import { stylesVariables, theme } from "@/utils/theme";
+import { theme } from "@/utils/theme";
 import styled from "styled-components";
 
 const labelSize = '8px';
 const inputPadding = '8px';
-const transition = stylesVariables.transition;
+const transition = theme.transition;
 
 type MessageProps = {
     color?: string

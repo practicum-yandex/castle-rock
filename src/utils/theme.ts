@@ -11,31 +11,35 @@ type Colors = {
 
 interface Theme {
 	colors: Colors;
-	spacing: (scale: number) => string;
+	transition: string;
+	spacing: (scale?: number) => string;
 }
-
-interface StylesVariables {
-	transition: string
-}
-
-const spacingList = [4, 8, 16];
 
 const getColor = (baseColor: string) => {
 	return (opacity = 1) => `rgba(${baseColor}, ${opacity})`;
 };
 
-export const stylesVariables: StylesVariables = {
-	transition: '.1s'
-}
+const getSpacing = (scale = 0) => {
+	const spacingList = [4, 8, 16, 32];
+
+	if (scale < 0 || scale > 3) {
+		throw new Error("Wrong scale value");
+	}
+
+	return `${spacingList[scale]}px`;
+};
 
 export const theme: Theme = {
+	transition: '.1s',
+
 	colors: {
 		primary: getColor("51, 105, 243"),
 		default: getColor("0, 0, 0"),
 		danger: getColor("255, 47, 47"),
 		secondary: getColor("128, 128, 128")
 	},
-	spacing: (scale = 0) => `${spacingList[scale]}px`,
+
+	spacing: getSpacing
 };
 
 declare module "styled-components" {
