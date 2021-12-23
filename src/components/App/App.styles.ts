@@ -1,7 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-import { resetStyles } from "@/utils/resetStyles";
-
 export const Title = styled.h2`
 	${({ theme }) => `
 		font-size: 24px;
@@ -11,10 +9,14 @@ export const Title = styled.h2`
 `;
 
 export const GlobalStyles = createGlobalStyle`
-	${resetStyles}
+	* { 
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+	}
 
 	body {
-			font-size: 14px;
-			color: ${({ theme }) => theme.colors.default()};
-		} 
+		font-size: 14px;
+		color: ${({ theme }) => theme.colors.default()};
+	} 
 `;
