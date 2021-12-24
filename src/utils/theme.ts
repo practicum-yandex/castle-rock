@@ -11,12 +11,9 @@ type Colors = {
 
 interface Theme {
 	colors: Colors;
+	transition: string;
 	spacing: (scale?: number) => string;
 	border: ReturnType<Color>;
-}
-
-declare module "styled-components" {
-	export interface DefaultTheme extends Theme {}
 }
 
 const getColor = (baseColor: string) => {
@@ -24,11 +21,11 @@ const getColor = (baseColor: string) => {
 };
 
 const getSpacing = (scale = 0) => {
+	const spacingList = [4, 8, 16, 32];
+
 	if (scale < 0 || scale > 3) {
 		throw new Error("Wrong scale value");
 	}
-
-	const spacingList = [4, 8, 16, 32];
 
 	return `${spacingList[scale]}px`;
 };
@@ -36,6 +33,8 @@ const getSpacing = (scale = 0) => {
 const secondary = getColor("153, 153, 153");
 
 export const theme: Theme = {
+	transition: ".1s",
+
 	colors: {
 		primary: getColor("51, 105, 243"),
 		secondary,
@@ -45,3 +44,7 @@ export const theme: Theme = {
 	spacing: getSpacing,
 	border: secondary(0.4),
 };
+
+declare module "styled-components" {
+	export interface DefaultTheme extends Theme {}
+}
