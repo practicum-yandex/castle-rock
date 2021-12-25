@@ -1,25 +1,25 @@
 import React, { InputHTMLAttributes } from "react";
 import { Component } from "@/utils/components";
-import { Field, Label, Placeholder, Message } from "./Input.styles";
+import { CustomField, CustomLabel, CustomPlaceholder, CustomMessage } from "./Input.styles";
 
 type Props = {
     label?: string;
     errorMessage?: string;
-    errorMessageVisibility: boolean;
+    errorMessageVisibility?: boolean;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-const CustomInput: Component<Props & InputProps> = ({className, ...props}) => {
+const Input: Component<Props & InputProps> = ({className, ...props}) => {
     return (
-        <Label className={className}>
-            <Field {...props} placeholder=" "/>
-            <Placeholder>{props.label}</Placeholder>
-            <Message isVisible={props.errorMessageVisibility}>
+        <CustomLabel className={className}>
+            <CustomField {...props} placeholder=" "/>
+            <CustomPlaceholder>{props.label}</CustomPlaceholder>
+            <CustomMessage isVisible={props.errorMessageVisibility}>
                 {props.errorMessage}
-            </Message>
-        </Label>
+            </CustomMessage>
+        </CustomLabel>
     )
 };
 
-export default CustomInput;
+export default Input;

@@ -1,8 +1,8 @@
 import { theme } from "@/utils/theme";
 import styled from "styled-components";
 
-const labelSize = '8px';
-const inputPadding = '8px';
+const labelSize = '12px';
+const inputPadding = '12px';
 const transition = theme.transition;
 
 type MessageProps = {
@@ -10,17 +10,18 @@ type MessageProps = {
     isVisible?: boolean
 };
 
-export const Label = styled.label`
+export const CustomLabel = styled.label`
     position: relative;
     display: block;
     width: 100%;
     margin-top: ${labelSize};
 `;
 
-export const Field = styled.input`
+export const CustomField = styled.input`
     width: 100%;
     padding: ${inputPadding} 0;
     border: none;
+    outline: none;
     color: inherit;
     border-bottom: 2px ${theme.colors.primary()} solid;
     transition: border-color ${transition};
@@ -42,7 +43,7 @@ export const Field = styled.input`
     }
 `;
 
-export const Placeholder = styled.span`
+export const CustomPlaceholder = styled.span`
     position: absolute;
     top: ${inputPadding};
     left: 0;
@@ -51,7 +52,7 @@ export const Placeholder = styled.span`
     transition: font-size 0.2s ${transition}, top 0.2s ${transition};
 `;
 
-export const Message = styled.span<MessageProps>`
+export const CustomMessage = styled.span<MessageProps>`
     opacity: ${({ isVisible }) => isVisible ? '1' : '0' };;
     margin-top: 0.5em;
     font-size: 9px;

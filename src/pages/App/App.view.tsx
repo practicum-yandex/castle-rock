@@ -5,16 +5,21 @@ import { Routes, Route, Link, HashRouter } from "react-router-dom";
 import { theme } from "@/utils/theme";
 import Layout from "@/share/Layout";
 import Button from "@/share/Button";
+
+import { GlobalFonts } from "@/vendor/fonts.styles";
+import { GlobalStyles } from "@/vendor/global.styles";
+
 import Auth from "@/pages/Auth";
 import Board from "@/pages/Board";
 import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
 
-import { Title, GlobalStyles, Nav } from "./App.styles";
+import { Title, Nav } from "./App.styles";
 
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
+		<GlobalFonts />
 		<GlobalStyles />
 		<Layout>
 			<Title level={1}>Castle Rock</Title>
