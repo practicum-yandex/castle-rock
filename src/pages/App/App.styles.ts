@@ -1,10 +1,18 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-export const Title = styled.h2`
+import CustomTitle from "@/share/Title";
+
+export const Title = styled(CustomTitle)`
 	${({ theme }) => `
-		font-size: 24px;
-		color: ${theme.colors.primary()};
-		margin-bottom: ${theme.spacing(1)};
+    margin-bottom: ${theme.spacing(2)};
+  `}
+`;
+
+export const Nav = styled.nav`
+	${({ theme }) => `
+		> *:not(:last-child) {
+			margin-right: ${theme.spacing()};
+		}
 	`}
 `;
 
@@ -16,7 +24,12 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
+		font-family: 'Arial', sans-serif;
 		font-size: 14px;
 		color: ${({ theme }) => theme.colors.default()};
-	} 
+	}
+
+	a {
+		text-decoration: none;
+	}
 `;

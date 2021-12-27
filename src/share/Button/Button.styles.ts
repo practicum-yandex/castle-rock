@@ -4,7 +4,7 @@ export const CustomButton = styled.button`
 	${({ theme }) => `
 		border: none;
 		cursor: pointer;
-		display: flex;
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 14px;
