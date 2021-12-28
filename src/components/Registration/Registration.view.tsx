@@ -13,11 +13,11 @@ const FIELDS = [
         placeholder: 'Логин'
     },
     {
-        type: 'email',
+        type: 'text',
         placeholder: 'Имя'
     },
     {
-        type: 'email',
+        type: 'text',
         placeholder: 'Фамилия'
     },
     {
