@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { Routes, Route, Link, HashRouter } from "react-router-dom";
+import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
 import { theme } from "@/utils/theme";
 import Layout from "@/share/Layout";
@@ -23,13 +23,16 @@ const App: React.FC = () => (
 		<GlobalStyles />
 		<Layout>
 			<Title level={1}>Castle Rock</Title>
-			<HashRouter>
+			<BrowserRouter>
 				<Nav>
 					<Link to="/">
 						<Button>Main</Button>
 					</Link>
-					<Link to="/auth">
-						<Button>Auth</Button>
+					<Link to="/auth/login">
+						<Button>Login</Button>
+					</Link>
+					<Link to="/auth/registration">
+						<Button>Registration</Button>
 					</Link>
 					<Link to="/board">
 						<Button>Board</Button>
@@ -43,12 +46,12 @@ const App: React.FC = () => (
 				</Nav>
 				<Routes>
 					<Route path="/" element={<Main />} />
-					<Route path="/auth" element={<Auth />} />
+					<Route path="/auth/:id" element={<Auth />} />
 					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />} />
 					<Route path="/game" element={<Game />} />
 				</Routes>
-			</HashRouter>
+			</BrowserRouter>
 		</Layout>
 	</ThemeProvider>
 );

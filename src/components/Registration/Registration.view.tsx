@@ -1,5 +1,7 @@
 import React from "react";
-import { CustomButton, CustomField, CustomFields, CustomForm, CustomLink, CustomTitle } from "./Registration.styles";
+import AppLink from "@/share/AppLink";
+import AuthForm from "@/share/AuthForm";
+import { CustomButton, CustomField, CustomFields, CustomTitle } from "./Registration.styles";
 
 const FIELDS = [
     {
@@ -30,8 +32,8 @@ const FIELDS = [
 
 const Registration: React.FC = () => {
     return (
-        <CustomForm>
-            <CustomTitle>Регистрация</CustomTitle>
+        <AuthForm>
+            <CustomTitle level={2}>Регистрация</CustomTitle>
             <CustomFields>
                 {FIELDS.map((field, index) =>
                     <CustomField 
@@ -42,8 +44,8 @@ const Registration: React.FC = () => {
                 )}
             </CustomFields>
             <CustomButton>Зарегистрироваться</CustomButton>
-            <CustomLink href="#">Войти</CustomLink>
-        </CustomForm>
+            <AppLink to="/auth/login">Войти</AppLink>
+        </AuthForm>
     )
 };
 

@@ -1,10 +1,12 @@
 import React from "react";
-import { CustomButton, CustomField, CustomFields, CustomForm, CustomLink, CustomTitle } from "./Login.styles";
+import AppLink from "@/share/AppLink";
+import AuthForm from "@/share/AuthForm";
+import { CustomButton, CustomField, CustomFields, CustomTitle } from "./Login.styles";
 
 const Login: React.FC = () => {
     return (
-        <CustomForm>
-            <CustomTitle>Вход</CustomTitle>
+        <AuthForm>
+            <CustomTitle level={2}>Вход</CustomTitle>
             <CustomFields>
                 <CustomField 
                     type="text"
@@ -16,8 +18,8 @@ const Login: React.FC = () => {
                 />
             </CustomFields>
             <CustomButton>Войти</CustomButton>
-            <CustomLink>Нет аккаунта?</CustomLink>
-        </CustomForm>
+            <AppLink to="/auth/registration">Нет аккаунта?</AppLink>
+        </AuthForm>
     )
 };
 
