@@ -1,18 +1,23 @@
-import React from "react";
+import React, { FormHTMLAttributes  } from "react";
 import AppLink from "@/share/AppLink";
 import AuthForm from "@/share/AuthForm";
+import { Component } from "@/utils/components";
 import { CustomButton, CustomField, CustomFields, CustomTitle } from "./Login.styles";
 
-const Login: React.FC = () => {
+type FormProps = FormHTMLAttributes<HTMLFormElement>
+
+const Login: Component<FormProps> = (props) => {
     return (
-        <AuthForm>
+        <AuthForm {...props}>
             <CustomTitle level={2}>Вход</CustomTitle>
             <CustomFields>
-                <CustomField 
+                <CustomField
+                    name="login"
                     type="text"
                     label="Логин"
                 />
-                <CustomField 
+                <CustomField
+                    name="password"
                     type="password"
                     label="Пароль"
                 />

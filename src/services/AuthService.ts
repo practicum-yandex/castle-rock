@@ -2,9 +2,9 @@ import axios from "axios";
 import { environments } from "@/utils/environments";
 import { AuthResponse, SigninBody, SignupBody, UserBody } from "@/models/Auth";
 
-export class AuthService {
-    signin(data: SigninBody, cb: (data: AuthResponse) => void): void {
-        axios.post<AuthResponse>(`${environments.baseUrl}/auth/signin`, data)
+class AuthService {
+    signin(data: SigninBody, cb: (data: string) => void): void {
+        axios.post<string>(`${environments.baseUrl}/auth/signin`, data)
         .then((res) => cb(res.data)) 
         .catch((err) => console.log(err))   
     }
@@ -27,3 +27,5 @@ export class AuthService {
             .catch((err) => console.log(err))
     }
 }
+
+export default new AuthService();
