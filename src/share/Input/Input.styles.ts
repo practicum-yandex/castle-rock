@@ -48,6 +48,7 @@ export const CustomPlaceholder = styled.span`
     top: ${inputPadding};
     left: 0;
     letter-spacing: 0.4px;
+    pointer-events: none;
     color: ${theme.colors.secondary()};
     transition: font-size 0.2s ${transition}, top 0.2s ${transition};
 `;
