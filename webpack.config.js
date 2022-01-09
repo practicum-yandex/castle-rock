@@ -17,9 +17,21 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.(png|svg|jpg|jpeg|gif)$/i,
+				type: 'asset/resource',
+			},
+			{
 				test: /\.tsx?$/,
 				use: "ts-loader",
 				exclude: /node_modules/,
+			},
+			{
+				test: /\.(png|jpe?g|gif)$/i,
+				use: [
+				  {
+					loader: 'file-loader',
+				  },
+				],
 			},
 		],
 	},
