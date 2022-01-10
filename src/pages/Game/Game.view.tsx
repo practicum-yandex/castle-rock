@@ -1,27 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "@/share/Button";
 import { Canvas, GameContent } from "./Game.styles";
-import GameEntity from "@/game/entities/Game/Game" 
-import Ball from "@/game/entities/Ball/Ball";
-import Platform from "@/game/entities/Platform/Platform";
-import Level from "@/game/entities/Level/Level";
+import Game21 from "./Game21";
 
 const GAME_SETTINGS = {
-	Width: 640,
-	Height: 360
+	Width: window.innerWidth,
+	Height: window.innerHeight
 }
 
-const runGame = (ctx: CanvasRenderingContext2D) => {
-	const game = new GameEntity(GAME_SETTINGS.Width, GAME_SETTINGS.Height, ctx);
-	const ball = new Ball(game);
-	const platform = new Platform(game, ball);
-	const level = new Level(
-		game,
-		{ row: 4, columns: 8 },
-		{ ball, platform }
-	)
+const runGame = (canvasEl: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+	const game21 = new Game21(
+		GAME_SETTINGS.Width, 
+		GAME_SETTINGS.Height, 
+		canvasEl, ctx
+	);
 
-	level.start();
+	game21.start();
 }
 
 const Game: React.FC = () => {
@@ -36,7 +30,7 @@ const Game: React.FC = () => {
 			canvasEl.height = GAME_SETTINGS.Height;
 			contextRef.current = canvasEl.getContext('2d')  as CanvasRenderingContext2D;
 
-			runGame(contextRef.current);
+			runGame(canvasEl, contextRef.current);
 		}
 	}, []);
 
