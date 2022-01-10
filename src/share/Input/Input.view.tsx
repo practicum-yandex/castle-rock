@@ -10,7 +10,7 @@ type Props = {
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-const CustomInput: Component<Props & InputProps> = ({
+const Input: Component<Props & InputProps> = ({
 	className,
 	...props
 }) => {
@@ -25,4 +25,4 @@ const CustomInput: Component<Props & InputProps> = ({
 	);
 };
 
-export default CustomInput;
+export default Input;
