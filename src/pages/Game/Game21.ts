@@ -112,7 +112,6 @@ export default class Game21 {
 		});
 
 		this._hand.push(...randomCard);
-		// this.run();
 	}
 
 	preload(cb: () => void) {
@@ -207,14 +206,13 @@ export default class Game21 {
 
 	start(): void {
 		this.init();
+		this.create();
+
 		this.preload(() => {
-			this.create();
-			this.takeCard(); // remove
-			this.takeCard(); // remove
-			this.takeCard(); // remove
-			this.takeCard(); // remove
 			this.run();
 		});
+
+		this.takeCard();
 	}
 
 	get scoreSum() {

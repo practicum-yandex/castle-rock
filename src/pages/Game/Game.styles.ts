@@ -10,6 +10,31 @@ export const GameContent = styled.div`
 
 export const Canvas = styled.canvas`
 	${({ theme }) => `
-		border: 1px solid ${theme.border}
+		border: 1px solid ${theme.border};
 	`}
-`
+`;
+
+export const GameField = styled.div`
+	display: flex;
+	height: 100%;
+	width: 100%;
+`;
+
+export const CanvasWrap = styled.div`
+	height: 100%;
+	width: 100%;
+`;
+
+export const Controls = styled.div`
+	${({ theme }) => `
+		margin-left: ${theme.spacing(3)};
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex-shrink: 0;
+
+		> *:not(:last-child) {
+			margin-bottom: ${theme.spacing(2)};
+		}
+	`}
+`;
