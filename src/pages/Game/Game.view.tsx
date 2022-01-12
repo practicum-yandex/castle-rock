@@ -80,8 +80,14 @@ const Game: React.FC = () => {
 		gameRef.current?.takeCard();
 		setGameStatus(gameRef.current?.gameStatus);
 	};
+
 	const startOpponentGame = () => {
 		gameRef.current?.startOpponentGame();
+		setGameStatus(gameRef.current?.gameStatus);
+	};
+
+	const restart = () => {
+		gameRef.current?.restart();
 		setGameStatus(gameRef.current?.gameStatus);
 	};
 
@@ -110,7 +116,7 @@ const Game: React.FC = () => {
 		return (
 			<>
 				<Title>{getText()}</Title>
-				<Button>Заново (пока заглушка)</Button>
+				<Button onClick={restart}>Заново</Button>
 			</>
 		);
 	};

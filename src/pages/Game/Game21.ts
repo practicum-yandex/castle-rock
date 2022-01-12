@@ -180,9 +180,15 @@ export default class Game21 {
 		this._sprites.onload = onResourceLoad;
 	}
 
-	update(): void {
-		//this._ball.move()
-		//this.collideBlocks()
+	restart(): void {
+		this._hand = [];
+		this._opponentHand = [];
+		this._deck = [];
+
+		this.create();
+		this.render();
+		this._gameStatus = "game";
+		this.takeCard();
 	}
 
 	create(): void {
@@ -255,7 +261,7 @@ export default class Game21 {
 	run(): void {
 		if (this._launched) {
 			window.requestAnimationFrame(() => {
-				this.update();
+				// this.update();
 				this.render();
 				this.run();
 			});
