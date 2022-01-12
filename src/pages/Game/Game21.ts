@@ -1,5 +1,14 @@
 import Card from "./Card";
 
+export type GameStatus = "game" | "win" | "lose" | "nobody";
+
+type Hand = Card[];
+
+type CartScores = {
+	// todo TS
+	[key in any]: number;
+};
+
 enum CardSuit {
 	Heart = 1,
 	Spades = 2,
@@ -23,11 +32,6 @@ enum CardLevels {
 	King = 13,
 }
 
-type CartScores = {
-	// todo TS
-	[key in any]: number;
-};
-
 const cardScores: CartScores = {
 	[CardLevels[1]]: 11,
 	[CardLevels[2]]: 2,
@@ -47,8 +51,10 @@ const cardScores: CartScores = {
 export default class Game21 {
 	private _launched = true;
 	private _deck: Card[] = [];
-	private _hand: Card[] = [];
+	private _hand: Hand = [];
+	private _opponentHand: Hand = [];
 	private _sprites: HTMLImageElement | undefined;
+	private _gameStatus: GameStatus = "game";
 
 	constructor(
 		private _width: number,
@@ -89,17 +95,18 @@ export default class Game21 {
 		});
 	}
 
-	takeCard(): void {
+	takeCard(isUser = true): void {
 		const randomNumber = Math.floor(Math.random() * this._deck.length);
+		const hand = isUser ? this._hand : this._opponentHand;
 
 		const randomCard = this._deck.splice(randomNumber, 1).map((card) => {
 			const cardSpace = 20;
 			const deckWidth = 13 * cardSpace;
 			const cardDisplayWidth = card.dWidth;
 			const cardDisplayHeight = card.dHeight;
-			const cardDifference = (this._hand.length - 1) * cardSpace;
+			const cardDifference = (hand.length - 1) * cardSpace;
 			const deckPositionX = this._width / 2 - deckWidth / 2;
-			const deckPositionY = this._height / 1.5;
+			const deckPositionY = isUser ? this._height / 1.5 : this._height / 5;
 
 			card.coordinates = {
 				startX: deckPositionX + cardDifference,
@@ -111,7 +118,56 @@ export default class Game21 {
 			return card;
 		});
 
-		this._hand.push(...randomCard);
+		hand.push(...randomCard);
+
+		if (isUser) {
+			this.checkUserScore();
+		}
+	}
+
+	getScoreSum(hand: Hand) {
+		return hand
+			.map((card) => card.score)
+			.reduce((acc, score) => score + acc, 0);
+	}
+
+	checkUserScore() {
+		if (this.getScoreSum(this._hand) > 21) {
+			this.userLose();
+		} else if (this.getScoreSum(this._hand) === 21) {
+			this.userWin();
+		}
+	}
+
+	userLose() {
+		this._gameStatus = "lose";
+	}
+
+	userWin() {
+		this._gameStatus = "win";
+	}
+
+	get gameStatus() {
+		return this._gameStatus;
+	}
+
+	startOpponentGame() {
+		while (this.getScoreSum(this._opponentHand) < 17) {
+			this.takeCard(false);
+		}
+
+		if (
+			this.getScoreSum(this._opponentHand) > 21 ||
+			this.getScoreSum(this._opponentHand) < this.getScoreSum(this._hand)
+		) {
+			this.userWin();
+		} else if (
+			this.getScoreSum(this._opponentHand) > this.getScoreSum(this._hand)
+		) {
+			this.userLose();
+		} else {
+			this._gameStatus = "nobody";
+		}
 	}
 
 	preload(cb: () => void) {
@@ -173,7 +229,9 @@ export default class Game21 {
 	}
 
 	renderHand() {
-		this._hand.forEach((card) => {
+		const hand = this._hand.concat(this._opponentHand);
+
+		hand.forEach((card) => {
 			if (this._sprites) {
 				this._ctx.drawImage(
 					this._sprites,
@@ -213,11 +271,5 @@ export default class Game21 {
 		});
 
 		this.takeCard();
-	}
-
-	get scoreSum() {
-		return this._hand
-			.map((card) => card.score)
-			.reduce((acc, score) => score + acc, 0);
 	}
 }

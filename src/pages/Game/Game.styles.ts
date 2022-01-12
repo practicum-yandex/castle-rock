@@ -32,6 +32,7 @@ export const Controls = styled.div`
 		flex-direction: column;
 		justify-content: center;
 		flex-shrink: 0;
+		width: 150px;
 
 		> *:not(:last-child) {
 			margin-bottom: ${theme.spacing(2)};

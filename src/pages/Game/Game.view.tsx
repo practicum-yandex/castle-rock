@@ -7,7 +7,8 @@ import {
 	GameField,
 	Controls,
 } from "./Game.styles";
-import Game21 from "./Game21";
+import Game21, { GameStatus } from "./Game21";
+import Title from "@/share/Title";
 
 type CanvasSizeParams = {
 	width: number;
@@ -36,7 +37,9 @@ const Game: React.FC = () => {
 	const canvasWrapRef = useRef<HTMLDivElement>(null);
 	const contextRef = useRef<CanvasRenderingContext2D>();
 	const gameRef = useRef<Game21>();
+
 	const [isStart, setStartStatus] = useState(true);
+	const [gameStatus, setGameStatus] = useState<GameStatus>();
 	const [canvasSizeParams, setCanvasSizeParams] = useState({
 		width: 0,
 		height: 0,
@@ -68,8 +71,49 @@ const Game: React.FC = () => {
 				contextRef.current,
 				canvasSizeParams
 			);
+
+			setGameStatus(gameRef.current?.gameStatus);
 		}
 	}, [canvasRef.current, canvasWrapRef.current]);
+
+	const takeCard = () => {
+		gameRef.current?.takeCard();
+		setGameStatus(gameRef.current?.gameStatus);
+	};
+	const startOpponentGame = () => {
+		gameRef.current?.startOpponentGame();
+		setGameStatus(gameRef.current?.gameStatus);
+	};
+
+	const renderControls = () => {
+		if (gameStatus === "game") {
+			return (
+				<>
+					<Button onClick={takeCard}>Взять еще</Button>
+					<Button onClick={startOpponentGame}>Хватит</Button>
+				</>
+			);
+		}
+
+		const getText = () => {
+			if (gameStatus === "lose") {
+				return "Вы проиграли :(";
+			}
+			if (gameStatus === "win") {
+				return "Вы выиграли!";
+			}
+			if (gameStatus === "nobody") {
+				return "Ничья!";
+			}
+		};
+
+		return (
+			<>
+				<Title>{getText()}</Title>
+				<Button>Заново (пока заглушка)</Button>
+			</>
+		);
+	};
 
 	const renderContent = () => {
 		if (isStart && false) {
@@ -81,9 +125,7 @@ const Game: React.FC = () => {
 				<CanvasWrap ref={canvasWrapRef}>
 					<Canvas ref={canvasRef} />
 				</CanvasWrap>
-				<Controls>
-					<Button onClick={() => gameRef.current?.takeCard()}>Взять еще</Button>
-				</Controls>
+				<Controls>{renderControls()}</Controls>
 			</GameField>
 		);
 	};
