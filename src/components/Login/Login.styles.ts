@@ -1,15 +1,15 @@
-import Button from "@/share/Button";
+import ShareButton from "@/share/Button";
 import Input from "@/share/Input";
-import Title from "@/share/Title";
+import ShareTitle from "@/share/Title";
 import styled from "styled-components";
 
-export const CustomTitle = styled(Title)`
+export const Title = styled(ShareTitle)`
 	${({ theme }) => `
         margin-bottom: ${theme.spacing(3)};
 	`}
 `;
 
-export const CustomFields = styled.div`
+export const Fields = styled.div`
 	${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(5)};
@@ -19,14 +19,14 @@ export const CustomFields = styled.div`
 	`}
 `;
 
-export const CustomField = styled(Input)`
+export const Field = styled(Input)`
     ${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
     `}
 `;
 
-export const CustomButton = styled(Button)`
+export const Button = styled(ShareButton)`
     ${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
