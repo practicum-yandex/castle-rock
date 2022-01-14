@@ -28,6 +28,9 @@ export const ThemeLink = styled(Link)`
 export const CustomTitle = styled(Title)`
 	${({ theme }) => `
 		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		margin-bottom: ${theme.spacing(0)}
 	`}
 `
@@ -35,6 +38,9 @@ export const CustomTitle = styled(Title)`
 export const Description = styled.p`
 	${({ theme }) => `
 		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 		font-size: 14px;
 	`}
 `
