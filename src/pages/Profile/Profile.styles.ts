@@ -72,7 +72,7 @@ export const Overlay = styled.div`
         right: 0;
         bottom: 0;
         display: flex;
-        position: absolute;
+        position: fixed;
         align-items: center;
         justify-content: center;
         background-color: ${theme.border};

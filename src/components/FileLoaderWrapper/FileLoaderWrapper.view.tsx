@@ -8,11 +8,10 @@ type FormProps = FormHTMLAttributes<HTMLFormElement>
 const FileLoaderWrapper: Component<FormProps> = ({children, ...props}) => {
     return (
         <CustomForm {...props}>
-            <CustomLabel htmlFor="avatar">
+            <CustomLabel>
                 {children}
                 <CustomInput 
                     type="file" 
-                    id="avatar" 
                     name="avatar" 
                     accept="image/*" 
                 />

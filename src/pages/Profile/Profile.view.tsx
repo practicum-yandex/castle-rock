@@ -57,7 +57,7 @@ const Profile: Component = () => {
             <FLoaderWrapper onChange={changeAvatar}>
                 { user && <Avatar url={BASE_URL + user?.avatar} /> }
             </FLoaderWrapper>
-            <Title level={1}>{user?.display_name}</Title>
+            { user?.display_name && <Title level={1}>{user?.display_name}</Title> }
             <Wrapper>{getFields(user)}</Wrapper>
             <Wrapper>
                 <CustomButton onClick={() => setModalVisibility(true)}>Изменить пароль</CustomButton>
