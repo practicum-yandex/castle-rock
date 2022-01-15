@@ -132,10 +132,10 @@ export default class Game21 {
 	}
 
 	checkUserScore() {
-		if (this.getScoreSum(this._hand) > 21) {
-			this.userLose();
-		} else if (this.getScoreSum(this._hand) === 21) {
+		if (this.getScoreSum(this._hand) === 21) {
 			this.userWin();
+		} else if (this.getScoreSum(this._hand) > 21) {
+			this.userLose();
 		}
 	}
 
@@ -261,7 +261,6 @@ export default class Game21 {
 	run(): void {
 		if (this._launched) {
 			window.requestAnimationFrame(() => {
-				// this.update();
 				this.render();
 				this.run();
 			});

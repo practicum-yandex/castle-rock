@@ -47,15 +47,12 @@ const Game: React.FC = () => {
 
 	useEffect(() => {
 		if (canvasRef.current && canvasWrapRef.current) {
+			const width = canvasWrapRef.current.clientWidth;
+			const height = canvasWrapRef.current.clientHeight;
+
 			setCanvasSizeParams({
-				width:
-					canvasWrapRef.current.clientWidth > 600
-						? canvasWrapRef.current.clientWidth
-						: 600,
-				height:
-					canvasWrapRef.current.clientHeight > 600
-						? canvasWrapRef.current.clientHeight
-						: 600,
+				width: width > 600 ? width : 600,
+				height: height > 600 ? height : 600,
 			});
 
 			const canvasEl: HTMLCanvasElement = canvasRef.current;
