@@ -2,6 +2,7 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
 import Layout from "@/share/Layout";
 import Button from "@/share/Button";
@@ -49,7 +50,14 @@ const App: React.FC = () => (
 					<Route path="/auth/:id" element={<Auth />} />
 					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />} />
-					<Route path="/game" element={<Game />} />
+					<Route
+							path="/game"
+							element={
+								<ErrorBoundary>
+									<Game />
+								</ErrorBoundary>
+							}
+						/>
 				</Routes>
 			</BrowserRouter>
 		</Layout>

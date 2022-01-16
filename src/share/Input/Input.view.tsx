@@ -1,6 +1,6 @@
 import React, { InputHTMLAttributes } from "react";
 import { Component } from "@/utils/components";
-import { CustomField, CustomLabel, CustomPlaceholder, CustomMessage } from "./Input.styles";
+import { Field, Label, Placeholder, Message } from "./Input.styles";
 
 type Props = {
     label?: string;
@@ -10,16 +10,17 @@ type Props = {
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-const Input: Component<Props & InputProps> = ({className, ...props}) => {
-    return (
-        <CustomLabel className={className}>
-            <CustomField {...props} placeholder=" "/>
-            <CustomPlaceholder>{props.label}</CustomPlaceholder>
-            <CustomMessage isVisible={props.errorMessageVisibility}>
-                {props.errorMessage}
-            </CustomMessage>
-        </CustomLabel>
-    )
+
+const Input: Component<Props & InputProps> = ({ className, ...props }) => {
+	return (
+		<Label className={className}>
+			<Field {...props} placeholder=" " />
+			<Placeholder>{props.label}</Placeholder>
+			<Message isVisible={props.errorMessageVisibility}>
+				{props.errorMessage}
+			</Message>
+		</Label>
+	);
 };
 
 export default Input;
