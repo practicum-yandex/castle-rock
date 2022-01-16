@@ -1,5 +1,5 @@
 import { Component } from "@/utils/components";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Field, ProfileContent, Wrapper, Overlay, CustomButton, FLoaderWrapper } from "./Profile.styles";
 
 import Title from "@/share/Title";
@@ -23,7 +23,7 @@ const getFields = (user?: UserData) => {
             </span>
         </Field>
     ))
-}
+};
 
 const Profile: Component = () => {
     const [user, setUser] = useState<UserData>();
@@ -35,18 +35,18 @@ const Profile: Component = () => {
         }
     }
 
-    function changeAvatar(event: React.FormEvent) {
+    const changeAvatar = useCallback((event: React.FormEvent): void => {
         const formData = new FormData(event.currentTarget as HTMLFormElement);
 
         UserService.changeAvatar(formData, (data: UserData) => setUser(data))
-    }
+    }, []);
 
-    function changePassword(event: React.FormEvent) {
+    const changePassword = useCallback((event: React.FormEvent): void => {
         event.preventDefault();
         const values = getFormValues(event.currentTarget as HTMLFormElement);
 
         UserService.changePassword(values, () => setModalVisibility(false));
-    }
+    }, []);
 
     useEffect(() => {
         AuthService.getUser(setUser)
