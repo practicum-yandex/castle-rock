@@ -15,6 +15,7 @@ import Board from "@/pages/Board";
 import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
+import Profile from "@/pages/Profile";
 
 import { Title, Nav } from "./App.styles";
 
@@ -35,6 +36,9 @@ const App: React.FC = () => (
 					<Link to="/auth/registration">
 						<Button>Registration</Button>
 					</Link>
+					<Link to="/profile">
+						<Button>Profile</Button>
+					</Link>
 					<Link to="/board">
 						<Button>Board</Button>
 					</Link>
@@ -48,6 +52,7 @@ const App: React.FC = () => (
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/auth/:id" element={<Auth />} />
+					<Route path="/profile" element={<Profile />} />
 					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />} />
 					<Route

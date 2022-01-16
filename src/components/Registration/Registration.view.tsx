@@ -26,7 +26,7 @@ const FIELDS = [
         placeholder: 'Фамилия'
     },
     {
-        type: 'phone',
+        type: 'tel',
         name: 'phone',
         placeholder: 'Телефон'
     },
