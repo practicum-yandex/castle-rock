@@ -43,9 +43,9 @@ const Profile: Component = () => {
 
     const changePassword = useCallback((event: React.FormEvent): void => {
         event.preventDefault();
-        const values = getFormValues(event.currentTarget as HTMLFormElement);
+        const formEl = event.target as HTMLFormElement;
 
-        UserService.changePassword(values, () => setModalVisibility(false));
+        UserService.changePassword(getFormValues(formEl), () => setModalVisibility(false));
     }, []);
 
     useEffect(() => {

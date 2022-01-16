@@ -1,16 +1,14 @@
 type FormValue = {
-    [key: string]: unknown;
+    [key: string]: any;
 }
 
-export function getFormValues(form: HTMLFormElement): any {
+export function getFormValues<T extends FormValue>(form: HTMLFormElement): T {
     const formData = new FormData(form);
-    const elements = Array.from(form.elements).filter(el => el.tagName !== 'BUTTON');
+    const formValues: any = {};
 
-    return elements.reduce((formValues, el) => {
-        const name = (el as HTMLInputElement).name;
-        const value = formData.get(name);
-        formValues[name] = value;
+    for (const [name, value] of formData.entries()) {
+		formValues[name] = value;
+	}
 
-        return formValues;
-    }, {} as FormValue);
+    return formValues;
 }
