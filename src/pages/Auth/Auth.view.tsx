@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useCallback } from "react";
 import { AuthPage } from "./Auth.styles";
 import Registration from "@/components/Registration";
 import Login from "@/components/Login";
@@ -8,40 +8,36 @@ import authService from "@/services/AuthService";
 import { AuthResponse } from "@/models/Auth";
 
 enum AUTH_ID {
-    Login = 'login',
-    Registration = 'registration'
+    Login = 'Login',
+    Registration = 'Registration'
 }
 
 const Auth: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const [ , setUserId] = useState<number>();
-    const [ , setUserState] = useState<boolean>(false);
 
-    function signup(event: FormEvent): void {
+    const signup = useCallback((event: FormEvent) => {
         event.preventDefault();
         const formEl = event.target as HTMLFormElement;
     
         authService.signup(getFormValues(formEl), updateUserId);
-    }
+    }, [])
 
-    function signin(event: FormEvent): void {
+    const signin = useCallback((event: FormEvent) => {
         event.preventDefault();
         const formEl = event.target as HTMLFormElement;
     
         authService.signin(getFormValues(formEl), updateUserState);
-    }
+    }, [])
 
     function updateUserId(data: AuthResponse) {
         if (data) {
-            setUserId(data.id);
             navigate("/", { replace: true });
         }
     }
 
     function updateUserState(data: string) {
         if (data === 'OK') {
-            setUserState(true);
             navigate("/", { replace: true });
         }
     }
