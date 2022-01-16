@@ -15,6 +15,7 @@ import Board from "@/pages/Board";
 import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
+import Article from "@/components/Article";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav } from "./App.styles";
@@ -52,9 +53,12 @@ const App: React.FC = () => (
 				<Routes>
 					<Route path="/" element={<Main />} />
 					<Route path="/auth/:id" element={<Auth />} />
+					<Route path="/board" element={<Board />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/board" element={<Board />} />
-					<Route path="/forum" element={<Forum />} />
+					<Route path="/forum" element={<Forum />}>
+						<Route path=':id' element={<Article />}/>
+					</Route>
 					<Route
 							path="/game"
 							element={
