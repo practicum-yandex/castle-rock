@@ -10,10 +10,7 @@ type Props = {
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
 
-const Input: Component<Props & InputProps> = ({
-	className,
-	...props
-}) => {
+const Input: Component<Props & InputProps> = ({ className, ...props }) => {
 	return (
 		<Label className={className}>
 			<Field {...props} placeholder=" " />
