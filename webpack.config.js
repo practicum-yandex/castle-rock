@@ -6,7 +6,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, "/dist"),
 		filename: "bundle.js",
-		publicPath: '/'
+		publicPath: "/",
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
@@ -18,22 +18,22 @@ module.exports = {
 		rules: [
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
-				type: 'asset/resource',
+				type: "asset/resource",
 			},
 			{
 				test: /\.(woff|woff2|eot|ttf|otf)$/i,
-				type: 'asset/resource',
+				type: "asset/resource",
 			},
 			{
 				test: /\.tsx?$/,
 				use: "ts-loader",
 				exclude: /node_modules/,
-			}
+			},
 		],
 	},
 	devServer: {
 		historyApiFallback: true,
-	} ,
+	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: "./public/index.html",

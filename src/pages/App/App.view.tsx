@@ -1,6 +1,6 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import { Routes, Route, Link, HashRouter } from "react-router-dom";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
@@ -26,7 +26,7 @@ const App: React.FC = () => (
 		<GlobalStyles />
 		<Layout>
 			<Title level={1}>Castle Rock</Title>
-			<BrowserRouter>
+			<HashRouter>
 				<Nav>
 					<Link to="/">
 						<Button>Main</Button>
@@ -68,7 +68,7 @@ const App: React.FC = () => (
 							}
 						/>
 				</Routes>
-			</BrowserRouter>
+			</HashRouter>
 		</Layout>
 	</ThemeProvider>
 );
