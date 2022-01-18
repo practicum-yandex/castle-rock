@@ -12,7 +12,7 @@ export const CustomButton = styled.button`
 		background-color: ${theme.colors.primary()};
 		padding: ${theme.spacing(1)} ${theme.spacing(2)};
 		border-radius: ${theme.spacing()};
-		transition: background-color ease 0.25s;
+		transition: background-color ease ${theme.transition};
 
 		:hover {
 			background-color: ${theme.colors.primary(0.9)};

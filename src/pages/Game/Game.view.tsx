@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import Button from "@/share/Button";
 import {
 	Canvas,
@@ -38,12 +39,15 @@ const Game: React.FC = () => {
 	const contextRef = useRef<CanvasRenderingContext2D>();
 	const gameRef = useRef<Game21>();
 
-	const [isStart, setStartStatus] = useState(true);
 	const [gameStatus, setGameStatus] = useState<GameStatus>();
 	const [canvasSizeParams, setCanvasSizeParams] = useState({
 		width: 0,
 		height: 0,
 	});
+
+	const refreshGameStatus = () => {
+		setGameStatus(gameRef.current?.gameStatus);
+	};
 
 	useEffect(() => {
 		if (canvasRef.current && canvasWrapRef.current) {
@@ -69,23 +73,28 @@ const Game: React.FC = () => {
 				canvasSizeParams
 			);
 
-			setGameStatus(gameRef.current?.gameStatus);
+			refreshGameStatus();
 		}
 	}, [canvasRef.current, canvasWrapRef.current]);
 
+	const start = () => {
+		gameRef.current?.startGame();
+		refreshGameStatus();
+	};
+
 	const takeCard = () => {
 		gameRef.current?.takeCard();
-		setGameStatus(gameRef.current?.gameStatus);
+		refreshGameStatus();
 	};
 
 	const startOpponentGame = () => {
 		gameRef.current?.startOpponentGame();
-		setGameStatus(gameRef.current?.gameStatus);
+		refreshGameStatus();
 	};
 
 	const restart = () => {
 		gameRef.current?.restart();
-		setGameStatus(gameRef.current?.gameStatus);
+		refreshGameStatus();
 	};
 
 	const renderControls = () => {
@@ -96,6 +105,10 @@ const Game: React.FC = () => {
 					<Button onClick={startOpponentGame}>Хватит</Button>
 				</>
 			);
+		}
+
+		if (gameStatus === "start") {
+			return <Button onClick={start}>Старт</Button>;
 		}
 
 		const getText = () => {
@@ -118,22 +131,16 @@ const Game: React.FC = () => {
 		);
 	};
 
-	const renderContent = () => {
-		if (isStart && false) {
-			return <Button onClick={() => setStartStatus(false)}>Start game</Button>;
-		}
-
-		return (
+	return (
+		<GameContent>
 			<GameField>
 				<CanvasWrap ref={canvasWrapRef}>
 					<Canvas ref={canvasRef} />
 				</CanvasWrap>
 				<Controls>{renderControls()}</Controls>
 			</GameField>
-		);
-	};
-
-	return <GameContent>{renderContent()}</GameContent>;
+		</GameContent>
+	);
 };
 
 export default Game;

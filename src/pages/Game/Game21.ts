@@ -1,6 +1,6 @@
 import Card from "./Card";
 
-export type GameStatus = "game" | "win" | "lose" | "nobody";
+export type GameStatus = "start" | "game" | "win" | "lose" | "nobody";
 
 type Hand = Card[];
 
@@ -54,7 +54,7 @@ export default class Game21 {
 	private _hand: Hand = [];
 	private _opponentHand: Hand = [];
 	private _sprites: HTMLImageElement | undefined;
-	private _gameStatus: GameStatus = "game";
+	private _gameStatus: GameStatus = "start";
 
 	constructor(
 		private _width: number,
@@ -274,7 +274,10 @@ export default class Game21 {
 		this.preload(() => {
 			this.run();
 		});
+	}
 
+	startGame() {
 		this.takeCard();
+		this._gameStatus = "game";
 	}
 }

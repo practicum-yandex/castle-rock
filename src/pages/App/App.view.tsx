@@ -2,20 +2,27 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
+import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
 import Layout from "@/share/Layout";
 import Button from "@/share/Button";
+
+import { GlobalFonts } from "@/vendor/fonts.styles";
+import { GlobalStyles } from "@/vendor/global.styles";
+
 import Auth from "@/pages/Auth";
 import Board from "@/pages/Board";
 import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
 import Article from "@/components/Article";
+import Profile from "@/pages/Profile";
 
-import { Title, GlobalStyles, Nav } from "./App.styles";
+import { Title, Nav } from "./App.styles";
 
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
+		<GlobalFonts />
 		<GlobalStyles />
 		<Layout>
 			<Title level={1}>Castle Rock</Title>
@@ -24,8 +31,14 @@ const App: React.FC = () => (
 					<Link to="/">
 						<Button>Main</Button>
 					</Link>
-					<Link to="/auth">
-						<Button>Auth</Button>
+					<Link to="/auth/login">
+						<Button>Login</Button>
+					</Link>
+					<Link to="/auth/registration">
+						<Button>Registration</Button>
+					</Link>
+					<Link to="/profile">
+						<Button>Profile</Button>
 					</Link>
 					<Link to="/board">
 						<Button>Board</Button>
@@ -41,10 +54,19 @@ const App: React.FC = () => (
 					<Route path="/" element={<Main />} />
 					<Route path="/auth/:id" element={<Auth />} />
 					<Route path="/board" element={<Board />} />
+					<Route path="/profile" element={<Profile />} />
+					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />}>
 						<Route path=':id' element={<Article />}/>
 					</Route>
-					<Route path="/game" element={<Game />} />
+					<Route
+							path="/game"
+							element={
+								<ErrorBoundary>
+									<Game />
+								</ErrorBoundary>
+							}
+						/>
 				</Routes>
 			</BrowserRouter>
 		</Layout>

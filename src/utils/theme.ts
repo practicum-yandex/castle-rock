@@ -9,9 +9,16 @@ type Colors = {
 	danger: Color;
 };
 
+type Headlines = {
+	h1: string;
+	h2: string;
+	h3: string;
+}
+
 interface Theme {
 	colors: Colors;
 	transition: string;
+	headlines: Headlines;
 	spacing: (scale?: number) => string;
 	border: ReturnType<Color>;
 }
@@ -21,9 +28,9 @@ const getColor = (baseColor: string) => {
 };
 
 const getSpacing = (scale = 0) => {
-	const spacingList = [4, 8, 16, 32];
+	const spacingList = [4, 8, 16, 32, 64, 128];
 
-	if (scale < 0 || scale > 3) {
+	if (scale < 0 || scale > 5) {
 		throw new Error("Wrong scale value");
 	}
 
@@ -34,6 +41,13 @@ const secondary = getColor("153, 153, 153");
 
 export const theme: Theme = {
 	transition: ".1s",
+	border: secondary(0.4),
+
+	headlines: {
+		h1: '24px',
+		h2: '20px',
+		h3: '16px'
+	},
 
 	colors: {
 		primary: getColor("51, 105, 243"),
@@ -41,8 +55,8 @@ export const theme: Theme = {
 		default: getColor("0, 0, 0"),
 		danger: getColor("255, 47, 47"),
 	},
-	spacing: getSpacing,
-	border: secondary(0.4),
+
+	spacing: getSpacing
 };
 
 declare module "styled-components" {
