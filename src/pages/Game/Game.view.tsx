@@ -18,14 +18,13 @@ type CanvasSizeParams = {
 
 const createGame = (
 	canvasEl: HTMLCanvasElement,
-	ctx: CanvasRenderingContext2D,
 	canvasSizeParams: CanvasSizeParams
 ) => {
 	const game21 = new Game21(
 		canvasSizeParams.width,
 		canvasSizeParams.height,
 		canvasEl,
-		ctx
+		canvasEl.getContext("2d") as CanvasRenderingContext2D
 	);
 
 	game21.start();
@@ -36,7 +35,6 @@ const createGame = (
 const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const canvasWrapRef = useRef<HTMLDivElement>(null);
-	const contextRef = useRef<CanvasRenderingContext2D>();
 	const gameRef = useRef<Game21>();
 
 	const [gameStatus, setGameStatus] = useState<GameStatus>();
@@ -63,15 +61,7 @@ const Game: React.FC = () => {
 			canvasEl.width = canvasSizeParams.width;
 			canvasEl.height = canvasSizeParams.height;
 
-			contextRef.current = canvasEl.getContext(
-				"2d"
-			) as CanvasRenderingContext2D;
-
-			gameRef.current = createGame(
-				canvasEl,
-				contextRef.current,
-				canvasSizeParams
-			);
+			gameRef.current = createGame(canvasEl, canvasSizeParams);
 
 			refreshGameStatus();
 		}

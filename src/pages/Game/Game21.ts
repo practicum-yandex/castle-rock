@@ -152,7 +152,7 @@ export default class Game21 {
 	}
 
 	startOpponentGame() {
-		while (this.getScoreSum(this._opponentHand) < 17) {
+		while (this.getScoreSum(this._opponentHand) < 15) {
 			this.takeCard(false);
 		}
 
