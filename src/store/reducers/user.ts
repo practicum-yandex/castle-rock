@@ -1,13 +1,10 @@
+import { UserData } from "@/services/AuthService";
+
 type Nullable<T> = T | null;
 type LoadStatus = 'success' | 'pending' | 'failed';
 
-// Пока временно
-interface User {
-    [key: string]: any
-}
-
 type UserState = {
-    item: Nullable<User>;
+    item: Nullable<UserData>;
     status: LoadStatus;
 };
 
@@ -15,8 +12,8 @@ interface BaseActionType<T> {
     type: T;
 }
 
-interface ItemActionType extends BaseActionType<ACTIONS> {
-    item: User;
+export interface ItemActionType extends BaseActionType<ACTIONS> {
+    item: UserData;
 }
 
 enum ACTIONS {
