@@ -57,16 +57,16 @@ const App: React.FC = () => (
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />}>
-						<Route path=':id' element={<Article />}/>
+						<Route path=":id" element={<Article />} />
 					</Route>
 					<Route
-							path="/game"
-							element={
-								<ErrorBoundary>
-									<Game />
-								</ErrorBoundary>
-							}
-						/>
+						path="/game"
+						element={
+							<ErrorBoundary>
+								<Game />
+							</ErrorBoundary>
+						}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</Layout>

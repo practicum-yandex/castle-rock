@@ -8,49 +8,49 @@ import { AuthService } from "@/services/AuthService";
 import { AuthResponse } from "@/models/Auth";
 
 enum AUTH_ID {
-    Login = 'Login',
-    Registration = 'Registration'
+	Login = "Login",
+	Registration = "Registration",
 }
 
 const Auth: React.FC = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+	const { id } = useParams();
+	const navigate = useNavigate();
 
-    const signup = useCallback((event: FormEvent): void => {
-        event.preventDefault();
-        const formEl = event.target as HTMLFormElement;
-    
-        AuthService.signup(getFormValues(formEl), updateUserId);
-    }, []);
+	const signup = useCallback((event: FormEvent): void => {
+		event.preventDefault();
+		const formEl = event.target as HTMLFormElement;
 
-    const signin = useCallback((event: FormEvent): void => {
-        event.preventDefault();
-        const formEl = event.target as HTMLFormElement;
+		AuthService.signup(getFormValues(formEl), updateUserId);
+	}, []);
 
-        AuthService.signin(getFormValues(formEl), updateUserState);
-    }, []);
+	const signin = useCallback((event: FormEvent): void => {
+		event.preventDefault();
+		const formEl = event.target as HTMLFormElement;
 
-    function updateUserId(data: AuthResponse) {
-        if (data) {
-            navigate("/", { replace: true });
-        }
-    }
+		AuthService.signin(getFormValues(formEl), updateUserState);
+	}, []);
 
-    function updateUserState(data: string) {
-        if (data === 'OK') {
-            navigate("/", { replace: true });
-        }
-    }
+	function updateUserId(data: AuthResponse) {
+		if (data) {
+			navigate("/", { replace: true });
+		}
+	}
 
-    return (
-        <AuthPage>
-            {
-                id === AUTH_ID.Login 
-                    ? <Login onSubmit={signin}/> 
-                    : <Registration onSubmit={signup}/>
-            }
-        </AuthPage>
-    )
+	function updateUserState(data: string) {
+		if (data === "OK") {
+			navigate("/", { replace: true });
+		}
+	}
+
+	return (
+		<AuthPage>
+			{id === AUTH_ID.Login ? (
+				<Login onSubmit={signin} />
+			) : (
+				<Registration onSubmit={signup} />
+			)}
+		</AuthPage>
+	);
 };
 
 export default Auth;

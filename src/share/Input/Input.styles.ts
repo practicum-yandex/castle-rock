@@ -1,8 +1,8 @@
 import { theme } from "@/utils/theme";
 import styled from "styled-components";
 
-const labelSize = '12px';
-const inputPadding = '12px';
+const labelSize = "12px";
+const inputPadding = "12px";
 const transition = theme.transition;
 
 type MessageProps = {

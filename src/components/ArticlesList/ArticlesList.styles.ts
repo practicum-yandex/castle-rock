@@ -7,7 +7,7 @@ export const List = styled.section`
 		width: max-content;
 		height: 100%;
 	`}
-`
+`;
 
 export const ThemeLink = styled(Link)`
 	${({ theme }) => `
@@ -23,7 +23,7 @@ export const ThemeLink = styled(Link)`
 		text-decoration: none;
 		
 	`}
-`
+`;
 
 export const CustomTitle = styled(Title)`
 	${({ theme }) => `
@@ -33,7 +33,7 @@ export const CustomTitle = styled(Title)`
 		text-overflow: ellipsis;
 		margin-bottom: ${theme.spacing(0)}
 	`}
-`
+`;
 
 export const Description = styled.p`
 	${({ theme }) => `
@@ -43,4 +43,4 @@ export const Description = styled.p`
 		text-overflow: ellipsis;
 		font-size: 14px;
 	`}
-`
+`;

@@ -20,15 +20,15 @@ export const CustomFields = styled.div`
 `;
 
 export const CustomField = styled(Input)`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
     `}
 `;
 
 export const CustomButton = styled(Button)`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
     `}
-`
+`;
