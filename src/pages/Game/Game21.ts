@@ -139,6 +139,19 @@ export default class Game21 {
 		}
 	}
 
+	checkOpponentStartScore() {
+		if (
+			this.getScoreSum(this._opponentHand) === 21 &&
+			this.getScoreSum(this._hand) === 21
+		) {
+			this._gameStatus = "nobody";
+		} else if (this.getScoreSum(this._opponentHand) === 21) {
+			this.userLose();
+		} else if (this.getScoreSum(this._opponentHand) > 21) {
+			this.userWin();
+		}
+	}
+
 	userLose() {
 		this._gameStatus = "lose";
 	}
@@ -152,7 +165,7 @@ export default class Game21 {
 	}
 
 	startOpponentGame() {
-		while (this.getScoreSum(this._opponentHand) < 15) {
+		while (this.getScoreSum(this._opponentHand) < 17) {
 			this.takeCard(false);
 		}
 
@@ -187,8 +200,7 @@ export default class Game21 {
 
 		this.create();
 		this.render();
-		this._gameStatus = "game";
-		this.takeCard();
+		this.startGame();
 	}
 
 	create(): void {
@@ -277,7 +289,11 @@ export default class Game21 {
 	}
 
 	startGame() {
-		this.takeCard();
 		this._gameStatus = "game";
+		this.takeCard(false);
+		this.takeCard(false);
+		this.takeCard();
+		this.takeCard();
+		this.checkOpponentStartScore();
 	}
 }
