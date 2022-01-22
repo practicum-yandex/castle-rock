@@ -1,3 +1,4 @@
+import { setUser } from "@/store/reducers/user";
 import { http } from "@/utils/http";
 
 export interface AuthResponse {
@@ -42,10 +43,12 @@ export class AuthService {
             .catch((err) => console.log(err))
     }
 
-    static getUser(cb: (data: UserData) => void): void {
-        http.get<UserData>('/auth/user')
-            .then((res) => cb(res.data)) 
+    static getUser(): (d: any) => void {
+        return (dispatch: any): void => {
+            http.get<UserData>('/auth/user')
+            .then((res) => dispatch(setUser(res.data))) 
             .catch((err) => console.log(err))
+        }
     }
 
     static logout(cb: () => void): void {
