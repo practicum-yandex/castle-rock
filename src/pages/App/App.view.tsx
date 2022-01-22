@@ -19,57 +19,61 @@ import Article from "@/components/Article";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav } from "./App.styles";
+import { Provider } from "react-redux";
+import { store } from "@/index";
 
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
 		<GlobalFonts />
 		<GlobalStyles />
-		<Layout>
-			<Title level={1}>Castle Rock</Title>
-			<BrowserRouter>
-				<Nav>
-					<Link to="/">
-						<Button>Main</Button>
-					</Link>
-					<Link to="/auth/login">
-						<Button>Login</Button>
-					</Link>
-					<Link to="/auth/registration">
-						<Button>Registration</Button>
-					</Link>
-					<Link to="/profile">
-						<Button>Profile</Button>
-					</Link>
-					<Link to="/board">
-						<Button>Board</Button>
-					</Link>
-					<Link to="/forum">
-						<Button>Forum</Button>
-					</Link>
-					<Link to="/game">
-						<Button>Game</Button>
-					</Link>
-				</Nav>
-				<Routes>
-					<Route path="/" element={<Main />} />
-					<Route path="/auth/:id" element={<Auth />} />
-					<Route path="/board" element={<Board />} />
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/board" element={<Board />} />
-					<Route path="/forum" element={<Forum />}>
-						<Route path=":id" element={<Article />} />
-					</Route>
-					<Route
-						path="/game"
-						element={
-							<ErrorBoundary>
-								<Game />
-							</ErrorBoundary>
-						}
-					/>
-				</Routes>
-			</BrowserRouter>
-		</Layout>
+		<Provider store={store}>
+			<Layout>
+				<Title level={1}>Castle Rock</Title>
+				<BrowserRouter>
+					<Nav>
+						<Link to="/">
+							<Button>Main</Button>
+						</Link>
+						<Link to="/auth/login">
+							<Button>Login</Button>
+						</Link>
+						<Link to="/auth/registration">
+							<Button>Registration</Button>
+						</Link>
+						<Link to="/profile">
+							<Button>Profile</Button>
+						</Link>
+						<Link to="/board">
+							<Button>Board</Button>
+						</Link>
+						<Link to="/forum">
+							<Button>Forum</Button>
+						</Link>
+						<Link to="/game">
+							<Button>Game</Button>
+						</Link>
+					</Nav>
+					<Routes>
+						<Route path="/" element={<Main />} />
+						<Route path="/auth/:id" element={<Auth />} />
+						<Route path="/board" element={<Board />} />
+						<Route path="/profile" element={<Profile />} />
+						<Route path="/board" element={<Board />} />
+						<Route path="/forum" element={<Forum />}>
+							<Route path=":id" element={<Article />} />
+						</Route>
+						<Route
+							path="/game"
+							element={
+								<ErrorBoundary>
+									<Game />
+								</ErrorBoundary>
+							}
+						/>
+					</Routes>
+				</BrowserRouter>
+			</Layout>
+		</Provider>
 	</ThemeProvider>
 );
 
