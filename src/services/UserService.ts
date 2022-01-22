@@ -1,3 +1,4 @@
+import { setUser } from "@/store/reducers/user";
 import { http } from "@/utils/http";
 import { UserData } from "./AuthService";
 
@@ -10,7 +11,9 @@ export class UserService {
     static changePassword(data: ChangePasswordRequest): (d: any) => void {
         return (dispatch: any): void => {
             http.put<string>('/user/password', data)
-            .then((res) => dispatch(res.data)) 
+            .then(() => {
+                // dispatch()
+            }) 
             .catch((err) => console.log(err))   
         }
     }
@@ -18,7 +21,9 @@ export class UserService {
     static changeAvatar(data: FormData): (d: any) => void {
         return (dispatch: any): void => {
             http.put<UserData>('/user/profile/avatar', data)
-            .then((res) => dispatch(res.data)) 
+            .then((res) => {
+                dispatch(setUser(res.data))
+            }) 
             .catch((err) => console.log(err))
         }
 
