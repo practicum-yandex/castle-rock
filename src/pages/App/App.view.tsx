@@ -16,16 +16,21 @@ import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
 import Article from "@/components/Article";
+import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
 
-import { Title, Nav } from "./App.styles";
+import { Title, Nav, Header } from "./App.styles";
 
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
 		<GlobalFonts />
 		<GlobalStyles />
 		<Layout>
-			<Title level={1}>Castle Rock</Title>
+			<Header>
+				<Title level={1}>Castle Rock</Title>
+				<Fullscreen />
+			</Header>
+
 			<BrowserRouter>
 				<Nav>
 					<Link to="/">
@@ -57,16 +62,16 @@ const App: React.FC = () => (
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/board" element={<Board />} />
 					<Route path="/forum" element={<Forum />}>
-						<Route path=':id' element={<Article />}/>
+						<Route path=":id" element={<Article />} />
 					</Route>
 					<Route
-							path="/game"
-							element={
-								<ErrorBoundary>
-									<Game />
-								</ErrorBoundary>
-							}
-						/>
+						path="/game"
+						element={
+							<ErrorBoundary>
+								<Game />
+							</ErrorBoundary>
+						}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</Layout>
