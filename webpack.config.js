@@ -1,11 +1,15 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const AssetsPlugin = require('assets-webpack-plugin');
 
 module.exports = {
-	entry: "./src/index.tsx",
+	entry: {
+		main: "./src/index.tsx",
+		sw: "./src/sw.ts"
+	},
 	output: {
 		path: path.join(__dirname, "/dist"),
-		filename: "bundle.js",
+		filename: "[name].[hash].js",
 		publicPath: "/",
 	},
 	resolve: {
@@ -43,6 +47,9 @@ module.exports = {
 		historyApiFallback: true,
 	},
 	plugins: [
+		new AssetsPlugin({
+			filename: 'assets.json'
+		}),
 		new HtmlWebpackPlugin({
 			template: "./public/index.html",
 		}),

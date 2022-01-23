@@ -1,10 +1,13 @@
+import assets from '../assets.json';
+
 const CACHE_NAME = 'cr-cache-v1';
 const CACHE_URLS = [
     '/index.html',
-    '/images/sprites.jpg'
+    '/images/sprites.jpg',
+    `${assets.main.js}`
 ];
 
-this.addEventListener("install", event => {
+self.addEventListener("install", (event: any) => {
     console.log("install");
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -19,19 +22,17 @@ this.addEventListener("install", event => {
     );
 });
 
-this.addEventListener("activate", event => {
+self.addEventListener("activate", (event: any) => {
     console.log("activate");
 });
 
-this.addEventListener('fetch', event => { 
+self.addEventListener('fetch', (event: any) => { 
     event.respondWith( 
         caches.match(event.request) 
             .then(response => { 
                 if (response) { 
                     return response; 
                 }
-
-                console.log(response)
 
                 const fetchRequest = event.request.clone();
 
