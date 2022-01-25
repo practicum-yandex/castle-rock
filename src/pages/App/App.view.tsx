@@ -25,7 +25,7 @@ const App: React.FC = () => (
 		<GlobalFonts />
 		<GlobalStyles />
 		<Layout>
-			<Title level={1}>Castle Rock</Title>
+			<Title level={1}>Castle Rock. Game 21</Title>
 			<BrowserRouter>
 				<Nav>
 					<Link to="/">
