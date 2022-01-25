@@ -70,8 +70,8 @@ export default class Game21 {
 	}
 
 	setTextFont(): void {
-		this._ctx.font = "12px Arial";
-		this._ctx.fillStyle = "#000";
+		this._ctx.font = "24px Arial";
+		this._ctx.fillStyle = "#fff";
 	}
 
 	setEvents(): void {
@@ -252,6 +252,7 @@ export default class Game21 {
 		this.clearCanvas();
 		this.renderTable();
 		this.renderHand();
+		this.renderScores();
 	}
 
 	roundedImage(
@@ -316,6 +317,22 @@ export default class Game21 {
 	renderTable() {
 		if (this._table) {
 			this._ctx.drawImage(this._table, 0, 0, this._width, this._height);
+		}
+	}
+
+	renderScores() {
+		if (this._height) {
+			this._ctx.fillText(
+				this.getScoreSum(this._opponentHand).toString(),
+				this._width / 2,
+				this._height / 5 + 140 + 40
+			);
+
+			this._ctx.fillText(
+				this.getScoreSum(this._hand).toString(),
+				this._width / 2,
+				this._height / 1.5 - 20
+			);
 		}
 	}
 
