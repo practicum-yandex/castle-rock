@@ -25,6 +25,9 @@
     "downlevelIteration": true,
     "outDir": "./dist",
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
+    "types": [
+      "jest"
+    ]
   },
   "include": [
     "src",
