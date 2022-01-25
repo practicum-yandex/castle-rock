@@ -54,6 +54,7 @@ export default class Game21 {
 	private _hand: Hand = [];
 	private _opponentHand: Hand = [];
 	private _sprites: HTMLImageElement | undefined;
+	private _table: HTMLImageElement | undefined;
 	private _gameStatus: GameStatus = "start";
 
 	constructor(
@@ -185,12 +186,18 @@ export default class Game21 {
 
 	preload(cb: () => void) {
 		this.preloadSprites(cb);
+		this.preloadTable();
 	}
 
 	preloadSprites(onResourceLoad: () => void): void {
 		this._sprites = new Image();
 		this._sprites.src = `./images/sprites.jpg`;
 		this._sprites.onload = onResourceLoad;
+	}
+
+	preloadTable(): void {
+		this._table = new Image();
+		this._table.src = `./images/table-background.jpg`;
 	}
 
 	restart(): void {
@@ -243,7 +250,33 @@ export default class Game21 {
 
 	render(): void {
 		this.clearCanvas();
+		this.renderTable();
 		this.renderHand();
+	}
+
+	roundedImage(
+		x: number,
+		y: number,
+		width: number,
+		height: number,
+		radius: number
+	) {
+		this._ctx.beginPath();
+		this._ctx.moveTo(x + radius, y);
+		this._ctx.lineTo(x + width - radius, y);
+		this._ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+		this._ctx.lineTo(x + width, y + height - radius);
+		this._ctx.quadraticCurveTo(
+			x + width,
+			y + height,
+			x + width - radius,
+			y + height
+		);
+		this._ctx.lineTo(x + radius, y + height);
+		this._ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+		this._ctx.lineTo(x, y + radius);
+		this._ctx.quadraticCurveTo(x, y, x + radius, y);
+		this._ctx.closePath();
 	}
 
 	renderHand() {
@@ -251,6 +284,18 @@ export default class Game21 {
 
 		hand.forEach((card) => {
 			if (this._sprites) {
+				this._ctx.save();
+
+				this.roundedImage(
+					card.coordinates.startX,
+					card.coordinates.startY,
+					card.dWidth,
+					card.dHeight,
+					10
+				);
+
+				this._ctx.clip();
+
 				this._ctx.drawImage(
 					this._sprites,
 					card.spritesX,
@@ -262,8 +307,16 @@ export default class Game21 {
 					card.dWidth,
 					card.dHeight
 				);
+
+				this._ctx.restore();
 			}
 		});
+	}
+
+	renderTable() {
+		if (this._table) {
+			this._ctx.drawImage(this._table, 0, 0, this._width, this._height);
+		}
 	}
 
 	clearCanvas(): void {
