@@ -5,7 +5,4 @@ import configureStore from "./store/store";
 
 export const store = configureStore();
 
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
