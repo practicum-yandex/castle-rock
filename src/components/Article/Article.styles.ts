@@ -9,13 +9,13 @@ export const Section = styled.section`
 		grid-template-columns: 1fr;
 		grid-template-rows: auto 1fr 150px;
 	`}
-`
+`;
 
 export const Content = styled.div`
 	width: 100%;
 	font-size: 16px;
 	line-height: 1.5em;
-`
+`;
 
 export const Textarea = styled.textarea`
 	${({ theme }) => `
@@ -29,4 +29,4 @@ export const Textarea = styled.textarea`
 		outline: none;
 		resize: none;
 	`}
-`
+`;
