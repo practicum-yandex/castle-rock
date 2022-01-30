@@ -1,5 +1,6 @@
 const CACHE_NAME = 'cr-cache-v1';
 const CACHE_URLS = [
+    '/bundle.js',
     '/index.html',
     '/images/sprites.jpg'
 ];
