@@ -1,6 +1,8 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "@/index";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
@@ -19,8 +21,6 @@ import Article from "@/components/Article";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav } from "./App.styles";
-import { Provider } from "react-redux";
-import { store } from "@/index";
 
 const App: React.FC = () => (
 	<ThemeProvider theme={theme}>
