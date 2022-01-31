@@ -20,15 +20,15 @@ export const Fields = styled.div`
 `;
 
 export const Field = styled(Input)`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
     `}
 `;
 
 export const Button = styled(ShareButton)`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         margin-bottom: ${theme.spacing(2)};
     `}
-`
+`;

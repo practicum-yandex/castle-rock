@@ -2,22 +2,22 @@ import styled from "styled-components";
 import FileLoaderWrapper from "@/components/FileLoaderWrapper";
 
 export const ProfileContent = styled.section`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-`
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+`;
 
 export const FLoaderWrapper = styled(FileLoaderWrapper)`
-    ${({ theme }) => `
+	${({ theme }) => `
         margin-bottom: ${theme.spacing(2)};
-    `}   
-`
+    `}
+`;
 
 export const Wrapper = styled.div`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 40%;
         max-width: 600px;
         margin: 50px 0;
@@ -34,10 +34,10 @@ export const Wrapper = styled.div`
             margin: 0;
         }
     `}
-`
+`;
 
 export const Field = styled.p`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         padding: 10px 0;
         font-weight: 500;
@@ -51,10 +51,10 @@ export const Field = styled.p`
             color: ${theme.colors.secondary()};
         }
     `}
-`
+`;
 
 export const CustomButton = styled.p`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         padding: 10px 0;
         font-weight: bold;
@@ -63,10 +63,10 @@ export const CustomButton = styled.p`
         cursor: pointer;
         color: ${theme.colors.primary()};
     `}
-`
+`;
 
 export const Overlay = styled.div`
-    ${({ theme }) => `
+	${({ theme }) => `
         top: 0;
         left: 0;
         right: 0;
@@ -77,4 +77,4 @@ export const Overlay = styled.div`
         justify-content: center;
         background-color: ${theme.border};
     `}
-`
+`;
