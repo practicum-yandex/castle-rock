@@ -5,7 +5,7 @@ import Login from "@/components/Login";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormValues } from "@/helpers/getFormValues";
 import { AuthService } from "@/services/AuthService";
-import { AuthResponse } from "@/models/Auth";
+import { useDispatch } from "react-redux";
 
 enum AUTH_ID {
 	Login = "login",
@@ -15,34 +15,29 @@ enum AUTH_ID {
 const Auth: React.FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-
-	console.log(id);
+	const dispatch = useDispatch();
 
 	const signup = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		AuthService.signup(getFormValues(formEl), updateUserId);
+		dispatch(
+			AuthService.signup(getFormValues(formEl), () =>
+				navigate("/", { replace: true })
+			)
+		);
 	}, []);
 
 	const signin = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		AuthService.signin(getFormValues(formEl), updateUserState);
+		dispatch(
+			AuthService.signin(getFormValues(formEl), () =>
+				navigate("/", { replace: true })
+			)
+		);
 	}, []);
-
-	function updateUserId(data: AuthResponse) {
-		if (data) {
-			navigate("/", { replace: true });
-		}
-	}
-
-	function updateUserState(data: string) {
-		if (data === "OK") {
-			navigate("/", { replace: true });
-		}
-	}
 
 	return (
 		<AuthPage>

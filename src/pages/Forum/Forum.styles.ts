@@ -14,10 +14,14 @@ export const Section = styled.section`
 `;
 
 export const CustomButtom = styled(Button)`
-	width: 100%;
+	${({ theme }) => `
+        width: 100%;
+    `}
 `;
 
 export const CustomLayout = styled(Layout)`
-	align-items: center;
-	justify-content: space-between;
+	${({ theme }) => `
+        align-items: center;
+        justify-content: space-between;
+    `}
 `;
