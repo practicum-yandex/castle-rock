@@ -53,7 +53,11 @@ const Profile: Component = () => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		dispatch(UserService.changePassword(getFormValues(formEl), () => setModalVisibility(false)));
+		dispatch(
+			UserService.changePassword(getFormValues(formEl), () =>
+				setModalVisibility(false)
+			)
+		);
 	}, []);
 
 	useEffect(() => {

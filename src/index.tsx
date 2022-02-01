@@ -6,9 +6,6 @@ import { startServiceWorker } from "./helpers/startServiceWorker";
 
 export const store = configureStore();
 
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 startServiceWorker();
