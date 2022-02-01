@@ -46,7 +46,6 @@
     "file-loader": "6.2.0",
     "html-webpack-plugin": "5.5.0",
     "jest": "27.4.7",
-    "memfs": "3.4.1",
     "path": "0.12.7",
     "prettier": "2.5.1",
     "ts-jest": "27.1.3",
