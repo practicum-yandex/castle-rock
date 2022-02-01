@@ -30,7 +30,7 @@ const App: React.FC = () => (
 		<Provider store={store}>
 			<Layout>
 				<Header>
-					<Title level={1}>Castle Rock</Title>
+					<Title level={1}>Castle Rock. Game 21</Title>
 					<Fullscreen />
 				</Header>
 				<BrowserRouter>
