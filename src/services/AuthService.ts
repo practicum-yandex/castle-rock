@@ -34,25 +34,25 @@ export class AuthService {
 	static signin(data: SigninBody, cb: () => void): (d: any) => void {
 		return (dispatch: any): void => {
 			http
-			.post<string>("/auth/signin", data)
-			.then(() => {
-				// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-				cb();
-			})
-			.catch((err) => console.log(err));
-		}
+				.post<string>("/auth/signin", data)
+				.then(() => {
+					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
+					cb();
+				})
+				.catch((err) => console.log(err));
+		};
 	}
 
 	static signup(data: SignupBody, cb: () => void): (d: any) => void {
 		return (dispatch: any): void => {
 			http
-			.post<AuthResponse>("/auth/signup", data)
-			.then(() => {
-				// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-				cb();
-			})
-			.catch((err) => console.log(err));
-		}
+				.post<AuthResponse>("/auth/signup", data)
+				.then(() => {
+					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
+					cb();
+				})
+				.catch((err) => console.log(err));
+		};
 	}
 
 	static getUser(): (d: any) => void {

@@ -8,8 +8,8 @@ import { AuthService } from "@/services/AuthService";
 import { useDispatch } from "react-redux";
 
 enum AUTH_ID {
-	Login = "Login",
-	Registration = "Registration",
+	Login = "login",
+	Registration = "registration",
 }
 
 const Auth: React.FC = () => {
@@ -21,14 +21,22 @@ const Auth: React.FC = () => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		dispatch(AuthService.signup(getFormValues(formEl), () => navigate("/", { replace: true })));
+		dispatch(
+			AuthService.signup(getFormValues(formEl), () =>
+				navigate("/", { replace: true })
+			)
+		);
 	}, []);
 
 	const signin = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		dispatch(AuthService.signin(getFormValues(formEl), () => navigate("/", { replace: true })));
+		dispatch(
+			AuthService.signin(getFormValues(formEl), () =>
+				navigate("/", { replace: true })
+			)
+		);
 	}, []);
 
 	return (

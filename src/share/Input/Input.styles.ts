@@ -27,6 +27,7 @@ export const Field = styled.input`
 
 	:focus {
 		border-color: ${theme.colors.primary(0.5)};
+		outline: none;
 	}
 
 	:focus,
