@@ -13,7 +13,7 @@ type Headlines = {
 	h1: string;
 	h2: string;
 	h3: string;
-}
+};
 
 interface Theme {
 	colors: Colors;
@@ -44,9 +44,9 @@ export const theme: Theme = {
 	border: secondary(0.4),
 
 	headlines: {
-		h1: '24px',
-		h2: '20px',
-		h3: '16px'
+		h1: "24px",
+		h2: "20px",
+		h3: "16px",
 	},
 
 	colors: {
@@ -56,7 +56,7 @@ export const theme: Theme = {
 		danger: getColor("255, 47, 47"),
 	},
 
-	spacing: getSpacing
+	spacing: getSpacing,
 };
 
 declare module "styled-components" {

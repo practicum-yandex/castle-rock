@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export type AvatarProps = { 
-	url?: string; 
-	diameter?: string 
-}
+export type AvatarProps = {
+	url?: string;
+	diameter?: string;
+};
 
 export const Wrapper = styled.div<AvatarProps>`
-	width: ${props => props.diameter || '130px'};
+	width: ${(props) => props.diameter || "130px"};
 `;
 
 export const CustomAvatar = styled.div<AvatarProps>`
@@ -17,5 +17,5 @@ export const CustomAvatar = styled.div<AvatarProps>`
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: url(${props => props.url});
+	background-image: url(${(props) => props.url});
 `;

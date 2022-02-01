@@ -4,17 +4,17 @@ import ArticlesList from "@/components/ArticlesList";
 import { CustomButtom, Section } from "./Forum.styles";
 
 const Forum: React.FC = () => {
-    const showButton = !!useMatch('/forum');
+	const showButton = !!useMatch("/forum");
 
-    return (
-    <>
-        <Section>
-            <ArticlesList />
-            <Outlet />
-        </Section>
-        {showButton && <CustomButtom>Создать тему</CustomButtom>}
-    </>
-    )
+	return (
+		<>
+			<Section>
+				<ArticlesList />
+				<Outlet />
+			</Section>
+			{showButton && <CustomButtom>Создать тему</CustomButtom>}
+		</>
+	);
 };
 
 export default Forum;

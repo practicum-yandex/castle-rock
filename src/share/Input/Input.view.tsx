@@ -3,13 +3,12 @@ import { Component } from "@/utils/components";
 import { Field, Label, Placeholder, Message } from "./Input.styles";
 
 type Props = {
-    label?: string;
-    errorMessage?: string;
-    errorMessageVisibility?: boolean;
+	label?: string;
+	errorMessage?: string;
+	errorMessageVisibility?: boolean;
 };
 
 type InputProps = InputHTMLAttributes<HTMLInputElement>;
-
 
 const Input: Component<Props & InputProps> = ({ className, ...props }) => {
 	return (

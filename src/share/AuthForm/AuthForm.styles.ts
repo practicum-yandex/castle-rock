@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CustomForm = styled.form`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 340px;
         padding: ${theme.spacing(3)};
         display: flex;

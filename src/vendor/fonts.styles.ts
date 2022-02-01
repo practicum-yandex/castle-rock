@@ -1,9 +1,9 @@
 import { createGlobalStyle } from "styled-components";
 
-import InterRegularWoff from '../static/fonts/Inter-Regular.woff';
-import InterRegularWoff2 from '../static/fonts/Inter-Regular.woff2';
-import InterBoldWoff from '../static/fonts/Inter-SemiBold.woff';
-import InterBoldWoff2 from '../static/fonts/Inter-SemiBold.woff2';
+import InterRegularWoff from "../static/fonts/Inter-Regular.woff";
+import InterRegularWoff2 from "../static/fonts/Inter-Regular.woff2";
+import InterBoldWoff from "../static/fonts/Inter-SemiBold.woff";
+import InterBoldWoff2 from "../static/fonts/Inter-SemiBold.woff2";
 
 export const GlobalFonts = createGlobalStyle`
 	@font-face {
@@ -21,4 +21,4 @@ export const GlobalFonts = createGlobalStyle`
 		src: url(${InterBoldWoff2}) format('woff2'),
 		     url(${InterBoldWoff}) format('woff');
     }
-`
+`;
