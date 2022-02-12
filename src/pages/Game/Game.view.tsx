@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 
 import Button from "@/share/Button";
 import {
@@ -10,6 +10,9 @@ import {
 } from "./Game.styles";
 import Game21, { GameStatus } from "./Game21";
 import Title from "@/share/Title";
+import { BoardService } from "@/services/BoardService";
+import { ReactReduxContext, useDispatch } from "react-redux";
+import { UserData } from "@/services/AuthService";
 
 type CanvasSizeParams = {
 	width: number;
@@ -36,15 +39,44 @@ const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const canvasWrapRef = useRef<HTMLDivElement>(null);
 	const gameRef = useRef<Game21>();
-
+	const dispatch = useDispatch();
+	const [score, setScore] = useState<number>(0);
 	const [gameStatus, setGameStatus] = useState<GameStatus>();
 	const [canvasSizeParams, setCanvasSizeParams] = useState({
 		width: 0,
 		height: 0,
 	});
+	const { store } = useContext(ReactReduxContext);
+	const user: UserData = store.getState().user.item; // не сразу обновляется
+
+	const addMember = () => {
+		BoardService.addMember({
+			data: { user: user.display_name, score21Uniq: score },
+			ratingFieldName: 'score21Uniq',
+			teamName: user.display_name
+		}, () => {
+			dispatch(BoardService.getBoard({
+				cursor: 0,
+				limit: 1000,
+				ratingFieldName: 'score21Uniq'
+			}));
+		})
+	}
 
 	const refreshGameStatus = () => {
-		setGameStatus(gameRef.current?.gameStatus);
+		const gameStatus = gameRef.current?.gameStatus;
+
+		console.log(gameStatus, score)
+
+		if (gameStatus === "win") {
+			setScore((prev: number) => ++prev);
+		}
+
+		if (gameStatus === "lose") {
+			addMember();
+		}
+
+		setGameStatus(gameStatus);
 	};
 
 	useEffect(() => {

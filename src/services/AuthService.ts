@@ -1,5 +1,5 @@
 import { setUser } from "@/store/reducers/user";
-import { appAxios, http } from "@/utils/http";
+import { fullHttp, http } from "@/utils/http";
 
 export interface AuthResponse {
 	id: number;
@@ -37,10 +37,7 @@ export class AuthService {
 		return (dispatch: any): void => {
 			http
 				.post<string>("/auth/signin", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
+				.then(() => cb())
 				.catch((err) => console.log(err));
 		};
 	}
@@ -49,10 +46,7 @@ export class AuthService {
 		return (dispatch: any): void => {
 			http
 				.post<AuthResponse>("/auth/signup", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
+				.then(() => cb())
 				.catch((err) => console.log(err));
 		};
 	}
@@ -81,7 +75,7 @@ export class AuthService {
 	}
 
 	static getOAuthCode(id: string, cb: (res: any) => void): void {
-		appAxios
+		fullHttp
 			.get<any>(` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`)
 			.then((res) => cb(res))
 			.catch((err) => console.log(err));

@@ -33,9 +33,9 @@ const getFields = (user?: UserData) => {
 
 const Profile: Component = () => {
 	const dispatch = useDispatch();
-	const { store } = useContext(ReactReduxContext)
+	const { store } = useContext(ReactReduxContext);
 	const [modalIsVisible, setModalVisibility] = useState<boolean>(false);
-	const user = store.getState().user.item; // не сразу обновляется
+	const user: UserData = store.getState().user.item; // не сразу обновляется
 
 	function close(event: React.MouseEvent): void {
 		if (event.target === event.currentTarget) {
@@ -61,7 +61,9 @@ const Profile: Component = () => {
 	}, []);
 
 	useEffect(() => {
-		dispatch(AuthService.getUser());
+		if (!user) {
+			dispatch(AuthService.getUser());
+		}
 	}, []);
 
 	return (
