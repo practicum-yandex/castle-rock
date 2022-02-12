@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { store } from "@/index";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
@@ -22,18 +21,41 @@ import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav, Header } from "./App.styles";
+import { AuthService } from "@/services/AuthService";
 
-const App: React.FC = () => (
-	<ThemeProvider theme={theme}>
-		<GlobalFonts />
-		<GlobalStyles />
-		<Provider store={store}>
-			<Layout>
-				<Header>
-					<Title level={1}>Castle Rock. Game 21</Title>
-					<Fullscreen />
-				</Header>
-				<BrowserRouter>
+// Сделал так потому что useParams не работает в данном случае
+const params: any = new Proxy(new URLSearchParams(window.location.search), {
+	get: (searchParams, prop) => searchParams.get(prop as any)
+});
+
+const App: React.FC = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(AuthService.getUser((err) => {
+			const code = params.code;
+
+			if (code) {
+				AuthService.sendAuthCode(code, () => {
+					dispatch(AuthService.getUser(() => {}))
+				})
+			} else {
+				console.log(err.message);
+				navigate('/auth/login', { replace: true });
+			}
+		}))
+	}, [])
+
+	return (
+		<ThemeProvider theme={theme}>
+			<GlobalFonts />
+			<GlobalStyles />
+				<Layout>
+					<Header>
+						<Title level={1}>Castle Rock. Game 21</Title>
+						<Fullscreen />
+					</Header>
 					<Nav>
 						<Link to="/">
 							<Button>Main</Button>
@@ -75,10 +97,9 @@ const App: React.FC = () => (
 							}
 						/>
 					</Routes>
-				</BrowserRouter>
-			</Layout>
-		</Provider>
-	</ThemeProvider>
-);
+				</Layout>
+		</ThemeProvider>
+	)
+};
 
 export default App;
