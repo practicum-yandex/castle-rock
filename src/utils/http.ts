@@ -5,3 +5,7 @@ export const http = axios.create({
 	withCredentials: true,
 	baseURL: environments.baseUrl,
 });
+
+export const appAxios = axios.create({
+	withCredentials: true,
+});

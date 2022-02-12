@@ -1,5 +1,5 @@
 import { setUser } from "@/store/reducers/user";
-import { http } from "@/utils/http";
+import { appAxios, http } from "@/utils/http";
 
 export interface AuthResponse {
 	id: number;
@@ -29,6 +29,8 @@ export interface UserData {
 	phone: number;
 	avatar: string;
 }
+
+const REDIRECT_URI = location.origin
 
 export class AuthService {
 	static signin(data: SigninBody, cb: () => void): (d: any) => void {
@@ -67,6 +69,27 @@ export class AuthService {
 	static logout(cb: () => void): void {
 		http
 			.post<void>("/auth/logout")
+			.then(() => cb())
+			.catch((err) => console.log(err));
+	}
+
+	static getServiceId(cb: (res: any) => void): void {
+		http
+			.get<any>(`/oauth/yandex/service-id?redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res.data))
+			.catch((err) => console.log(err));
+	}
+
+	static getOAuthCode(id: string, cb: (res: any) => void): void {
+		appAxios
+			.get<any>(` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res))
+			.catch((err) => console.log(err));
+	}
+
+	static sendAuthCode(code: any, cb: () => void): void {
+		http
+			.post<any>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI })
 			.then(() => cb())
 			.catch((err) => console.log(err));
 	}
