@@ -10,6 +10,7 @@ import {
 } from "./Game.styles";
 import Game21, { GameStatus } from "./Game21";
 import Title from "@/share/Title";
+import { SoundKeys } from "@/models/Sounds";
 
 type CanvasSizeParams = {
 	width: number;
@@ -69,21 +70,25 @@ const Game: React.FC = () => {
 
 	const start = () => {
 		gameRef.current?.startGame();
+		gameRef.current?.playSound(SoundKeys.CardDistribution);
 		refreshGameStatus();
 	};
 
 	const takeCard = () => {
 		gameRef.current?.takeCard();
+		gameRef.current?.playSound(SoundKeys.GetCard);
 		refreshGameStatus();
 	};
 
 	const startOpponentGame = () => {
 		gameRef.current?.startOpponentGame();
+		gameRef.current?.playSound(SoundKeys.EnoughCard);
 		refreshGameStatus();
 	};
 
 	const restart = () => {
 		gameRef.current?.restart();
+		gameRef.current?.playSound(SoundKeys.CardDistribution);
 		refreshGameStatus();
 	};
 
