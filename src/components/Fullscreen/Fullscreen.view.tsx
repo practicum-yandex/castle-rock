@@ -1,12 +1,15 @@
 import React, { useRef, useState } from "react";
 
 import { Component } from "@/utils/components";
+import { useIsSsr } from "@/utils/useIsSsr";
 
 import { Button, Img } from "./Fullscreen.styles";
 
 const Fullscreen: Component = (props) => {
 	const [openStatus, setOpenStatus] = useState(false);
 	const buttonRef = useRef(null);
+
+	const isSsr = useIsSsr();
 
 	function toggleFullScreen() {
 		if (!document.fullscreenElement) {
@@ -18,7 +21,7 @@ const Fullscreen: Component = (props) => {
 		}
 	}
 
-	if (!document.documentElement.requestFullscreen) {
+	if (isSsr || !document.documentElement.requestFullscreen) {
 		return null;
 	}
 

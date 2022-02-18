@@ -15,7 +15,7 @@ import Forum from "@/pages/Forum";
 import Game from "@/pages/Game";
 import Main from "@/pages/Main";
 import Article from "@/components/Article";
-// import Fullscreen from "@/components/Fullscreen";
+import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav, Header } from "./App.styles";
@@ -27,7 +27,7 @@ const App: React.FC = () => (
 		{/* <Provider store={store}> */}
 		<Header>
 			<Title level={1}>Castle Rock. Game 21</Title>
-			{/* <Fullscreen /> */}
+			<Fullscreen />
 		</Header>
 		<Nav>
 			<Link to="/">
