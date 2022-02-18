@@ -5,10 +5,7 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { ThemeProvider } from "styled-components";
 
-import { GlobalFonts } from "@/vendor/fonts.styles";
-import { GlobalStyles } from "@/vendor/global.styles";
 import { theme } from "@/utils/theme";
-
 import App from "@/pages/App";
 
 const app = express();
@@ -34,18 +31,19 @@ function makeHTMLPage(content: string) {
   `;
 }
 
-app.use(express.static(path.join(__dirname, "../../dist/static")));
+app.use(
+	"/static",
+	express.static(path.join(__dirname, "..", "dist", "static"))
+);
 
-app.get(`./${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
-	res.sendFile(path.resolve(__dirname, `../../dist/${BUNDLE_FILE_NAME}`));
+app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
+	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
 });
 
 app.get("*", (req: Request, res: Response) => {
 	const appContentHTML = renderToString(
 		<StaticRouter location={req.url}>
 			<ThemeProvider theme={theme}>
-				<GlobalFonts />
-				<GlobalStyles />
 				<App />
 			</ThemeProvider>
 		</StaticRouter>

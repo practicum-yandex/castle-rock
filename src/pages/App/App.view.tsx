@@ -7,6 +7,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import Layout from "@/share/Layout";
 import Button from "@/share/Button";
 
+import { GlobalFonts } from "@/vendor/fonts.styles";
+import { GlobalStyles } from "@/vendor/global.styles";
 import Auth from "@/pages/Auth";
 import Board from "@/pages/Board";
 import Forum from "@/pages/Forum";
@@ -20,6 +22,8 @@ import { Title, Nav, Header } from "./App.styles";
 
 const App: React.FC = () => (
 	<Layout>
+		<GlobalFonts />
+		<GlobalStyles />
 		{/* <Provider store={store}> */}
 		<Header>
 			<Title level={1}>Castle Rock. Game 21</Title>
