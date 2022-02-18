@@ -4,9 +4,11 @@
   "description": "",
   "main": "./src/index.tsx",
   "scripts": {
-    "start": "npm run build && node ./src/app.js",
+    "start:server": "node ./dist/server.js",
     "dev": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "webpack --mode production",
+    "build:server": "webpack --mode production --config webpack.server.config.js",
     "lint:check": "npm run eslint:check && npm run prettier:check",
     "eslint:check": "eslint src/**/*.{js,ts,tsx}",
     "prettier": "prettier -w src/**/*.{js,ts,tsx,json}",

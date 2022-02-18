@@ -1,12 +1,11 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-	entry: "./src/index.tsx",
+	target: "node",
+	entry: "./src/server/index.tsx",
 	output: {
 		path: path.join(__dirname, "/dist"),
-		filename: "bundle.js",
+		filename: "server.js",
 		publicPath: "/",
 	},
 	resolve: {
@@ -40,20 +39,4 @@ module.exports = {
 			},
 		],
 	},
-	devServer: {
-		historyApiFallback: true,
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: "./public/index.html",
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: "src/static",
-					to: "static",
-				},
-			],
-		}),
-	],
 };
