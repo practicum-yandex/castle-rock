@@ -1,5 +1,6 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
+import { hot } from "react-hot-loader/root";
 // import { Provider } from "react-redux";
 // import { store } from "@/index";
 
@@ -74,4 +75,4 @@ const App: React.FC = () => (
 	</Layout>
 );
 
-export default App;
+export default hot(App);
