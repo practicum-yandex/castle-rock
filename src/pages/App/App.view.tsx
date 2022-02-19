@@ -1,8 +1,6 @@
 import React from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
-// import { Provider } from "react-redux";
-// import { store } from "@/index";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Layout from "@/share/Layout";
@@ -25,7 +23,6 @@ const App: React.FC = () => (
 	<Layout>
 		<GlobalFonts />
 		<GlobalStyles />
-		{/* <Provider store={store}> */}
 		<Header>
 			<Title level={1}>Castle Rock. Game 21</Title>
 			<Fullscreen />
@@ -71,7 +68,6 @@ const App: React.FC = () => (
 				}
 			/>
 		</Routes>
-		{/* </Provider> */}
 	</Layout>
 );
 

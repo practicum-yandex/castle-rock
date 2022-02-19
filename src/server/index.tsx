@@ -1,10 +1,13 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import React from "react";
-import { renderToString } from "react-dom/server";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { ThemeProvider } from "styled-components";
+import { Provider } from "react-redux";
+import serialize from "serialize-javascript";
 
+import configureStore from "@/store/store";
 import { theme } from "@/utils/theme";
 import App from "@/pages/App";
 
@@ -13,7 +16,20 @@ const PORT = 3000;
 
 const BUNDLE_FILE_NAME = "bundle.js";
 
+export const renderObject = (data: unknown) =>
+	serialize(data).replace(/</g, "\\\u003c");
+
 function makeHTMLPage(content: string) {
+	const scriptStore = renderToStaticMarkup(
+		<script
+			dangerouslySetInnerHTML={{
+				__html: `window.__PRELOADED_STATE__ = ${renderObject(
+					store.getState()
+				)}`,
+			}}
+		/>
+	);
+
 	return `
     <!DOCTYPE html>
     <html lang="en">
@@ -25,6 +41,7 @@ function makeHTMLPage(content: string) {
       </head>
       <body>
         <div id="root">${content}</div>
+        ${scriptStore}
         <script src='./${BUNDLE_FILE_NAME}'></script>
       </body>
     </html>
@@ -40,12 +57,16 @@ app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
 	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
 });
 
+const store = configureStore({});
+
 app.get("*", (req: Request, res: Response) => {
 	const appContentHTML = renderToString(
 		<StaticRouter location={req.url}>
-			<ThemeProvider theme={theme}>
-				<App />
-			</ThemeProvider>
+			<Provider store={store}>
+				<ThemeProvider theme={theme}>
+					<App />
+				</ThemeProvider>
+			</Provider>
 		</StaticRouter>
 	);
 	res.send(makeHTMLPage(appContentHTML));
