@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-
 import Table, { Head, HeadCell, Row, Body, Cell } from "@/share/Table";
-
 import { Title } from "./Board.styles";
-import { BoardMemberData, BoardService } from "@/services/BoardService";
+import { BoardMemberData } from "@/services/BoardService";
 import { ReactReduxContext, useDispatch } from "react-redux";
+import { loadBoardData } from "@/store/reducers/board";
+import { selectBoardList } from "@/store/selectors/selectBoardList";
 
 const renderLeader = (data: BoardMemberData, index: number) => {
 	const { user, score21Uniq } = data.data;
@@ -21,15 +21,15 @@ const renderLeader = (data: BoardMemberData, index: number) => {
 const Board: React.FC = () => {
 	const dispatch = useDispatch();
 	const { store } = useContext(ReactReduxContext);
-	const boardList: BoardMemberData[] = store.getState().board.item || []; // не сразу обновляется
+	const boardList: BoardMemberData[] = selectBoardList(store); // не сразу обновляется
 
 	useEffect(() => {
 		if (boardList.length === 0) {
-			dispatch(BoardService.getBoard({
+			dispatch(loadBoardData({
 				cursor: 0,
 				limit: 1000,
 				ratingFieldName: 'score21Uniq'
-			}));
+			}))
 		}
 	}, [])
 

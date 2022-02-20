@@ -13,6 +13,8 @@ import Title from "@/share/Title";
 import { BoardService } from "@/services/BoardService";
 import { ReactReduxContext, useDispatch } from "react-redux";
 import { UserData } from "@/services/AuthService";
+import { loadBoardData } from "@/store/reducers/board";
+import { selectUser } from "@/store/selectors/selectUser";
 
 type CanvasSizeParams = {
 	width: number;
@@ -47,15 +49,15 @@ const Game: React.FC = () => {
 		height: 0,
 	});
 	const { store } = useContext(ReactReduxContext);
-	const user: UserData = store.getState().user.item; // не сразу обновляется
+	const user: UserData = selectUser(store); // не сразу обновляется
 
 	const addMember = () => {
-		BoardService.addMember({
+		BoardService.updateMemberData({
 			data: { user: user.display_name, score21Uniq: score },
 			ratingFieldName: 'score21Uniq',
 			teamName: user.display_name
 		}, () => {
-			dispatch(BoardService.getBoard({
+			dispatch(loadBoardData({
 				cursor: 0,
 				limit: 1000,
 				ratingFieldName: 'score21Uniq'

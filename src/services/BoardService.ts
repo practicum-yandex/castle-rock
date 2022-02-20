@@ -1,4 +1,3 @@
-import { setBoard } from "@/store/reducers/board";
 import { http } from "@/utils/http";
 
 export interface BoardRequest {
@@ -21,26 +20,21 @@ export interface BoardMemberData {
 }
 
 export class BoardService {
-    static getBoard(body: BoardRequest): (d: any) => void {
-        return (dispatch: any): void => {
-            http
+    static getBoard(body: BoardRequest, cb: (d: BoardMemberData[]) => void): void {
+        http
             .post<BoardMemberData[]>('/leaderboard/all', body)
-            .then((res) => dispatch(setBoard(res.data)))
+            .then((res) => cb(res.data))
             .catch((err) => console.log(err))
-        }
-
     }
 
-    static getTeamBoard(team: string, body: BoardRequest): (d: any) => void {
-        return (dispatch: any): void => {
-            http
+    static getTeamBoard(team: string, body: BoardRequest, cb: (d: BoardMemberData[]) => void): void {
+        http
             .post<BoardMemberData[]>(`/leaderboard/${team}`, body)
-            .then((res) => dispatch(setBoard(res.data)))
+            .then((res) => cb(res.data))
             .catch((err) => console.log(err))
-        }
     }
 
-    static addMember(body: NewBoardMemberRequest, cb: () => void): void {
+    static updateMemberData(body: NewBoardMemberRequest, cb: () => void): void {
         http
             .post('/leaderboard', body)
             .then(() => cb())

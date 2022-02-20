@@ -19,6 +19,7 @@ import { environments } from "@/utils/environments";
 import { getFormValues } from "@/helpers/getFormValues";
 import { AuthService, UserData } from "@/services/AuthService";
 import { ReactReduxContext, useDispatch } from "react-redux";
+import { selectUser } from "@/store/selectors/selectUser";
 
 const BASE_URL = environments.baseUrl + "/resources";
 
@@ -35,7 +36,7 @@ const Profile: Component = () => {
 	const dispatch = useDispatch();
 	const { store } = useContext(ReactReduxContext);
 	const [modalIsVisible, setModalVisibility] = useState<boolean>(false);
-	const user: UserData = store.getState().user.item; // не сразу обновляется
+	const user: UserData = selectUser(store); // не сразу обновляется
 
 	function close(event: React.MouseEvent): void {
 		if (event.target === event.currentTarget) {
