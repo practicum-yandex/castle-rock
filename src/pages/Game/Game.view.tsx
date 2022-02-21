@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Button from "@/share/Button";
 import {
@@ -11,10 +11,9 @@ import {
 import Game21, { GameStatus } from "./Game21";
 import Title from "@/share/Title";
 import { BoardService } from "@/services/BoardService";
-import { ReactReduxContext, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserData } from "@/services/AuthService";
 import { loadBoardData } from "@/store/reducers/board";
-import { selectUser } from "@/store/selectors/selectUser";
 
 type CanvasSizeParams = {
 	width: number;
@@ -48,8 +47,7 @@ const Game: React.FC = () => {
 		width: 0,
 		height: 0,
 	});
-	const { store } = useContext(ReactReduxContext);
-	const user: UserData = selectUser(store); // не сразу обновляется
+	const user = useSelector<any, UserData>((state) => state.user.item);
 
 	const addMember = () => {
 		BoardService.updateMemberData({

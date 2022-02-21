@@ -73,8 +73,11 @@ export function loadPending(): BaseActionType<ACTIONS> {
 
 export function loadBoardData(requestBody: BoardRequest): (d: Dispatch) => void  {
 	return (dp: Dispatch): void => {
-		BoardService.getBoard(requestBody, (data) => {
-			dp({ type: ACTIONS.SetBoardItem, item: data });
-		})
+		BoardService
+			.getBoard(requestBody)
+			.then((data) => {
+				dp({ type: ACTIONS.SetBoardItem, item: data });
+			})
+			.catch((err) => console.log(err));
 	}
 }

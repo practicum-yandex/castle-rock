@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import Table, { Head, HeadCell, Row, Body, Cell } from "@/share/Table";
 import { Title } from "./Board.styles";
 import { BoardMemberData } from "@/services/BoardService";
-import { ReactReduxContext, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadBoardData } from "@/store/reducers/board";
-import { selectBoardList } from "@/store/selectors/selectBoardList";
 
 const renderLeader = (data: BoardMemberData, index: number) => {
 	const { user, score21Uniq } = data.data;
@@ -20,8 +19,7 @@ const renderLeader = (data: BoardMemberData, index: number) => {
 
 const Board: React.FC = () => {
 	const dispatch = useDispatch();
-	const { store } = useContext(ReactReduxContext);
-	const boardList: BoardMemberData[] = selectBoardList(store); // не сразу обновляется
+	const boardList = useSelector<any, BoardMemberData[]>((state) => state.board.item) || [];
 
 	useEffect(() => {
 		if (boardList.length === 0) {
@@ -31,7 +29,7 @@ const Board: React.FC = () => {
 				ratingFieldName: 'score21Uniq'
 			}))
 		}
-	}, [])
+	}, [boardList])
 
 	return (
 		<>
@@ -46,9 +44,9 @@ const Board: React.FC = () => {
 				</Head>
 				<Body>
 					{boardList
-						.slice()
-						.sort((a, b) => b.data.score21Uniq - a.data.score21Uniq)
-						.map(renderLeader)}
+						?.slice()
+						?.sort((a, b) => b.data.score21Uniq - a.data.score21Uniq)
+						?.map(renderLeader)}
 				</Body>
 			</Table>
 		</>

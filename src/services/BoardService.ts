@@ -20,18 +20,16 @@ export interface BoardMemberData {
 }
 
 export class BoardService {
-    static getBoard(body: BoardRequest, cb: (d: BoardMemberData[]) => void): void {
-        http
+    static getBoard(body: BoardRequest): Promise<BoardMemberData[]> {
+        return http
             .post<BoardMemberData[]>('/leaderboard/all', body)
-            .then((res) => cb(res.data))
-            .catch((err) => console.log(err))
+            .then((res) => res.data)
     }
 
     static getTeamBoard(team: string, body: BoardRequest, cb: (d: BoardMemberData[]) => void): void {
         http
             .post<BoardMemberData[]>(`/leaderboard/${team}`, body)
-            .then((res) => cb(res.data))
-            .catch((err) => console.log(err))
+            .then((res) => res.data)
     }
 
     static updateMemberData(body: NewBoardMemberRequest, cb: () => void): void {
