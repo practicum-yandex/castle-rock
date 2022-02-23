@@ -1,5 +1,6 @@
-import { setUser } from "@/store/reducers/user";
+import { redirectToYandexID } from "@/helpers/redirectToYandexID";
 import { http } from "@/utils/http";
+import { AxiosResponse } from "axios";
 
 export interface AuthResponse {
 	id: number;
@@ -31,56 +32,38 @@ export interface UserData {
 }
 
 const REDIRECT_URI = location.origin;
-const redirectToYandexID = (id: string): void => {
-	location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`;
-}
 
 export class AuthService {
-	static signin(data: SigninBody, cb: () => void): (d: any) => void {
-		return (): void => {
-			http
-				.post<string>("/auth/signin", data)
-				.then(() => cb())
-				.catch((err) => console.log(err));
-		};
+	static signin(data: SigninBody): Promise<string> {
+		return http
+			.post<string>("/auth/signin", data)
+			.then((res) => res.data);
 	}
 
-	static signup(data: SignupBody, cb: () => void): (d: any) => void {
-		return (): void => {
-			http
-				.post<AuthResponse>("/auth/signup", data)
-				.then(() => cb())
-				.catch((err) => console.log(err));
-		};
+	static signup(data: SignupBody): Promise<AuthResponse> {
+		return http
+			.post<AuthResponse>("/auth/signup", data)
+			.then((res) => res.data);
 	}
 
-	static getUser(cb: (err: Error) => void): (d: any) => void {
-		return (dispatch: any): void => {
-			http
-				.get<UserData>("/auth/user")
-				.then((res) => dispatch(setUser(res.data)))
-				.catch((err) => cb(err));
-		};
+	static logout(): Promise<void> {
+		return http.post<void>("/auth/logout").then();
 	}
 
-	static logout(cb: () => void): void {
-		http
-			.post<void>("/auth/logout")
-			.then(() => cb())
-			.catch((err) => console.log(err));
+	static getUser(): Promise<UserData> {
+		return http
+			.get<UserData>("/auth/user")
+			.then((res) => res.data);
 	}
 
-	static getAuthorizationCode(): void {
-		http
+	static getAuthorizationCode(): Promise<any> {
+		return http
 			.get<any>(`/oauth/yandex/service-id?redirect_uri=${REDIRECT_URI}`)
 			.then((res) => redirectToYandexID(res.data.service_id))
 			.catch((err) => console.log(err));
 	}
 
-	static sendAuthCode(code: any, cb: () => void): void {
-		http
-			.post<any>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI })
-			.then(() => cb())
-			.catch((err) => console.log(err));
+	static sendAuthCode(code: any): Promise<AxiosResponse> {
+		return http.post<void>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI });
 	}
 }

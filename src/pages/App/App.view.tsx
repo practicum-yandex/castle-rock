@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { theme } from "@/utils/theme";
@@ -21,9 +21,10 @@ import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
 
 import { Title, Nav, Header } from "./App.styles";
-import { AuthService } from "@/services/AuthService";
+import { AuthService, UserData } from "@/services/AuthService";
+import { Dispatch } from "redux";
+import { setUser } from "@/store/reducers/user";
 
-// Сделал так потому что useParams не работает в данном случае
 const params: any = new Proxy(new URLSearchParams(window.location.search), {
 	get: (searchParams, prop) => searchParams.get(prop as any)
 });
@@ -31,20 +32,25 @@ const params: any = new Proxy(new URLSearchParams(window.location.search), {
 const App: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const user = useSelector<any, UserData>((state) => state.user.item);
 
 	useEffect(() => {
-		dispatch(AuthService.getUser((err) => {
-			const code = params.code;
+		const code = params.code;
 
-			if (code) {
-				AuthService.sendAuthCode(code, () => {
-					dispatch(AuthService.getUser(() => {}))
+		if (!user) {
+			AuthService.getUser()
+				.then((user) => dispatch((dp: Dispatch) => dp(setUser(user))))
+				.catch(() => {
+					if (code) {
+						AuthService.sendAuthCode(code)
+						.then(() => AuthService.getUser())
+						.then((user) => dispatch((dp: Dispatch) => dp(setUser(user))))
+						.catch((err) => console.log(err));
+					} else {
+						navigate('/auth/login', { replace: true });
+					}
 				})
-			} else {
-				console.log(err.message);
-				navigate('/auth/login', { replace: true });
-			}
-		}))
+		}
 	}, [])
 
 	return (
