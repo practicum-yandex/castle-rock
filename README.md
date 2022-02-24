@@ -7,6 +7,7 @@
 - `npm run build` - сборка клиентской и серверной части,
 - `npm run build:client` - сборка клиентской части,
 - `npm run build:server` - сборка серверной части,
+- `npm run test` - запуск тестов,
 - `npm run lint:check` - проверка кода линтерами,
 - `npm run eslint:check` - проверка кода eslint'ом,
 - `npm run prettier` - форматирование кода,
