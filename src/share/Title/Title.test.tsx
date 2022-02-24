@@ -4,7 +4,7 @@ import { render, screen } from "../../utils/test-utils";
 
 import Title from "./";
 
-describe("Button", () => {
+describe("Title", () => {
 	it("render children", () => {
 		const TEXT = "Text";
 		render(<Title>{TEXT}</Title>);

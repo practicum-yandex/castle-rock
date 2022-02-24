@@ -14,7 +14,7 @@ const InputChanged = (props: HTMLProps<HTMLInputElement>) => {
 	return <Input {...props} value={value} onChange={onChange} />;
 };
 
-describe("Button", () => {
+describe("Input", () => {
 	it("render label", () => {
 		const LABEL = "Input LABEL";
 		render(<Input label={LABEL} />);
