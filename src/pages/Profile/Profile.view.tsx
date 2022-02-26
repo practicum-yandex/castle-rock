@@ -1,5 +1,6 @@
 import { Component } from "@/utils/components";
 import React, { useCallback, useEffect, useState } from "react";
+
 import {
 	Field,
 	ProfileContent,
@@ -19,6 +20,7 @@ import { environments } from "@/utils/environments";
 import { getFormValues } from "@/helpers/getFormValues";
 import { AuthService, UserData } from "@/services/AuthService";
 import { useDispatch, useSelector } from "react-redux";
+
 
 const BASE_URL = environments.baseUrl + "/resources";
 
@@ -58,6 +60,7 @@ const Profile: Component = () => {
 			)
 		);
 	}, []);
+
 
 	useEffect(() => {
 		if (!user) {
