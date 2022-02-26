@@ -14,6 +14,7 @@ import { BoardService } from "@/services/BoardService";
 import { useDispatch, useSelector } from "react-redux";
 import { UserData } from "@/services/AuthService";
 import { loadBoardData } from "@/store/reducers/board";
+import { SoundKeys } from "@/models/Sounds";
 
 type CanvasSizeParams = {
 	width: number;
@@ -101,21 +102,25 @@ const Game: React.FC = () => {
 
 	const start = () => {
 		gameRef.current?.startGame();
+		gameRef.current?.playSound(SoundKeys.CardDistribution);
 		refreshGameStatus();
 	};
 
 	const takeCard = () => {
 		gameRef.current?.takeCard();
+		gameRef.current?.playSound(SoundKeys.GetCard);
 		refreshGameStatus();
 	};
 
 	const startOpponentGame = () => {
 		gameRef.current?.startOpponentGame();
+		gameRef.current?.playSound(SoundKeys.EnoughCard);
 		refreshGameStatus();
 	};
 
 	const restart = () => {
 		gameRef.current?.restart();
+		gameRef.current?.playSound(SoundKeys.CardDistribution);
 		refreshGameStatus();
 	};
 
