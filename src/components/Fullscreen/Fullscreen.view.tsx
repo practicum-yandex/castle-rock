@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { Component } from "@/utils/components";
+import { canUseDOM } from "@/utils/canUseDOM";
 
 import { Button, Img } from "./Fullscreen.styles";
 
@@ -18,14 +19,14 @@ const Fullscreen: Component = (props) => {
 		}
 	}
 
-	if (!document.documentElement.requestFullscreen) {
+	if (!canUseDOM || !document.documentElement.requestFullscreen) {
 		return null;
 	}
 
 	return (
 		<Button type="button" ref={buttonRef} onClick={toggleFullScreen} {...props}>
 			{!openStatus ? (
-				<Img src="./images/fullscreen.png" alt="fullscreen" />
+				<Img src="./static/images/fullscreen.png" alt="fullscreen" />
 			) : (
 				"X"
 			)}
