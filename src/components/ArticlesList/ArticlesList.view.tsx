@@ -6,40 +6,16 @@ import {
 	CustomTitle,
 	List,
 } from "./ArticlesList.styles";
+import { Article } from "@/pages/Forum/Forum.view";
 
-export interface Article {
-	id: number;
-	name: string;
-	desc: string;
-	content: unknown;
-}
+type Props = {
+	articles: Article[];
+};
 
-// Mock data
-const Articles: Article[] = [
-	{
-		id: 1,
-		name: "Some name",
-		desc: "Some description",
-		content: "...some content 1",
-	},
-	{
-		id: 2,
-		name: "Some name",
-		desc: "Some description",
-		content: "...some content 2",
-	},
-	{
-		id: 3,
-		name: "Some name",
-		desc: "Some description",
-		content: "...some content 3",
-	},
-];
-
-const ArticlesList: Component = (props) => {
+const ArticlesList: Component<Props> = (props) => {
 	return (
 		<List>
-			{Articles.map((theme) => (
+			{props.articles.map((theme) => (
 				<ThemeLink key={theme.id} to={"/forum/" + theme.id}>
 					<CustomTitle>{theme.name}</CustomTitle>
 					<Description>{theme.desc}</Description>
