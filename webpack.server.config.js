@@ -1,19 +1,17 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-	entry: "./src/index.tsx",
+	target: "node",
+	entry: "./src/server/index.tsx",
 	output: {
 		path: path.join(__dirname, "/dist"),
-		filename: "bundle.js",
+		filename: "server.js",
 		publicPath: "/",
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js"],
 		alias: {
 			"@": path.resolve(__dirname, "src"),
-			"react-dom": "@hot-loader/react-dom",
 		},
 	},
 	module: {
@@ -35,35 +33,10 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.mp3$/,
-				use: [
-					{
-						loader: "file-loader",
-					},
-				],
-			},
-			{
 				test: /\.tsx?$/,
 				use: "ts-loader",
 				exclude: /node_modules/,
 			},
 		],
 	},
-	devServer: {
-		port: 5000,
-		historyApiFallback: true,
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: "./public/index.html",
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: "src/static",
-					to: "static",
-				},
-			],
-		}),
-	],
 };

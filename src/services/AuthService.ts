@@ -1,6 +1,6 @@
+
+import { fullHttp, http } from "@/utils/http";
 import { redirectToYandexID } from "@/helpers/redirectToYandexID";
-import { http } from "@/utils/http";
-import { AxiosResponse } from "axios";
 
 export interface AuthResponse {
 	id: number;
@@ -63,7 +63,24 @@ export class AuthService {
 			.catch((err) => console.log(err));
 	}
 
-	static sendAuthCode(code: any): Promise<AxiosResponse> {
-		return http.post<void>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI });
+	static getServiceId(cb: (res: any) => void): void {
+		http
+			.get<any>(`/oauth/yandex/service-id?redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res.data))
+			.catch((err) => console.log(err));
+	}
+
+	static getOAuthCode(id: string, cb: (res: any) => void): void {
+		fullHttp
+			.get<any>(` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res))
+			.catch((err) => console.log(err));
+	}
+
+	static sendAuthCode(code: any, cb: () => void): void {
+		http
+			.post<any>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI })
+			.then(() => cb())
+			.catch((err) => console.log(err));
 	}
 }

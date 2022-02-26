@@ -1,3 +1,4 @@
+import { SoundKeys, Sounds } from "@/models/Sounds";
 import Card from "./Card";
 
 export type GameStatus = "start" | "game" | "win" | "lose" | "nobody";
@@ -56,6 +57,7 @@ export default class Game21 {
 	private _sprites: HTMLImageElement | undefined;
 	private _table: HTMLImageElement | undefined;
 	private _gameStatus: GameStatus = "start";
+	private _sounds: { [key: string]: HTMLAudioElement } = {};
 
 	constructor(
 		private _width: number,
@@ -64,39 +66,33 @@ export default class Game21 {
 		private _ctx: CanvasRenderingContext2D
 	) {}
 
-	init(): void {
-		this.setEvents();
-		this.setTextFont();
+	get gameStatus() {
+		return this._gameStatus;
 	}
 
-	setTextFont(): void {
-		this._ctx.font = "24px Arial";
-		this._ctx.fillStyle = "#fff";
+	public playSound(key: SoundKeys): void {
+		this._sounds[key].play();
 	}
 
-	setEvents(): void {
-		this._canvas.addEventListener("mousemove", (event: MouseEvent) => {
-			const cursorX = event.offsetX;
-			const cursorY = event.offsetY;
+	public start(): void {
+		this.init();
+		this.create();
 
-			this._canvas.style.cursor = "auto";
-
-			this._hand.forEach((card) => {
-				const cardCoordinates = card.coordinates;
-
-				if (
-					cardCoordinates.startX < cursorX &&
-					cardCoordinates.startY < cursorY &&
-					cardCoordinates.endX > cursorX &&
-					cardCoordinates.endY > cursorY
-				) {
-					this._canvas.style.cursor = "pointer";
-				}
-			});
+		this.preload(() => {
+			this.run();
 		});
 	}
 
-	takeCard(isUser = true): void {
+	public startGame() {
+		this._gameStatus = "game";
+		this.takeCard(false);
+		this.takeCard(false);
+		this.takeCard();
+		this.takeCard();
+		this.checkOpponentStartScore();
+	}
+
+	public takeCard(isUser = true): void {
 		const randomNumber = Math.floor(Math.random() * this._deck.length);
 		const hand = isUser ? this._hand : this._opponentHand;
 
@@ -126,46 +122,7 @@ export default class Game21 {
 		}
 	}
 
-	getScoreSum(hand: Hand) {
-		return hand
-			.map((card) => card.score)
-			.reduce((acc, score) => score + acc, 0);
-	}
-
-	checkUserScore() {
-		if (this.getScoreSum(this._hand) === 21) {
-			this.userWin();
-		} else if (this.getScoreSum(this._hand) > 21) {
-			this.userLose();
-		}
-	}
-
-	checkOpponentStartScore() {
-		if (
-			this.getScoreSum(this._opponentHand) === 21 &&
-			this.getScoreSum(this._hand) === 21
-		) {
-			this._gameStatus = "nobody";
-		} else if (this.getScoreSum(this._opponentHand) === 21) {
-			this.userLose();
-		} else if (this.getScoreSum(this._opponentHand) > 21) {
-			this.userWin();
-		}
-	}
-
-	userLose() {
-		this._gameStatus = "lose";
-	}
-
-	userWin() {
-		this._gameStatus = "win";
-	}
-
-	get gameStatus() {
-		return this._gameStatus;
-	}
-
-	startOpponentGame() {
+	public startOpponentGame() {
 		while (this.getScoreSum(this._opponentHand) < 17) {
 			this.takeCard(false);
 		}
@@ -184,23 +141,98 @@ export default class Game21 {
 		}
 	}
 
-	preload(cb: () => void) {
+	private init(): void {
+		this.setEvents();
+		this.setTextFont();
+	}
+
+	private setTextFont(): void {
+		this._ctx.font = "24px Arial";
+		this._ctx.fillStyle = "#fff";
+	}
+
+	private setEvents(): void {
+		this._canvas.addEventListener("mousemove", (event: MouseEvent) => {
+			const cursorX = event.offsetX;
+			const cursorY = event.offsetY;
+
+			this._canvas.style.cursor = "auto";
+
+			this._hand.forEach((card) => {
+				const cardCoordinates = card.coordinates;
+
+				if (
+					cardCoordinates.startX < cursorX &&
+					cardCoordinates.startY < cursorY &&
+					cardCoordinates.endX > cursorX &&
+					cardCoordinates.endY > cursorY
+				) {
+					this._canvas.style.cursor = "pointer";
+				}
+			});
+		});
+	}
+
+	private getScoreSum(hand: Hand) {
+		return hand
+			.map((card) => card.score)
+			.reduce((acc, score) => score + acc, 0);
+	}
+
+	private checkUserScore() {
+		if (this.getScoreSum(this._hand) === 21) {
+			this.userWin();
+		} else if (this.getScoreSum(this._hand) > 21) {
+			this.userLose();
+		}
+	}
+
+	private checkOpponentStartScore() {
+		if (
+			this.getScoreSum(this._opponentHand) === 21 &&
+			this.getScoreSum(this._hand) === 21
+		) {
+			this._gameStatus = "nobody";
+		} else if (this.getScoreSum(this._opponentHand) === 21) {
+			this.userLose();
+		} else if (this.getScoreSum(this._opponentHand) > 21) {
+			this.userWin();
+		}
+	}
+
+	private userLose() {
+		this._gameStatus = "lose";
+	}
+
+	private userWin() {
+		this._gameStatus = "win";
+	}
+
+	private preload(cb: () => void) {
 		this.preloadSprites(cb);
+		this.preloadAudio();
 		this.preloadTable();
 	}
 
-	preloadSprites(onResourceLoad: () => void): void {
+    private preloadAudio() {
+		Sounds.forEach((sound) => {
+			this._sounds[sound.key] = new Audio(sound.sound);
+			this._sounds[sound.key].volume = 0.5;
+		})
+    }
+
+	private preloadSprites(onResourceLoad: () => void): void {
 		this._sprites = new Image();
-		this._sprites.src = `./images/sprites.jpg`;
+		this._sprites.src = `./static/images/sprites.jpg`;
 		this._sprites.onload = onResourceLoad;
 	}
 
-	preloadTable(): void {
+	private preloadTable(): void {
 		this._table = new Image();
-		this._table.src = `./images/table-background.jpg`;
+		this._table.src = `./static/images/table-background.jpg`;
 	}
 
-	restart(): void {
+	public restart(): void {
 		this._hand = [];
 		this._opponentHand = [];
 		this._deck = [];
@@ -210,11 +242,11 @@ export default class Game21 {
 		this.startGame();
 	}
 
-	create(): void {
+	private create(): void {
 		this.createCards();
 	}
 
-	createCards(): void {
+	private createCards(): void {
 		let col = 0;
 		let row = 0;
 		const width = 225;
@@ -248,14 +280,14 @@ export default class Game21 {
 		}
 	}
 
-	render(): void {
+	private render(): void {
 		this.clearCanvas();
 		this.renderTable();
 		this.renderHand();
 		this.renderScores();
 	}
 
-	roundedImage(
+	private roundedImage(
 		x: number,
 		y: number,
 		width: number,
@@ -280,7 +312,7 @@ export default class Game21 {
 		this._ctx.closePath();
 	}
 
-	renderHand() {
+	private renderHand() {
 		const hand = this._hand.concat(this._opponentHand);
 
 		hand.forEach((card) => {
@@ -314,13 +346,13 @@ export default class Game21 {
 		});
 	}
 
-	renderTable() {
+	private renderTable() {
 		if (this._table) {
 			this._ctx.drawImage(this._table, 0, 0, this._width, this._height);
 		}
 	}
 
-	renderScores() {
+	private renderScores() {
 		if (this._height) {
 			this._ctx.fillText(
 				this.getScoreSum(this._opponentHand).toString(),
@@ -336,34 +368,16 @@ export default class Game21 {
 		}
 	}
 
-	clearCanvas(): void {
+	private clearCanvas(): void {
 		this._ctx.clearRect(0, 0, this._width, this._height);
 	}
 
-	run(): void {
+	private run(): void {
 		if (this._launched) {
 			window.requestAnimationFrame(() => {
 				this.render();
 				this.run();
 			});
 		}
-	}
-
-	start(): void {
-		this.init();
-		this.create();
-
-		this.preload(() => {
-			this.run();
-		});
-	}
-
-	startGame() {
-		this._gameStatus = "game";
-		this.takeCard(false);
-		this.takeCard(false);
-		this.takeCard();
-		this.takeCard();
-		this.checkOpponentStartScore();
 	}
 }
