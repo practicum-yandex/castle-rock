@@ -214,12 +214,12 @@ export default class Game21 {
 		this.preloadTable();
 	}
 
-    private preloadAudio() {
+	private preloadAudio() {
 		Sounds.forEach((sound) => {
 			this._sounds[sound.key] = new Audio(sound.sound);
 			this._sounds[sound.key].volume = 0.5;
-		})
-    }
+		});
+	}
 
 	private preloadSprites(onResourceLoad: () => void): void {
 		this._sprites = new Image();

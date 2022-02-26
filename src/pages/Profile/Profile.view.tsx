@@ -21,7 +21,6 @@ import { getFormValues } from "@/helpers/getFormValues";
 import { AuthService, UserData } from "@/services/AuthService";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const BASE_URL = environments.baseUrl + "/resources";
 
 const getFields = (user?: UserData) => {
@@ -60,7 +59,6 @@ const Profile: Component = () => {
 			)
 		);
 	}, []);
-
 
 	useEffect(() => {
 		if (!user) {

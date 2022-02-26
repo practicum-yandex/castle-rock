@@ -4,5 +4,5 @@ import { userReducer } from "./user";
 
 export default combineReducers({
 	user: userReducer,
-	board: boardReducer
+	board: boardReducer,
 });

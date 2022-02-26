@@ -51,23 +51,28 @@ const Game: React.FC = () => {
 	const user = useSelector<any, UserData>((state) => state.user.item);
 
 	const addMember = () => {
-		BoardService.updateMemberData({
-			data: { user: user.display_name, score21Uniq: score },
-			ratingFieldName: 'score21Uniq',
-			teamName: user.display_name
-		}, () => {
-			dispatch(loadBoardData({
-				cursor: 0,
-				limit: 1000,
-				ratingFieldName: 'score21Uniq'
-			}));
-		})
-	}
+		BoardService.updateMemberData(
+			{
+				data: { user: user.display_name, score21Uniq: score },
+				ratingFieldName: "score21Uniq",
+				teamName: user.display_name,
+			},
+			() => {
+				dispatch(
+					loadBoardData({
+						cursor: 0,
+						limit: 1000,
+						ratingFieldName: "score21Uniq",
+					})
+				);
+			}
+		);
+	};
 
 	const refreshGameStatus = () => {
 		const gameStatus = gameRef.current?.gameStatus;
 
-		console.log(gameStatus, score)
+		console.log(gameStatus, score);
 
 		if (gameStatus === "win") {
 			setScore((prev: number) => ++prev);

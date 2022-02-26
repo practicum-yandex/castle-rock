@@ -1,4 +1,3 @@
-
 import { fullHttp, http } from "@/utils/http";
 import { redirectToYandexID } from "@/helpers/redirectToYandexID";
 
@@ -35,9 +34,7 @@ const REDIRECT_URI = location.origin;
 
 export class AuthService {
 	static signin(data: SigninBody): Promise<string> {
-		return http
-			.post<string>("/auth/signin", data)
-			.then((res) => res.data);
+		return http.post<string>("/auth/signin", data).then((res) => res.data);
 	}
 
 	static signup(data: SignupBody): Promise<AuthResponse> {
@@ -51,9 +48,7 @@ export class AuthService {
 	}
 
 	static getUser(): Promise<UserData> {
-		return http
-			.get<UserData>("/auth/user")
-			.then((res) => res.data);
+		return http.get<UserData>("/auth/user").then((res) => res.data);
 	}
 
 	static getAuthorizationCode(): Promise<any> {
@@ -72,14 +67,16 @@ export class AuthService {
 
 	static getOAuthCode(id: string, cb: (res: any) => void): void {
 		fullHttp
-			.get<any>(` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`)
+			.get<any>(
+				` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`
+			)
 			.then((res) => cb(res))
 			.catch((err) => console.log(err));
 	}
 
 	static sendAuthCode(code: any, cb: () => void): void {
 		http
-			.post<any>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI })
+			.post<any>("/oauth/yandex", { code, redirect_uri: REDIRECT_URI })
 			.then(() => cb())
 			.catch((err) => console.log(err));
 	}

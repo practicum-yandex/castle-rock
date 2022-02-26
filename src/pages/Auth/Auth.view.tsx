@@ -19,8 +19,7 @@ const Auth: React.FC = () => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		AuthService
-			.signup(getFormValues(formEl))
+		AuthService.signup(getFormValues(formEl))
 			.then(() => navigate("/", { replace: true }))
 			.catch((err) => console.log(err));
 	}, []);
@@ -29,8 +28,7 @@ const Auth: React.FC = () => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		AuthService
-			.signin(getFormValues(formEl))
+		AuthService.signin(getFormValues(formEl))
 			.then(() => navigate("/", { replace: true }))
 			.catch((err) => console.log(err));
 	}, []);

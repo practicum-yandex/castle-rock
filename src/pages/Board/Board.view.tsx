@@ -19,17 +19,20 @@ const renderLeader = (data: BoardMemberData, index: number) => {
 
 const Board: React.FC = () => {
 	const dispatch = useDispatch();
-	const boardList = useSelector<any, BoardMemberData[]>((state) => state.board.item) || [];
+	const boardList =
+		useSelector<any, BoardMemberData[]>((state) => state.board.item) || [];
 
 	useEffect(() => {
 		if (boardList.length === 0) {
-			dispatch(loadBoardData({
-				cursor: 0,
-				limit: 1000,
-				ratingFieldName: 'score21Uniq'
-			}))
+			dispatch(
+				loadBoardData({
+					cursor: 0,
+					limit: 1000,
+					ratingFieldName: "score21Uniq",
+				})
+			);
 		}
-	}, [boardList])
+	}, [boardList]);
 
 	return (
 		<>
@@ -50,7 +53,7 @@ const Board: React.FC = () => {
 				</Body>
 			</Table>
 		</>
-	)
+	);
 };
 
 export default Board;

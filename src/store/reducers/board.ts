@@ -1,5 +1,9 @@
 import { Dispatch } from "redux";
-import { BoardMemberData, BoardRequest, BoardService } from "@/services/BoardService";
+import {
+	BoardMemberData,
+	BoardRequest,
+	BoardService,
+} from "@/services/BoardService";
 
 type Nullable<T> = T | null;
 type LoadStatus = "success" | "pending" | "failed";
@@ -71,13 +75,14 @@ export function loadPending(): BaseActionType<ACTIONS> {
 	return { type: ACTIONS.Pending };
 }
 
-export function loadBoardData(requestBody: BoardRequest): (d: Dispatch) => void  {
+export function loadBoardData(
+	requestBody: BoardRequest
+): (d: Dispatch) => void {
 	return (dp: Dispatch): void => {
-		BoardService
-			.getBoard(requestBody)
+		BoardService.getBoard(requestBody)
 			.then((data) => {
 				dp({ type: ACTIONS.SetBoardItem, item: data });
 			})
 			.catch((err) => console.log(err));
-	}
+	};
 }
