@@ -12,13 +12,10 @@ export class UserService {
 		data: ChangePasswordRequest,
 		cb: () => void
 	): (d: any) => void {
-		return (dispatch: any): void => {
+		return (): void => {
 			http
 				.put<string>("/user/password", data)
-				.then(() => {
-					// dispatch(); // не понятно зачем он тут нужен
-					cb();
-				})
+				.then(() => cb())
 				.catch((err) => console.log(err));
 		};
 	}

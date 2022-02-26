@@ -10,6 +10,10 @@ import {
 } from "./Game.styles";
 import Game21, { GameStatus } from "./Game21";
 import Title from "@/share/Title";
+import { BoardService } from "@/services/BoardService";
+import { useDispatch, useSelector } from "react-redux";
+import { UserData } from "@/services/AuthService";
+import { loadBoardData } from "@/store/reducers/board";
 import { SoundKeys } from "@/models/Sounds";
 
 type CanvasSizeParams = {
@@ -37,15 +41,43 @@ const Game: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const canvasWrapRef = useRef<HTMLDivElement>(null);
 	const gameRef = useRef<Game21>();
-
+	const dispatch = useDispatch();
+	const [score, setScore] = useState<number>(0);
 	const [gameStatus, setGameStatus] = useState<GameStatus>();
 	const [canvasSizeParams, setCanvasSizeParams] = useState({
 		width: 0,
 		height: 0,
 	});
+	const user = useSelector<any, UserData>((state) => state.user.item);
+
+	const addMember = () => {
+		BoardService.updateMemberData({
+			data: { user: user.display_name, score21Uniq: score },
+			ratingFieldName: 'score21Uniq',
+			teamName: user.display_name
+		}, () => {
+			dispatch(loadBoardData({
+				cursor: 0,
+				limit: 1000,
+				ratingFieldName: 'score21Uniq'
+			}));
+		})
+	}
 
 	const refreshGameStatus = () => {
-		setGameStatus(gameRef.current?.gameStatus);
+		const gameStatus = gameRef.current?.gameStatus;
+
+		console.log(gameStatus, score)
+
+		if (gameStatus === "win") {
+			setScore((prev: number) => ++prev);
+		}
+
+		if (gameStatus === "lose") {
+			addMember();
+		}
+
+		setGameStatus(gameStatus);
 	};
 
 	useEffect(() => {

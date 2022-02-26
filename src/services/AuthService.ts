@@ -1,5 +1,5 @@
 import { setUser } from "@/store/reducers/user";
-import { http } from "@/utils/http";
+import { fullHttp, http } from "@/utils/http";
 
 export interface AuthResponse {
 	id: number;
@@ -30,15 +30,14 @@ export interface UserData {
 	avatar: string;
 }
 
+const REDIRECT_URI = location.origin
+
 export class AuthService {
 	static signin(data: SigninBody, cb: () => void): (d: any) => void {
 		return (dispatch: any): void => {
 			http
 				.post<string>("/auth/signin", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
+				.then(() => cb())
 				.catch((err) => console.log(err));
 		};
 	}
@@ -47,10 +46,7 @@ export class AuthService {
 		return (dispatch: any): void => {
 			http
 				.post<AuthResponse>("/auth/signup", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
+				.then(() => cb())
 				.catch((err) => console.log(err));
 		};
 	}
@@ -67,6 +63,27 @@ export class AuthService {
 	static logout(cb: () => void): void {
 		http
 			.post<void>("/auth/logout")
+			.then(() => cb())
+			.catch((err) => console.log(err));
+	}
+
+	static getServiceId(cb: (res: any) => void): void {
+		http
+			.get<any>(`/oauth/yandex/service-id?redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res.data))
+			.catch((err) => console.log(err));
+	}
+
+	static getOAuthCode(id: string, cb: (res: any) => void): void {
+		fullHttp
+			.get<any>(` https://oauth.yandex.ru/authorize?response_type=code&client_id=${id}&redirect_uri=${REDIRECT_URI}`)
+			.then((res) => cb(res))
+			.catch((err) => console.log(err));
+	}
+
+	static sendAuthCode(code: any, cb: () => void): void {
+		http
+			.post<any>('/oauth/yandex', { code, redirect_uri: REDIRECT_URI })
 			.then(() => cb())
 			.catch((err) => console.log(err));
 	}
