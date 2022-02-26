@@ -1,5 +1,5 @@
 const CACHE_NAME = "cr-cache-v1";
-const CACHE_URLS = ["/bundle.js", "/index.html", "/images/sprites.jpg"];
+const CACHE_URLS = ["/bundle.js", "/index.html", "/static/images/sprites.jpg"];
 
 this.addEventListener("install", (event) => {
 	console.log("install");

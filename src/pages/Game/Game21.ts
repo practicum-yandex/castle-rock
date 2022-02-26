@@ -191,13 +191,13 @@ export default class Game21 {
 
 	preloadSprites(onResourceLoad: () => void): void {
 		this._sprites = new Image();
-		this._sprites.src = `./images/sprites.jpg`;
+		this._sprites.src = `./static/images/sprites.jpg`;
 		this._sprites.onload = onResourceLoad;
 	}
 
 	preloadTable(): void {
 		this._table = new Image();
-		this._table.src = `./images/table-background.jpg`;
+		this._table.src = `./static/images/table-background.jpg`;
 	}
 
 	restart(): void {
