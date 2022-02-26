@@ -1,5 +1,5 @@
 import { Component } from "@/utils/components";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import {
 	Field,
@@ -18,7 +18,7 @@ import { FIELDS } from "@/models/ProfileFields";
 import { UserService } from "@/services/UserService";
 import { environments } from "@/utils/environments";
 import { getFormValues } from "@/helpers/getFormValues";
-import { AuthService, UserData } from "@/services/AuthService";
+import { UserData } from "@/services/AuthService";
 import { useDispatch, useSelector } from "react-redux";
 
 const BASE_URL = environments.baseUrl + "/resources";
@@ -58,12 +58,6 @@ const Profile: Component = () => {
 				setModalVisibility(false)
 			)
 		);
-	}, []);
-
-	useEffect(() => {
-		if (!user) {
-			dispatch(AuthService.getUser());
-		}
 	}, []);
 
 	return (
