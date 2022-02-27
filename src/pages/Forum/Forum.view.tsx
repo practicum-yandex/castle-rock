@@ -1,19 +1,15 @@
-import React, { FormEvent, MouseEvent, useState } from "react";
+import React, { FormEvent, MouseEvent, useCallback, useState } from "react";
 import { Outlet, useMatch } from "react-router-dom";
 import ArticlesList from "@/components/ArticlesList";
 import { CustomButtom, Section } from "./Forum.styles";
 import CreateThemeForm from "@/components/CreateThemeForm";
 import { getFormValues } from "@/helpers/getFormValues";
-
-export interface Article {
-	id: number;
-	name: string;
-	desc: string;
-	content: unknown;
-}
+import Comments from "@/components/Comments";
+import { IComment } from "@/components/Comments/Comments.view";
+import { IArticle } from "@/components/ArticlesList/ArticlesList.view";
 
 // Mock data
-export const Articles: Article[] = [
+const ARTICLES: IArticle[] = [
 	{
 		id: 1,
 		name: "Some name",
@@ -34,9 +30,34 @@ export const Articles: Article[] = [
 	},
 ];
 
+// Mock data
+const COMMENTS: IComment[] = [
+	{
+		id: 1,
+		author: 'First Second',
+		date: '1 марта 2020',
+	    comment: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugiat deleniti quod cupiditate officia odio id dolorem cum quos fuga, aspernatur, placeat et aperiam, dolores qui rerum totam! Cum, recusandae nostrum!'
+	},
+	{
+		id: 2,
+		author: 'First Second',
+		date: '1 марта 2020',
+	    comment: 'Fugiat deleniti quod cupiditate officia odio id dolorem cum quos fuga, aspernatur, placeat et aperiam, dolores qui rerum totam! Cum, recusandae nostrum!'
+	},
+	{
+		id: 3,
+		author: 'First Second',
+		date: '1 марта 20202',
+	    comment: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.'
+	}
+];
+
 const Forum: React.FC = () => {
-	const buttonIsVisible = !!useMatch("/forum");
+	const isMainPage = !!useMatch("/forum");
 	const [formIsVisible, toggleFormVisibality] = useState<boolean>(false);
+
+	const [articles, setArticles] = useState<IArticle[]>(ARTICLES);
+	const [comments, setComment] = useState<IComment[]>(COMMENTS);
 
 	const toggleForm = (event: MouseEvent | FormEvent): void => {
 		if (event.target === event.currentTarget) {
@@ -44,27 +65,43 @@ const Forum: React.FC = () => {
 		}
 	};
 
-	const publishTheme = (event: FormEvent): void => {
+	const publishTheme = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const form =  event.target as HTMLFormElement;
 		const value = getFormValues(form);
-
-		Articles.push({
+		const newArticle = {
 			id: Math.random() * 100,
 			...value
-		} as Article);
+		} as IArticle;
 
+		form.reset();
+		setArticles((prev) => [...prev, newArticle]);
 		toggleForm(event);
-	};
+	}, [articles]);
+
+	const sendComment = useCallback((event: FormEvent): void => {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const value = getFormValues(form);
+		const newComment = {
+			id: Math.random() * 100,
+			author: 'First Second',
+			date: new Date().toLocaleDateString(),
+			...value
+		} as IComment;
+
+		form.reset();
+		setComment((prev) => [...prev, newComment]);
+	}, [comments]);
 
 	return (
 		<>
 			<Section>
-				<ArticlesList articles={Articles}/>
+				{isMainPage ? <ArticlesList articles={articles}/> : <Comments { ...{sendComment, comments} } />}
 				<Outlet />
 			</Section>
 			{formIsVisible && <CreateThemeForm onSubmit={publishTheme} close={toggleForm}/>}
-			{buttonIsVisible && <CustomButtom onClick={toggleForm}>Создать тему</CustomButtom>}
+			{isMainPage && <CustomButtom onClick={toggleForm}>Создать тему</CustomButtom>}
 		</>
 	);
 };

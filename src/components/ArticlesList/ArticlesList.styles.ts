@@ -4,14 +4,14 @@ import styled from "styled-components";
 
 export const List = styled.section`
 	${({ theme }) => `
-		width: max-content;
+		width: 100%;
 		height: 100%;
 	`}
 `;
 
 export const ThemeLink = styled(Link)`
 	${({ theme }) => `
-		width: 300px;
+		width: 100%;
 		height: 70px;
 		padding: ${theme.spacing(1)};
 		margin-bottom: ${theme.spacing(2)};

@@ -6,10 +6,16 @@ import {
 	CustomTitle,
 	List,
 } from "./ArticlesList.styles";
-import { Article } from "@/pages/Forum/Forum.view";
+
+export interface IArticle {
+	id: number;
+	name: string;
+	desc: string;
+	content: unknown;
+}
 
 type Props = {
-	articles: Article[];
+	articles: IArticle[];
 };
 
 const ArticlesList: Component<Props> = (props) => {

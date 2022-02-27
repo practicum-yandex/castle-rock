@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "@/utils/components";
-import { Textarea, Content, Section } from "./Article.styles";
+import { Content, Section } from "./Article.styles";
 import Title from "@/share/Title";
 
 const Article: Component = (props) => {
@@ -22,7 +22,6 @@ const Article: Component = (props) => {
 				fuga a adipisci necessitatibus rerum, ab corporis optio facere, dolorem
 				deleniti hic.
 			</Content>
-			<Textarea />
 		</Section>
 	);
 };
