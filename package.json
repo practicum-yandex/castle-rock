@@ -4,6 +4,7 @@
   "description": "",
   "main": "./src/index.tsx",
   "scripts": {
+    "start": "npm run build && npm run start:server",
     "start:server": "node ./dist/server.js",
     "dev": "webpack-dev-server --mode development --open --hot",
     "build": "npm run build:client && npm run build:server",
