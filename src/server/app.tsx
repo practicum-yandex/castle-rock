@@ -7,7 +7,7 @@ import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 
 import configureStore from "@/store/store";
-import { theme } from "@/utils/theme";
+import { darkTheme } from "@/utils/theme";
 import App from "@/pages/App";
 
 import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
@@ -30,7 +30,7 @@ app.get("*", (req: Request, res: Response) => {
 	const appContentHTML = renderToString(
 		<StaticRouter location={req.url}>
 			<Provider store={store}>
-				<ThemeProvider theme={theme}>
+				<ThemeProvider theme={darkTheme}>
 					<App />
 				</ThemeProvider>
 			</Provider>

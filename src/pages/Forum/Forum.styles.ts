@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Button from "@/share/Button";
-import Layout from "@/share/Layout";
 
 export const Section = styled.section`
 	${({ theme }) => `
@@ -14,14 +13,5 @@ export const Section = styled.section`
 `;
 
 export const CustomButtom = styled(Button)`
-	${({ theme }) => `
-        width: 100%;
-    `}
-`;
-
-export const CustomLayout = styled(Layout)`
-	${({ theme }) => `
-        align-items: center;
-        justify-content: space-between;
-    `}
+	width: 100%;
 `;

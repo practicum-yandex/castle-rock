@@ -6,5 +6,7 @@ export const CustomLayout = styled.div`
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
+		background-color: ${theme.background};
+		color: ${theme.fontColor};
 	`}
 `;
