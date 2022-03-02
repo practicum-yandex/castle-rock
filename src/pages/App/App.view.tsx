@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { hot } from "react-hot-loader/root";
+import { Dispatch } from "redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Layout from "@/share/Layout";
@@ -17,14 +19,15 @@ import Article from "@/components/Article";
 import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
 import { Title, Nav, Header } from "./App.styles";
-import { useDispatch, useSelector } from "react-redux";
 import { AuthService, UserData } from "@/services/AuthService";
-import { Dispatch } from "redux";
 import { setUser } from "@/store/reducers/user";
+import { canUseDOM } from "@/utils/canUseDOM";
 
-const params: any = new Proxy(new URLSearchParams(window.location.search), {
-	get: (searchParams, prop) => searchParams.get(prop as any)
-});
+const params: any = canUseDOM
+	? new Proxy(new URLSearchParams(window.location.search), {
+			get: (searchParams, prop) => searchParams.get(prop as any),
+	  })
+	: null;
 
 const App: React.FC = () => {
 	const dispatch = useDispatch();
@@ -32,7 +35,7 @@ const App: React.FC = () => {
 	const user = useSelector<any, UserData>((state) => state.user.item);
 
 	useEffect(() => {
-		const code = params.code;
+		const code = params?.code || "";
 		if (!user) {
 			AuthService.getUser()
 				.then((user) => dispatch((dp: Dispatch) => dp(setUser(user))))
@@ -43,11 +46,11 @@ const App: React.FC = () => {
 							.then((user) => dispatch((dp: Dispatch) => dp(setUser(user))))
 							.catch((err) => console.log(err));
 					} else {
-						navigate('/auth/login', { replace: true });
+						navigate("/auth/login", { replace: true });
 					}
-				})
+				});
 		}
-	}, [])
+	}, []);
 
 	return (
 		<Layout>
@@ -100,6 +103,6 @@ const App: React.FC = () => {
 			</Routes>
 		</Layout>
 	);
-}
+};
 
 export default hot(App);
