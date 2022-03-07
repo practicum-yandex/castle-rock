@@ -3,7 +3,7 @@ import { Comment } from "../../models/Comment";
 import { Request, Response } from "express";
 import validation from "./validation";
 
-export const store = [
+export const create = [
     ...validation,
     async (req: Request, res: Response) => {
         try {

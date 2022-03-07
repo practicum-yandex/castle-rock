@@ -1,1 +1,1 @@
-export { show, createOrUpdateUser } from "./user";
+export { find, createOrUpdate } from "./user";

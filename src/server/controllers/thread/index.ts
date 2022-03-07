@@ -1,1 +1,1 @@
-export { index, store, show, update, destroy } from "./thread";
+export { get, create, find, update, destroy } from "./thread";

@@ -3,7 +3,7 @@ import { Thread } from "../../models/Thread";
 import { Request, Response } from "express";
 import validation from "./validation";
 
-export const index = async (req: Request, res: Response) => {
+export const get = async (req: Request, res: Response) => {
     try {
         const threads = await Thread.scope("withComments").findAll();
         res.status(StatusCodes.OK).json(threads);
@@ -12,7 +12,7 @@ export const index = async (req: Request, res: Response) => {
     }
 };
 
-export const store = [
+export const create = [
     ...validation,
     async (req: Request, res: Response) => {
         try {
@@ -24,7 +24,7 @@ export const store = [
     },
 ];
 
-export const show = async (req: Request, res: Response) => {
+export const find = async (req: Request, res: Response) => {
     try {
         const thread = await Thread.scope("withComments").findByPk(req.params.id);
         res.json(thread);

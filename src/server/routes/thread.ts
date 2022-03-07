@@ -3,11 +3,11 @@ import * as threadController from "../controllers/thread";
 
 export const threads = Router();
 
-threads.get("/", threadController.index);
+threads.get("/", threadController.get);
 
-threads.post("/", threadController.store);
+threads.post("/", threadController.create);
 
-threads.get("/:id", threadController.show);
+threads.get("/:id", threadController.find);
 
 threads.put("/:id", threadController.update);
 

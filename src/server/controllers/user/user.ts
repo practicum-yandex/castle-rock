@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { User } from "../../models/User";
 
-export const show = async (req: Request, res: Response) => {
+export const find = async (req: Request, res: Response) => {
     try {
         const user = await User.findByPk(req.params.userId);
         res.status(StatusCodes.OK).json(user);
@@ -11,7 +11,7 @@ export const show = async (req: Request, res: Response) => {
     }
 };
 
-export const createOrUpdateUser = async (req: Request, res: Response) => {
+export const createOrUpdate = async (req: Request, res: Response) => {
     try {
         const { id } = req.body;
         let user = await User.findByPk(id);
