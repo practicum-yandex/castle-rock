@@ -1,5 +1,6 @@
 import { Component } from "@/utils/components";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
+
 import {
 	Field,
 	ProfileContent,
@@ -17,8 +18,8 @@ import { FIELDS } from "@/models/ProfileFields";
 import { UserService } from "@/services/UserService";
 import { environments } from "@/utils/environments";
 import { getFormValues } from "@/helpers/getFormValues";
-import { AuthService, UserData } from "@/services/AuthService";
-import { ReactReduxContext, useDispatch } from "react-redux";
+import { UserData } from "@/services/AuthService";
+import { useDispatch, useSelector } from "react-redux";
 
 const BASE_URL = environments.baseUrl + "/resources";
 
@@ -33,9 +34,8 @@ const getFields = (user?: UserData) => {
 
 const Profile: Component = () => {
 	const dispatch = useDispatch();
-	const { store } = useContext(ReactReduxContext);
+	const user = useSelector<any, UserData>((state) => state.user.item);
 	const [modalIsVisible, setModalVisibility] = useState<boolean>(false);
-	const user = store.getState().user.item; // не сразу обновляется
 
 	function close(event: React.MouseEvent): void {
 		if (event.target === event.currentTarget) {
@@ -58,10 +58,6 @@ const Profile: Component = () => {
 				setModalVisibility(false)
 			)
 		);
-	}, []);
-
-	useEffect(() => {
-		dispatch(AuthService.getUser());
 	}, []);
 
 	return (

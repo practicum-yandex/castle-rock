@@ -1,5 +1,5 @@
-import { setUser } from "@/store/reducers/user";
-import { http } from "@/utils/http";
+import {  http } from "@/utils/http";
+import { redirectToYandexID } from "@/helpers/redirectToYandexID";
 
 export interface AuthResponse {
 	id: number;
@@ -30,44 +30,35 @@ export interface UserData {
 	avatar: string;
 }
 
+const REDIRECT_URI = location.origin;
+
 export class AuthService {
-	static signin(data: SigninBody, cb: () => void): (d: any) => void {
-		return (dispatch: any): void => {
-			http
-				.post<string>("/auth/signin", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
-				.catch((err) => console.log(err));
-		};
+	static signin(data: SigninBody): Promise<string> {
+		return http.post<string>("/auth/signin", data).then((res) => res.data);
 	}
 
-	static signup(data: SignupBody, cb: () => void): (d: any) => void {
-		return (dispatch: any): void => {
-			http
-				.post<AuthResponse>("/auth/signup", data)
-				.then(() => {
-					// dispatch(); // зачем вообще это делать через thunk, если у нас ничего ценного не приходит?
-					cb();
-				})
-				.catch((err) => console.log(err));
-		};
+	static signup(data: SignupBody): Promise<AuthResponse> {
+		return http
+			.post<AuthResponse>("/auth/signup", data)
+			.then((res) => res.data);
 	}
 
-	static getUser(): (d: any) => void {
-		return (dispatch: any): void => {
-			http
-				.get<UserData>("/auth/user")
-				.then((res) => dispatch(setUser(res.data)))
-				.catch((err) => console.log(err));
-		};
+	static logout(): Promise<void> {
+		return http.post<void>("/auth/logout").then();
 	}
 
-	static logout(cb: () => void): void {
-		http
-			.post<void>("/auth/logout")
-			.then(() => cb())
+	static getUser(): Promise<UserData> {
+		return http.get<UserData>("/auth/user").then((res) => res.data);
+	}
+
+	static getAuthorizationCode(): Promise<any> {
+		return http
+			.get<any>(`/oauth/yandex/service-id?redirect_uri=${REDIRECT_URI}`)
+			.then((res) => redirectToYandexID(res.data.service_id))
 			.catch((err) => console.log(err));
+	}
+
+	static sendAuthCode(code: any): Promise<any> {
+		return http.post<any>("/oauth/yandex", { code, redirect_uri: REDIRECT_URI });
 	}
 }

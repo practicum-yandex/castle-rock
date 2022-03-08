@@ -5,7 +5,6 @@ import Login from "@/components/Login";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormValues } from "@/helpers/getFormValues";
 import { AuthService } from "@/services/AuthService";
-import { useDispatch } from "react-redux";
 
 enum AUTH_ID {
 	Login = "login",
@@ -15,28 +14,23 @@ enum AUTH_ID {
 const Auth: React.FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const signup = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		dispatch(
-			AuthService.signup(getFormValues(formEl), () =>
-				navigate("/", { replace: true })
-			)
-		);
+		AuthService.signup(getFormValues(formEl))
+			.then(() => navigate("/", { replace: true }))
+			.catch((err) => console.log(err));
 	}, []);
 
 	const signin = useCallback((event: FormEvent): void => {
 		event.preventDefault();
 		const formEl = event.target as HTMLFormElement;
 
-		dispatch(
-			AuthService.signin(getFormValues(formEl), () =>
-				navigate("/", { replace: true })
-			)
-		);
+		AuthService.signin(getFormValues(formEl))
+			.then(() => navigate("/", { replace: true }))
+			.catch((err) => console.log(err));
 	}, []);
 
 	return (

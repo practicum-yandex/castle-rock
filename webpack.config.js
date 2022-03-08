@@ -35,6 +35,14 @@ module.exports = {
 				],
 			},
 			{
+				test: /\.mp3$/,
+				use: [
+					{
+						loader: "file-loader",
+					},
+				],
+			},
+			{
 				test: /\.tsx?$/,
 				use: "ts-loader",
 				exclude: /node_modules/,
@@ -42,6 +50,7 @@ module.exports = {
 		],
 	},
 	devServer: {
+		port: 5000,
 		historyApiFallback: true,
 	},
 	plugins: [
