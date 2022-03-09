@@ -2,22 +2,22 @@ import pg, { Client } from "pg";
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 import { userModel } from "@/models/user";
 
+import {
+	createUser,
+	getUsersByFirstName,
+	updateUserById,
+	getUserById,
+} from "./user";
+
 const client = new Client({
 	user: "postgres",
 	host: "localhost",
 	database: "db-game",
 	password: "newPassword",
 	port: 5432,
-	connectionString: "postgres://postgres:newPassword@postgres:5432/db-game",
 });
 
-client.connect(function (err) {
-	if (err) {
-		console.log(err);
-	} else {
-		console.log("Connected!");
-	}
-});
+client.connect();
 
 client
 	.query(`SELECT NOW()`)
@@ -44,7 +44,7 @@ const sequelize = new Sequelize(sequelizeOptions);
 // Инициализируем модели
 export const User = sequelize.define("User", userModel, {});
 
-export async function dbConnect() {
+async function dbConnect() {
 	try {
 		await sequelize.authenticate(); // Проверка аутентификации в БД
 		await sequelize.sync(); // Синхронизация базы данных
@@ -53,3 +53,43 @@ export async function dbConnect() {
 		console.error("Unable to connect to the database:", error);
 	}
 }
+
+function startApp() {
+	dbConnect().then(async () => {
+		// Тест работы БД (удалить в дальнейшем)
+		// Создаем нового пользователя
+		await createUser({
+			first_name: "Alex",
+			second_name: "Ivanov",
+			login: "login",
+			email: "mail@mail.ru",
+			phone: "77777",
+		});
+		// Получаем пользователей с именем Alex
+		const users = await getUsersByFirstName("Alex");
+
+		// Проверяем, найдены ли пользователи
+		if (!users.length) {
+			throw "Not found";
+		}
+
+		// Получаем id первого пользователя
+		const { id } = users[0];
+
+		// Обновляем пользователя по ID
+		await updateUserById(id, {
+			first_name: "Ivan",
+			second_name: "Ivanov",
+			login: "login2",
+			email: "mail@mail.ru",
+			phone: "8888",
+		});
+
+		// Ищем обновленного пользователя по id
+		const findedUser = await getUserById(id);
+		// Выводим в консоль найденного пользователя
+		console.log("Finded user: ", findedUser);
+	});
+}
+
+startApp();
