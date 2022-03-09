@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import pg, { Client } from "pg";
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 import { userModel } from "@/models/user";
 
@@ -8,12 +8,19 @@ const client = new Client({
 	database: "db-game",
 	password: "newPassword",
 	port: 5432,
+	connectionString: "postgres://postgres:newPassword@postgres:5432/db-game",
 });
 
-client.connect();
+client.connect(function (err) {
+	if (err) {
+		console.log(err);
+	} else {
+		console.log("Connected!");
+	}
+});
 
 client
-	.query("SELECT NOW()")
+	.query(`SELECT NOW()`)
 	.then((res) => {
 		console.log(res.rows);
 		client.end();
@@ -29,6 +36,7 @@ const sequelizeOptions: SequelizeOptions = {
 	password: "newPassword",
 	database: "db-game",
 	dialect: "postgres",
+	dialectModule: pg,
 };
 
 const sequelize = new Sequelize(sequelizeOptions);
