@@ -1,7 +1,3 @@
-import getCardSound from "../static/sounds/getCard.mp3";
-import enoughCardSound from "../static/sounds/enoughCard.mp3";
-import cardDistributionSound from "../static/sounds/cardDistribution.mp3";
-
 export enum SoundKeys {
 	GetCard = "getCard",
 	EnoughCard = "enoughCard",
@@ -16,14 +12,14 @@ export type Sound = {
 export const Sounds: Sound[] = [
 	{
 		key: SoundKeys.GetCard,
-		sound: getCardSound,
+		sound: "./static/sounds/getCard.mp3",
 	},
 	{
 		key: SoundKeys.EnoughCard,
-		sound: enoughCardSound,
+		sound: "./static/sounds/enoughCard.mp3",
 	},
 	{
 		key: SoundKeys.CardDistribution,
-		sound: cardDistributionSound,
+		sound: "./static/sounds/cardDistribution.mp3",
 	},
 ];

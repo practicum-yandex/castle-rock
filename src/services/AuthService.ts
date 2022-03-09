@@ -1,5 +1,6 @@
-import {  http } from "@/utils/http";
+import { http } from "@/utils/http";
 import { redirectToYandexID } from "@/helpers/redirectToYandexID";
+import { canUseDOM } from "@/utils/canUseDOM";
 
 export interface AuthResponse {
 	id: number;
@@ -30,7 +31,7 @@ export interface UserData {
 	avatar: string;
 }
 
-const REDIRECT_URI = location.origin;
+const REDIRECT_URI = canUseDOM ? window.location.origin : "";
 
 export class AuthService {
 	static signin(data: SigninBody): Promise<string> {
@@ -59,6 +60,9 @@ export class AuthService {
 	}
 
 	static sendAuthCode(code: any): Promise<any> {
-		return http.post<any>("/oauth/yandex", { code, redirect_uri: REDIRECT_URI });
+		return http.post<any>("/oauth/yandex", {
+			code,
+			redirect_uri: REDIRECT_URI,
+		});
 	}
 }

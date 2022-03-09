@@ -5,3 +5,5 @@ declare global {
 		__PRELOADED_STATE__?: object;
 	}
 }
+
+declare module "*.mp3";
