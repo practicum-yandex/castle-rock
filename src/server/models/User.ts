@@ -7,8 +7,7 @@ import {
 
 @Table({
 	tableName: "user",
-	underscored: true,
-	timestamps: false,
+	underscored: true
 })
 export class User extends Model<User> {
 	@PrimaryKey
@@ -16,10 +15,10 @@ export class User extends Model<User> {
 	id!: number;
 
 	@Column
-	themeName!: string;
+	first_name!: string;
 
 	@Column
-	name!: string;
+	second_name!: string;
 
 	@Column
 	avatar!: string;

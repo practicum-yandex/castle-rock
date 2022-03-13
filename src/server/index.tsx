@@ -1,2 +1,2 @@
-import "./dataBase/init";
+import "./initDB";
 import "./app";
