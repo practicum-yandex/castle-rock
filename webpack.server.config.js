@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
 	target: "node",
@@ -14,6 +15,10 @@ module.exports = {
 			"@": path.resolve(__dirname, "src"),
 		},
 	},
+	plugins: [
+		new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }),
+		new webpack.IgnorePlugin({ resourceRegExp: /^pg-hstore$/ }),
+	],
 	module: {
 		rules: [
 			{
