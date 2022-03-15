@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { Thread } from "../../models/Thread";
+import { Thread } from "../../initDB";
 import { Request, Response } from "express";
 import validation from "./validation";
 
@@ -37,7 +37,7 @@ export const update = [
     ...validation,
     async (req: Request, res: Response) => {
         try {
-            await Thread.update<Thread>(req.body, { where: { id: req.params.id } });
+            await Thread.update(req.body, { where: { id: req.params.id } });
             res.sendStatus(StatusCodes.OK);
         } catch (e) {
             res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e);
@@ -47,7 +47,7 @@ export const update = [
 
 export const destroy = async (req: Request, res: Response) => {
     try {
-        await Thread.destroy<Thread>({
+        await Thread.destroy({
             where: {
                 id: req.params.id,
             },

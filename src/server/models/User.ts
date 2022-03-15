@@ -1,25 +1,29 @@
-import {
-	Column,
-	Model,
-	PrimaryKey,
-	Table
-} from "sequelize-typescript";
+import { DataType, Model } from "sequelize-typescript";
+import { ModelAttributes } from "sequelize/types";
 
-@Table({
-	tableName: "user",
-	underscored: true
-})
-export class User extends Model<User> {
-	@PrimaryKey
-	@Column
-	id!: number;
-
-	@Column
-	first_name!: string;
-
-	@Column
-	second_name!: string;
-
-	@Column
-	avatar!: string;
+interface IUser {
+	id: number;
+	first_name: string;
+	second_name: string;
+	avatar: string;
 }
+
+export const userModel: ModelAttributes<Model, IUser>= {
+	id: {
+		type: DataType.INTEGER,
+		allowNull: false,
+		primaryKey: true
+	},
+
+	first_name: {
+		type: DataType.STRING
+	},
+
+	second_name: {
+		type: DataType.STRING
+	},
+
+	avatar: {
+		type: DataType.STRING
+	}
+};

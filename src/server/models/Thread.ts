@@ -1,24 +1,24 @@
-import {
-	Model,
-	Column,
-	Table,
-	PrimaryKey,
-	AutoIncrement
-} from "sequelize-typescript";
+import { DataType, Model } from "sequelize-typescript";
+import { ModelAttributes } from "sequelize/types";
 
-@Table({
-	tableName: "thread",
-	underscored: true
-})
-export class Thread extends Model<Thread> {
-	@AutoIncrement
-	@PrimaryKey
-	@Column
-	id!: number;
-
-	@Column
-	title!: string;
-
-	@Column
-	content!: string;
+interface IThread {
+	id: number;
+	title: string;
+	content: string;
 }
+
+export const threadModel: ModelAttributes<Model, IThread>= {
+	id: {
+		type: DataType.INTEGER,
+		allowNull: false,
+		primaryKey: true
+	},
+
+	title: {
+		type: DataType.STRING
+	},
+
+	content: {
+		type: DataType.STRING
+	}
+};

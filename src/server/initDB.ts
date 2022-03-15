@@ -1,21 +1,24 @@
 import pg from 'pg';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { Thread } from './models/Thread';
-import { Comment } from './models/Comment';
-import { User } from './models/User';
+import { commentModel } from './models/Comment';
+import { threadModel } from './models/Thread';
+import { userModel } from './models/User';
 
 const sequelizeOptions: SequelizeOptions = {
-  host: 'localhost',
   port: 5432,
-  username: "postgres",
-  password: "newPassword",
+  host: 'localhost',
   database: "db-game",
   dialect: "postgres",
-  dialectModule: pg,
-  models: [Thread, User, Comment],
+  username: "postgres",
+  password: "newPassword",
+  dialectModule: pg
 };
 
 const sequelize = new Sequelize(sequelizeOptions);
+
+export const User = sequelize.define('User', userModel, {});
+export const Thread = sequelize.define('User', threadModel, {});
+export const Comment = sequelize.define('User', commentModel, {});
 
 async function dbConnect() {
 	try {

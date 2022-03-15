@@ -1,5 +1,5 @@
 import { StatusCodes } from "http-status-codes";
-import { Comment } from "../../models/Comment";
+import { Comment } from "../../initDB";
 import { Request, Response } from "express";
 import validation from "./validation";
 
@@ -17,7 +17,7 @@ export const create = [
 
 export const destroy = async (req: Request, res: Response) => {
     try {
-        await Comment.destroy<Comment>({
+        await Comment.destroy({
             where: {
             id: req.params.id,
             },

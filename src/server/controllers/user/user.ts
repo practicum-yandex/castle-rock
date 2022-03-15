@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { User } from "../../models/User";
+import { User } from "../../initDB";
 
 export const find = async (req: Request, res: Response) => {
     try {
