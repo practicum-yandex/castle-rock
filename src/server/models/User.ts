@@ -12,7 +12,8 @@ export const userModel: ModelAttributes<Model, IUser>= {
 	id: {
 		type: DataType.INTEGER,
 		allowNull: false,
-		primaryKey: true
+		primaryKey: true,
+		autoIncrement: true
 	},
 
 	first_name: {

@@ -11,7 +11,8 @@ export const commentModel: ModelAttributes<Model, IComment>= {
 	id: {
 		type: DataType.INTEGER,
         allowNull: false,
-		primaryKey: true
+		primaryKey: true,
+		autoIncrement: true
 	},
 
 	title: {

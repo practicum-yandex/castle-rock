@@ -11,7 +11,8 @@ export const threadModel: ModelAttributes<Model, IThread>= {
 	id: {
 		type: DataType.INTEGER,
 		allowNull: false,
-		primaryKey: true
+		primaryKey: true,
+		autoIncrement: true
 	},
 
 	title: {
