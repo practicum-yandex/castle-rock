@@ -19,7 +19,7 @@ export const destroy = async (req: Request, res: Response) => {
     try {
         await Comment.destroy({
             where: {
-            id: req.params.id,
+                id: req.params.id,
             },
     });
         res.sendStatus(StatusCodes.OK);

@@ -17,8 +17,8 @@ const sequelizeOptions: SequelizeOptions = {
 const sequelize = new Sequelize(sequelizeOptions);
 
 export const User = sequelize.define('User', userModel, {});
-export const Thread = sequelize.define('User', threadModel, {});
-export const Comment = sequelize.define('User', commentModel, {});
+export const Thread = sequelize.define('Thread', threadModel, {});
+export const Comment = sequelize.define('Comment', commentModel, {});
 
 async function dbConnect() {
 	try {
