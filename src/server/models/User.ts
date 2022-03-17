@@ -8,23 +8,23 @@ interface IUser {
 	avatar: string;
 }
 
-export const userModel: ModelAttributes<Model, IUser>= {
+export const userModel: ModelAttributes<Model, IUser> = {
 	id: {
 		type: DataType.INTEGER,
 		allowNull: false,
 		primaryKey: true,
-		autoIncrement: true
+		autoIncrement: true,
 	},
 
 	first_name: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	second_name: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	avatar: {
-		type: DataType.STRING
-	}
+		type: DataType.STRING,
+	},
 };

@@ -13,3 +13,7 @@ export const httpDEV = axios.create({
 export const fullHttp = axios.create({
 	withCredentials: true,
 });
+
+export const httpInner = axios.create({
+	baseURL: "/",
+});

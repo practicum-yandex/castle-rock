@@ -1,4 +1,4 @@
-import {  DataType, Model } from "sequelize-typescript";
+import { DataType, Model } from "sequelize-typescript";
 import { ModelAttributes } from "sequelize/types";
 
 interface IComment {
@@ -7,19 +7,19 @@ interface IComment {
 	content: string;
 }
 
-export const commentModel: ModelAttributes<Model, IComment>= {
+export const commentModel: ModelAttributes<Model, IComment> = {
 	id: {
 		type: DataType.INTEGER,
-        allowNull: false,
+		allowNull: false,
 		primaryKey: true,
-		autoIncrement: true
+		autoIncrement: true,
 	},
 
 	title: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	content: {
-		type: DataType.STRING
-	}
+		type: DataType.STRING,
+	},
 };

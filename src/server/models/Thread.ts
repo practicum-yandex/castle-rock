@@ -7,19 +7,19 @@ interface IThread {
 	content: string;
 }
 
-export const threadModel: ModelAttributes<Model, IThread>= {
+export const threadModel: ModelAttributes<Model, IThread> = {
 	id: {
 		type: DataType.INTEGER,
 		allowNull: false,
 		primaryKey: true,
-		autoIncrement: true
+		autoIncrement: true,
 	},
 
 	title: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	content: {
-		type: DataType.STRING
-	}
+		type: DataType.STRING,
+	},
 };
