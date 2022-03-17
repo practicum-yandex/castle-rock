@@ -24,6 +24,7 @@ interface Theme {
 	headlines: Headlines;
 	spacing: (scale?: number) => string;
 	border: ReturnType<Color>;
+	name: string;
 }
 
 const getColor = (baseColor: string) => {
@@ -44,7 +45,7 @@ const secondary = getColor("153, 153, 153");
 
 export const theme: Omit<
 	Theme,
-	"background" | "colors" | "fontColor" | "formBackground"
+	"background" | "colors" | "fontColor" | "formBackground" | "name"
 > = {
 	transition: ".1s",
 	border: secondary(0.4),
@@ -59,6 +60,7 @@ export const theme: Omit<
 
 export const lightTheme: Theme = {
 	...theme,
+	name: "light",
 	background: getColor("255, 255, 255")(),
 	fontColor: "black",
 	formBackground: getColor("255, 255, 255")(),
@@ -72,6 +74,7 @@ export const lightTheme: Theme = {
 
 export const darkTheme: Theme = {
 	...theme,
+	name: "dark",
 	background: getColor("0, 0, 0")(0.75),
 	fontColor: getColor("255, 255, 255")(0.85),
 	formBackground: getColor("0, 0, 0")(0.6),

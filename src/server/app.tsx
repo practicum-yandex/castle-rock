@@ -10,7 +10,7 @@ import configureStore from "@/store/store";
 import { darkTheme } from "@/utils/theme";
 import App from "@/pages/App";
 
-import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
+import { makeHTMLPage } from "./renderHTML";
 
 const app = express();
 const PORT = 3000;
@@ -20,9 +20,9 @@ app.use(
 	express.static(path.join(__dirname, "..", "dist", "static"))
 );
 
-app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
-	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
-});
+// app.get(`/*/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
+// 	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
+// });
 
 const store = configureStore({});
 

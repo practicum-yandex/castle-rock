@@ -30,7 +30,7 @@ export function makeHTMLPage(content: string, store: any) {
       <body>
         <div id="root">${content}</div>
         ${scriptStore}
-        <script src='./${BUNDLE_FILE_NAME}'></script>
+        <script src='./static/${BUNDLE_FILE_NAME}'></script>
       </body>
     </html>
   `;

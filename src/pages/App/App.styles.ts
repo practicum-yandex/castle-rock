@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CustomTitle from "@/share/Title";
+import CustomThemeSwither from "@/components/ThemeSwitcher";
 
 export const Title = styled(CustomTitle)`
 	${({ theme }) => `
@@ -20,4 +21,10 @@ export const Nav = styled.nav`
 export const Header = styled.div`
 	display: flex;
 	justify-content: space-between;
+`;
+
+export const ThemeSwither = styled(CustomThemeSwither)`
+	${({ theme }) => `
+		margin-right: ${theme.spacing(2)};
+	`}
 `;

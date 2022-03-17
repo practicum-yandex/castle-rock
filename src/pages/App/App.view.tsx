@@ -18,10 +18,11 @@ import Main from "@/pages/Main";
 import Article from "@/components/Article";
 import Fullscreen from "@/components/Fullscreen";
 import Profile from "@/pages/Profile";
-import { Title, Nav, Header } from "./App.styles";
 import { AuthService, UserData } from "@/services/AuthService";
 import { setUser } from "@/store/reducers/user";
 import { canUseDOM } from "@/utils/canUseDOM";
+
+import { Title, Nav, Header, ThemeSwither } from "./App.styles";
 
 const params: any = canUseDOM
 	? new Proxy(new URLSearchParams(window.location.search), {
@@ -58,7 +59,10 @@ const App: React.FC = () => {
 			<GlobalStyles />
 			<Header>
 				<Title level={1}>Castle Rock. Game 21</Title>
-				<Fullscreen />
+				<div>
+					<ThemeSwither />
+					<Fullscreen />
+				</div>
 			</Header>
 			<Nav>
 				<Link to="/">
