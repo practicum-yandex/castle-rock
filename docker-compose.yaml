@@ -5,8 +5,6 @@ services:
       context: .
     depends_on:
       - postgres
-    env_file:
-      ./dev.env
     ports:
       - "3000:3000"
     restart: always
