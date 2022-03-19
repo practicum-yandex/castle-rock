@@ -1,12 +1,12 @@
 import { api } from "@/utils/http";
 
-interface IThread {
+export interface IThread {
 	id: number;
 	title: string;
 	content: string;
 }
 
-interface IComment {
+export interface IComment {
 	id: number;
 	title: string;
 	content: string;
