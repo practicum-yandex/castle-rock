@@ -11,9 +11,12 @@ import { theme } from "@/utils/theme";
 import App from "@/pages/App";
 
 import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
+import { routes } from "./routes";
 
 const app = express();
 const PORT = 3000;
+
+routes(app);
 
 app.use(
 	"/static",
