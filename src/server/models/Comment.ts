@@ -5,7 +5,9 @@ interface IComment {
 	id: number;
 	title: string;
 	content: string;
+	thread_id: number;
 }
+
 
 export const commentModel: ModelAttributes<Model, IComment>= {
 	id: {
@@ -21,5 +23,10 @@ export const commentModel: ModelAttributes<Model, IComment>= {
 
 	content: {
 		type: DataType.STRING
+	},
+
+	thread_id: {
+		type: DataType.INTEGER,
+		allowNull: false
 	}
 };
