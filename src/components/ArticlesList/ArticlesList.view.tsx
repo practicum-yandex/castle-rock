@@ -2,29 +2,23 @@ import React from "react";
 import { Component } from "@/utils/components";
 import {
 	ThemeLink,
-	Description,
 	CustomTitle,
 	List,
+	Description,
 } from "./ArticlesList.styles";
-
-export interface IArticle {
-	id: number;
-	name: string;
-	desc: string;
-	content: unknown;
-}
+import { IThread } from "@/services/ForumService";
 
 type Props = {
-	articles: IArticle[];
+	threads: IThread[];
 };
 
 const ArticlesList: Component<Props> = (props) => {
 	return (
 		<List>
-			{props.articles.map((theme) => (
+			{props.threads.map((theme) => (
 				<ThemeLink key={theme.id} to={"/forum/" + theme.id}>
-					<CustomTitle>{theme.name}</CustomTitle>
-					<Description>{theme.desc}</Description>
+					<CustomTitle>{theme.title}</CustomTitle>
+					<Description>Автор: {theme.user_name}</Description>
 				</ThemeLink>
 			))}
 		</List>

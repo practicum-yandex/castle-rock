@@ -3,8 +3,8 @@ import { ModelAttributes } from "sequelize/types";
 
 interface IComment {
 	id: number;
-	title: string;
 	content: string;
+	user_name: string;
 	thread_id: number;
 }
 
@@ -17,11 +17,11 @@ export const commentModel: ModelAttributes<Model, IComment>= {
 		autoIncrement: true
 	},
 
-	title: {
+	content: {
 		type: DataType.STRING
 	},
 
-	content: {
+	user_name: {
 		type: DataType.STRING
 	},
 

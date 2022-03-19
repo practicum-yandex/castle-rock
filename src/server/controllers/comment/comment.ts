@@ -5,11 +5,7 @@ import validation from "./validation";
 
 export const find = async (req: Request, res: Response) => {
     try {
-        const comments = await Comment.findAll({ 
-            where: { 
-                thread_id: req.params.thread_id 
-            } 
-        });
+        const comments = await Comment.findAll();
         res.status(StatusCodes.OK).json(comments);
     } catch (e) {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(e);

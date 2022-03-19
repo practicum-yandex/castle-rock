@@ -13,7 +13,7 @@ export const ThemeLink = styled(Link)`
 	${({ theme }) => `
 		width: 100%;
 		height: 70px;
-		padding: ${theme.spacing(1)};
+		padding: 12px;
 		margin-bottom: ${theme.spacing(2)};
 		border-radius: 8px;
 		border: 1px solid ${theme.border};
@@ -21,7 +21,10 @@ export const ThemeLink = styled(Link)`
 		color: inherit;
 		cursor: pointer;
 		text-decoration: none;
-		
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
 	`}
 `;
 

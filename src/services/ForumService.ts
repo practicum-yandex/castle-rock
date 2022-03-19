@@ -1,16 +1,27 @@
 import { api } from "@/utils/http";
 
-export interface IThread {
-	id: number;
+export interface IThreadBody {
 	title: string;
 	content: string;
+	user_name: string;
 }
 
-export interface IComment {
-	id: number;
-	title: string;
+export interface ICommentBody {
 	content: string;
 	thread_id: number;
+	user_name: string;
+}
+
+export interface IThread extends IThreadBody {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
+export interface IComment extends ICommentBody {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 
@@ -27,7 +38,7 @@ export class ForumService {
 			.then((res) => res.data);
 	}
 
-	static createThread(body: IThread): Promise<IThread> {
+	static createThread(body: IThreadBody): Promise<IThread> {
 		return api
 			.post<IThread>('/thread', body)
 			.then((res) => res.data);
@@ -45,13 +56,13 @@ export class ForumService {
 			.then((res) => res.data);
 	}
 
-	static findComments(threadID: number): Promise<IComment[]> {
+	static getComments(): Promise<IComment[]> {
 		return api
-			.get<IComment[]>(`/comment?thread_id=${threadID}`)
+			.get<IComment[]>(`/comment`)
 			.then((res) => res.data);
 	}
 
-	static createComment(body: IComment): Promise<IComment> {
+	static createComment(body: ICommentBody): Promise<IComment> {
 		return api
 			.post<IComment>(`/comment`, body)
 			.then((res) => res.data);

@@ -1,4 +1,6 @@
 import express, { Request, Response } from "express";
+import helmet from 'helmet';
+import cors from 'cors';
 import path from "path";
 import React from "react";
 import { renderToString } from "react-dom/server";
@@ -12,9 +14,20 @@ import App from "@/pages/App";
 
 import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
 import { routes } from "./routes";
+import bodyParser from "body-parser";
 
 const app = express();
 const PORT = 3000;
+
+const options: any = {
+	origin: ['http://localhost:5000'],
+	methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+	allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
+};
+
+app.use(helmet());
+app.use(bodyParser.json());
+app.use('*', cors(options) as any);
 
 routes(app);
 

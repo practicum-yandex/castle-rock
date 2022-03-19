@@ -5,6 +5,7 @@ interface IThread {
 	id: number;
 	title: string;
 	content: string;
+	user_name: string;
 }
 
 export const threadModel: ModelAttributes<Model, IThread>= {
@@ -20,6 +21,10 @@ export const threadModel: ModelAttributes<Model, IThread>= {
 	},
 
 	content: {
+		type: DataType.TEXT
+	},
+
+	user_name: {
 		type: DataType.STRING
-	}
+	},
 };

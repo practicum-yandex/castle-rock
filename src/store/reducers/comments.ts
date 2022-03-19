@@ -1,11 +1,11 @@
-import { ForumService, IThread } from "@/services/ForumService";
+import { ForumService, IComment } from "@/services/ForumService";
 import { Dispatch } from "redux";
 
 type Nullable<T> = T | null;
 type LoadStatus = "success" | "pending" | "failed";
 
-type ThreadState = {
-	item: Nullable<IThread[]>;
+type CommentState = {
+	item: Nullable<IComment[]>;
 	status: LoadStatus;
 };
 
@@ -14,25 +14,25 @@ interface BaseActionType<T> {
 }
 
 export interface ItemActionType extends BaseActionType<ACTIONS> {
-	item: IThread[];
+	item: IComment[];
 }
 
 enum ACTIONS {
 	Pending = "Pending",
 	Success = "Success",
 	Failed = "Failed",
-	SetThreadItem = "SetThreadItem",
+	SetCommentItem = "SetCommentItem",
 }
 
-const defaultState: ThreadState = {
+const defaultState: CommentState = {
 	item: null,
 	status: "failed",
 };
 
-export function threadsReducer(
-	state: ThreadState = defaultState,
+export function commentsReducer(
+	state: CommentState = defaultState,
 	{ type, item }: ItemActionType
-): ThreadState {
+): CommentState {
 	switch (type) {
 		case ACTIONS.Pending:
 			return {
@@ -49,7 +49,7 @@ export function threadsReducer(
 				...state,
 				status: "failed",
 			};
-		case ACTIONS.SetThreadItem:
+		case ACTIONS.SetCommentItem:
 			return {
 				...state,
 				item,
@@ -71,11 +71,11 @@ export function loadPending(): BaseActionType<ACTIONS> {
 	return { type: ACTIONS.Pending };
 }
 
-export function loadThreads(): (d: Dispatch) => void {
+export function loadComments(): (d: Dispatch) => void {
 	return (dp: Dispatch): void => {
-		ForumService.getThreads()
+		ForumService.getComments()
 			.then((data) => {
-				dp({ type: ACTIONS.SetThreadItem, item: data });
+				dp({ type: ACTIONS.SetCommentItem, item: data });
 			})
 			.catch((err) => console.log(err));
 	};

@@ -14,8 +14,7 @@ const CreateThemeForm: Component<FormProps & Props> = ({close, ...props}) => {
 		<Overlay onClick={close}>
 			<Form {...props}>
 				<Title level={1}>Тема</Title>
-				<Input name="name" placeholder="Название темы"/>
-				<Input name="desc" placeholder="Описание темы"/>
+				<Input name="title" placeholder="Название темы"/>
 				<Textarea name="content"/>
 				<Button>Опубликовать</Button>
 			</Form>
