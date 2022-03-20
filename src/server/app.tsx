@@ -14,9 +14,11 @@ import App from "@/pages/App";
 import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
 import { routes } from "./routes";
 import bodyParser from "body-parser";
+import { csp } from "./middlewares/csp";
 
 const app = express();
 const PORT = 3000;
+const store = configureStore({});
 
 const options: any = {
 	origin: ['http://localhost:5000'],
@@ -24,6 +26,7 @@ const options: any = {
 	allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
 };
 
+app.use(csp());
 app.use(bodyParser.json());
 app.use('*', cors(options) as any);
 
@@ -37,8 +40,6 @@ app.use(
 app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
 	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
 });
-
-const store = configureStore({});
 
 app.get("*", (req: Request, res: Response) => {
 	const appContentHTML = renderToString(
