@@ -4,7 +4,6 @@ import { Theme } from "../../initDB";
 
 export const findOrCreate = async (req: Request, res: Response) => {
 	try {
-		console.log(req);
 		const [theme, _created] = await Theme.findOrCreate({
 			where: {
 				UserId: Number(req.params.UserId),

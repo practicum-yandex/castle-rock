@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "redux";
-// import { getUserTheme } from "@/api/themes";
 
 import { Component } from "@/utils/components";
 import { UserData } from "@/services/AuthService";
