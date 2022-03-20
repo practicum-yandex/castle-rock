@@ -6,8 +6,8 @@ export const http = axios.create({
 	baseURL: environments.baseUrl,
 });
 
-export const httpDEV = axios.create({
-	baseURL: environments.devUrl,
+export const api = axios.create({
+	baseURL: environments.apiUrl,
 });
 
 export const fullHttp = axios.create({

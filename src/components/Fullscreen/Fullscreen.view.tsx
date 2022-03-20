@@ -25,11 +25,7 @@ const Fullscreen: Component = (props) => {
 
 	return (
 		<Button type="button" ref={buttonRef} onClick={toggleFullScreen} {...props}>
-			{!openStatus ? (
-				<Img src="./static/images/fullscreen.png" alt="fullscreen" />
-			) : (
-				"X"
-			)}
+			{!openStatus ? <Img src="./static/images/fullscreen.png" /> : "X"}
 		</Button>
 	);
 };

@@ -16,17 +16,3 @@ export const Content = styled.div`
 	font-size: 16px;
 	line-height: 1.5em;
 `;
-
-export const Textarea = styled.textarea`
-	${({ theme }) => `
-		width: 100%;
-		height: 100%;
-		padding: ${theme.spacing(2)};
-		font: inherit;
-		font-size: 16px;
-		border-radius: 8px;
-		border: 1px solid ${theme.border};
-		outline: none;
-		resize: none;
-	`}
-`;
