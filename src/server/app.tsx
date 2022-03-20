@@ -1,5 +1,4 @@
 import express, { Request, Response } from "express";
-import helmet from 'helmet';
 import cors from 'cors';
 import path from "path";
 import React from "react";
@@ -25,7 +24,6 @@ const options: any = {
 	allowedHeaders: ['Content-Type', 'origin', 'Authorization'],
 };
 
-app.use(helmet());
 app.use(bodyParser.json());
 app.use('*', cors(options) as any);
 
