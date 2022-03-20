@@ -21,6 +21,8 @@ export const Thread = sequelize.define('Thread', threadModel, {});
 export const Comment = sequelize.define('Comment', commentModel, {});
 
 async function dbConnect() {
+  await sequelize.drop(); // remove it
+
 	try {
     await sequelize.authenticate(); // Проверка аутентификации в БД
 		await sequelize.sync(); // Синхронизация базы данных

@@ -1,1 +1,1 @@
-export { create, destroy } from "./comment";
+export { create, destroy, find } from "./comment";
