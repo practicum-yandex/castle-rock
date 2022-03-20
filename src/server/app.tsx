@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import cors from 'cors';
 import path from "path";
 import React from "react";
+import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
@@ -33,6 +34,7 @@ const options: any = {
 app.use(csp());
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(helmet.xssFilter());
 app.use('*', cors(options) as any);
 
 routes(app);
