@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import ShareButton from "@/share/Button";
+import ShareTitle from "@/share/Title";
+
+export const Title = styled(ShareTitle)`
+	color: black;
+`;
 
 export const Section = styled.section`
 	${({ theme }) => `

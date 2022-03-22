@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { Component } from "@/utils/components";
-import Title from "@/share/Title";
+
 import {
 	Textarea,
 	CommentForm,
@@ -12,6 +12,7 @@ import {
 	CommentDate,
 	Text,
 	NotComment,
+	Title,
 } from "./Comments.styles";
 import { IComment } from "@/services/ForumService";
 import { useParams } from "react-router-dom";
@@ -49,7 +50,7 @@ const Comments: Component<Props> = ({ sendComment, ...props }) => {
 			<CommentsSection>{comments}</CommentsSection>
 			{comments.length === 0 && (
 				<CommentsSection>
-					<NotComment>Нет комменатриев</NotComment>
+					<NotComment>Нет комментариев</NotComment>
 				</CommentsSection>
 			)}
 			<CommentForm onSubmit={sendComment}>

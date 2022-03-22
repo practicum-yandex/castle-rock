@@ -33,8 +33,9 @@ const ThemeSwitcher: Component = (props) => {
 			{...props}
 		>
 			<Img
-				src={`/static/images/theme_${theme.name === "dark" ? "light" : "dark"
-					}.jpg`}
+				src={`/static/images/theme_${
+					theme.name === "dark" ? "light" : "dark"
+				}.jpg`}
 				alt="themeSwitcher"
 			/>
 		</Button>
