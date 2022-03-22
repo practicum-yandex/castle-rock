@@ -1,4 +1,4 @@
-import { httpInner } from "@/utils/http";
+import { api } from "@/utils/http";
 
 export interface ThemeData {
 	UserId: number;
@@ -7,13 +7,11 @@ export interface ThemeData {
 
 export class ThemeService {
 	static getUserTheme(userId: number) {
-		return httpInner
-			.get<ThemeData>(`/api/themes/${userId}`)
-			.then((res) => res.data);
+		return api.get<ThemeData>(`/api/themes/${userId}`).then((res) => res.data);
 	}
 
 	static changeTheme(userId: ThemeData["UserId"], name: ThemeData["name"]) {
-		return httpInner
+		return api
 			.post<ThemeData>(`/api/themes`, {
 				UserId: userId,
 				name,

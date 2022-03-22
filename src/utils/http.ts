@@ -13,7 +13,3 @@ export const api = axios.create({
 export const fullHttp = axios.create({
 	withCredentials: true,
 });
-
-export const httpInner = axios.create({
-	baseURL: "/",
-});

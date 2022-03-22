@@ -9,12 +9,14 @@ import { Provider } from "react-redux";
 import configureStore from "@/store/store";
 import App from "@/pages/App";
 
-import { makeHTMLPage } from "./renderHTML";
+import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
 import { routes } from "./routes";
 import bodyParser from "body-parser";
 
 const app = express();
 const PORT = 3000;
+
+const store = configureStore({});
 
 const options: any = {
 	origin: ["http://localhost:5000"],
@@ -32,9 +34,11 @@ app.use(
 	express.static(path.join(__dirname, "..", "dist", "static"))
 );
 
-const store = configureStore({});
+app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
+	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
+});
 
-app.get("*", (req: Request, res: Response) => {
+const sendIndex = (req: Request, res: Response) => {
 	const appContentHTML = renderToString(
 		<StaticRouter location={req.url}>
 			<Provider store={store}>
@@ -44,6 +48,37 @@ app.get("*", (req: Request, res: Response) => {
 	);
 
 	res.send(makeHTMLPage(appContentHTML, store));
+};
+
+app.get("/", sendIndex);
+app.get("/auth", sendIndex);
+app.get("/auth/*", sendIndex);
+app.get("/profile", sendIndex);
+app.get("/board", sendIndex);
+app.get("/forum", sendIndex);
+app.get("/forum/*", sendIndex);
+app.get("/game", sendIndex);
+
+// app.get("/api/*", (req: Request, res: Response) => {
+// 	res.status(404)
+// });
+
+app.get("*", (req: Request, res: Response) => {
+	return `
+		<!DOCTYPE html>
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+				<title>21 points. Not Found</title>
+			</head>
+			<body>
+				<h1>404</h1>
+				<h2>Not Found</h2>
+			</body>
+		</html>
+	`;
 });
 
 app.listen(PORT, () => {
