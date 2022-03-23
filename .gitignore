@@ -4,3 +4,6 @@ dist/
 dev.env
 .env
 postgresdata/
+logs/
+www/
+hosts/

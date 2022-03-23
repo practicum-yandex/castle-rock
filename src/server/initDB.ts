@@ -31,15 +31,18 @@ async function dbConnect() {
 		console.log("Connection has been established successfully.");
 
 		// Создание 1го пользователя для работы темизации
-		const user = User.findOne({ where: { id: 1 } });
-
-		if (!user) {
-			User.create({
-				first_name: "test_name",
-				second_name: "test_second_name",
-				avatar: "test_avatar",
-			});
-		}
+		User.findOrCreate(
+			{
+				where: {
+					id: 1
+				},
+				defaults:{
+					first_name: "test_name",
+					second_name: "test_second_name",
+					avatar: "test_avatar",
+				}
+			}
+		)
 	} catch (error) {
 		console.error("Unable to connect to the database:", error);
 	}
