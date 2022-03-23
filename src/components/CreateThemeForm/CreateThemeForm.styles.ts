@@ -3,7 +3,7 @@ import ShareTitle from "@/share/Title";
 import styled from "styled-components";
 
 export const Form = styled.form`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 80%;
         height: 80%;
         display: flex;
@@ -17,14 +17,14 @@ export const Form = styled.form`
 `;
 
 export const Title = styled(ShareTitle)`
-    ${({ theme }) => `
+	${({ theme }) => `
         margin-bottom: ${theme.spacing(2)};
         text-align: center;
     `}
 `;
 
 export const Input = styled.input`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         height: 60px;
         font-size: ${theme.spacing(2)};
@@ -36,7 +36,7 @@ export const Input = styled.input`
 `;
 
 export const Textarea = styled.textarea`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         height: 100%;
         font-size: ${theme.spacing(2)};
@@ -49,7 +49,7 @@ export const Textarea = styled.textarea`
 `;
 
 export const Button = styled(ShareButton)`
-    ${({ theme }) => `
+	${({ theme }) => `
         width: 100%;
         height: 50px;
     `}

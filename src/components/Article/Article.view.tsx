@@ -7,20 +7,22 @@ import { useSelector } from "react-redux";
 import { IThread } from "@/services/ForumService";
 
 const Article: Component = () => {
-    const params = useParams();
+	const params = useParams();
 	const [currentThread, setCurrentThread] = useState<IThread>();
-	const threads = useSelector<any, IThread[]>((state) => state.threads.item || []);
+	const threads = useSelector<any, IThread[]>(
+		(state) => state.threads.item || []
+	);
 
 	useEffect(() => {
 		const threadId = params.id;
 		const currentThread = threads.find((t) => t.id === Number(threadId));
 		setCurrentThread(currentThread as IThread);
-	}, [threads])
+	}, [threads]);
 
 	return (
 		<Section>
-			<Title level={1}>{ currentThread?.title }</Title>
-			<Content>{ currentThread?.content }</Content>
+			<Title level={1}>{currentThread?.title}</Title>
+			<Content>{currentThread?.content}</Content>
 		</Section>
 	);
 };

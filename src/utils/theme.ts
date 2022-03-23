@@ -17,10 +17,14 @@ type Headlines = {
 
 interface Theme {
 	colors: Colors;
+	background: string;
 	transition: string;
+	fontColor: string;
+	formBackground: string;
 	headlines: Headlines;
 	spacing: (scale?: number) => string;
 	border: ReturnType<Color>;
+	name: string;
 }
 
 const getColor = (baseColor: string) => {
@@ -39,7 +43,10 @@ const getSpacing = (scale = 0) => {
 
 const secondary = getColor("153, 153, 153");
 
-export const theme: Theme = {
+export const theme: Omit<
+	Theme,
+	"background" | "colors" | "fontColor" | "formBackground" | "name"
+> = {
 	transition: ".1s",
 	border: secondary(0.4),
 
@@ -48,15 +55,35 @@ export const theme: Theme = {
 		h2: "20px",
 		h3: "16px",
 	},
+	spacing: getSpacing,
+};
 
+export const lightTheme: Theme = {
+	...theme,
+	name: "light",
+	background: getColor("255, 255, 255")(),
+	fontColor: "black",
+	formBackground: getColor("255, 255, 255")(),
 	colors: {
 		primary: getColor("51, 105, 243"),
 		secondary,
 		default: getColor("0, 0, 0"),
 		danger: getColor("255, 47, 47"),
 	},
+};
 
-	spacing: getSpacing,
+export const darkTheme: Theme = {
+	...theme,
+	name: "dark",
+	background: getColor("0, 0, 0")(0.75),
+	fontColor: getColor("255, 255, 255")(0.85),
+	formBackground: getColor("0, 0, 0")(0.6),
+	colors: {
+		primary: getColor("50, 100, 220"),
+		secondary,
+		default: getColor("0, 0, 0"),
+		danger: getColor("255, 47, 47"),
+	},
 };
 
 declare module "styled-components" {

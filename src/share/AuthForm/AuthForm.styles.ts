@@ -7,7 +7,7 @@ export const CustomForm = styled.form`
         display: flex;
         align-items: center;
         flex-direction: column;
-        background: #fff;
+        background-color: ${theme.formBackground};
         border-radius: 12px;
         box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
     `}

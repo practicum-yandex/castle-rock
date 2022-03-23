@@ -72,8 +72,6 @@ const Game: React.FC = () => {
 	const refreshGameStatus = () => {
 		const gameStatus = gameRef.current?.gameStatus;
 
-		console.log(gameStatus, score);
-
 		if (gameStatus === "win") {
 			setScore((prev: number) => ++prev);
 		}

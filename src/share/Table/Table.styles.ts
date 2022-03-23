@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 export const CustomTable = styled.table`
 	width: 100%;
-	background-color: white;
+	background-color: inherit;
 	border-collapse: collapse;
 `;
 

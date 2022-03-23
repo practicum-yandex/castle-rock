@@ -12,14 +12,14 @@ export type Sound = {
 export const Sounds: Sound[] = [
 	{
 		key: SoundKeys.GetCard,
-		sound: "./static/sounds/getCard.mp3",
+		sound: "/static/sounds/getCard.mp3",
 	},
 	{
 		key: SoundKeys.EnoughCard,
-		sound: "./static/sounds/enoughCard.mp3",
+		sound: "/static/sounds/enoughCard.mp3",
 	},
 	{
 		key: SoundKeys.CardDistribution,
-		sound: "./static/sounds/cardDistribution.mp3",
+		sound: "/static/sounds/cardDistribution.mp3",
 	},
 ];
