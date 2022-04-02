@@ -30,7 +30,13 @@ const Auth: React.FC = () => {
 
 		AuthService.signin(getFormValues(formEl))
 			.then(() => navigate("/", { replace: true }))
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				if (err.response.data.reason) {
+					alert(err.response.data.reason)
+				} else {
+					console.error(err)
+				}
+			});
 	}, []);
 
 	return (
