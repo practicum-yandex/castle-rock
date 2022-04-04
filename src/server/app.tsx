@@ -2,20 +2,24 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import path from "path";
 import React from "react";
+import helmet from "helmet";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+
+import { routes } from "./routes";
+import { csp } from "./middlewares/csp";
+import { auth } from "./middlewares/auth";
+
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
 import { Provider } from "react-redux";
 
-import configureStore from "@/store/store";
 import App from "@/pages/App";
-
+import configureStore from "@/store/store";
 import { makeHTMLPage, BUNDLE_FILE_NAME } from "./renderHTML";
-import { routes } from "./routes";
-import bodyParser from "body-parser";
 
-const app = express();
 const PORT = 3000;
-
+const app = express();
 const store = configureStore({});
 
 const options: any = {
@@ -24,15 +28,17 @@ const options: any = {
 	allowedHeaders: ["Content-Type", "origin", "Authorization"],
 };
 
+app.use(csp());
+app.use(cookieParser());
 app.use(bodyParser.json());
-app.use("*", cors(options) as any);
+app.use(helmet.xssFilter());
+app.use('*', cors(options) as any);
 
 routes(app);
 
-app.use(
-	"/static",
-	express.static(path.join(__dirname, "..", "dist", "static"))
-);
+app.get("/*", auth);
+
+app.use("/static", express.static(path.join(__dirname, "..", "dist", "static")));
 
 app.get(`/${BUNDLE_FILE_NAME}`, (req: Request, res: Response) => {
 	res.sendFile(path.resolve(__dirname, `../dist/${BUNDLE_FILE_NAME}`));
@@ -58,10 +64,6 @@ app.get("/board", sendIndex);
 app.get("/forum", sendIndex);
 app.get("/forum/*", sendIndex);
 app.get("/game", sendIndex);
-
-// app.get("/api/*", (req: Request, res: Response) => {
-// 	res.status(404)
-// });
 
 app.get("*", (req: Request, res: Response) => {
 	return `
