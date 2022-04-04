@@ -49,7 +49,12 @@ export class AuthService {
 	}
 
 	static getUser(): Promise<UserData> {
-		return http.get<UserData>("/auth/user").then((res) => res.data);
+		return http.get<UserData>("/auth/user").then((res) => {
+			// @TODO Заглушка для взаимодействия таблицы тем в БД с foreignKey,
+			// поскольку база пользователей не "наша", возникает ошибка поиска пользователя с заданным id
+			res.data.id = 1;
+			return res.data;
+		});
 	}
 
 	static getAuthorizationCode(): Promise<any> {

@@ -23,6 +23,7 @@ export const Field = styled.input`
 		color: inherit;
 		border-bottom: 2px ${theme.colors.primary()} solid;
 		transition: border-color ${theme.transition};
+		background-color: inherit;
 
 		:focus {
 			border-color: ${theme.colors.primary(0.5)};

@@ -1,5 +1,10 @@
 import styled from "styled-components";
 import ShareButton from "@/share/Button";
+import ShareTitle from "@/share/Title";
+
+export const Title = styled(ShareTitle)`
+	color: black;
+`;
 
 export const Section = styled.section`
 	${({ theme }) => `
@@ -11,7 +16,7 @@ export const Section = styled.section`
 		position: relative;
 		flex-direction: column;
 		justify-content: space-between;
-		background-color: ${theme.colors.secondary(0.1) };
+		background-color: ${theme.colors.secondary(0.1)};
 		border-radius: 8px;
 	`}
 `;

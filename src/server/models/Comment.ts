@@ -1,4 +1,4 @@
-import {  DataType, Model } from "sequelize-typescript";
+import { DataType, Model } from "sequelize-typescript";
 import { ModelAttributes } from "sequelize/types";
 
 interface IComment {
@@ -8,25 +8,24 @@ interface IComment {
 	thread_id: number;
 }
 
-
-export const commentModel: ModelAttributes<Model, IComment>= {
+export const commentModel: ModelAttributes<Model, IComment> = {
 	id: {
 		type: DataType.INTEGER,
-        allowNull: false,
+		allowNull: false,
 		primaryKey: true,
-		autoIncrement: true
+		autoIncrement: true,
 	},
 
 	content: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	user_name: {
-		type: DataType.STRING
+		type: DataType.STRING,
 	},
 
 	thread_id: {
 		type: DataType.INTEGER,
-		allowNull: false
-	}
+		allowNull: false,
+	},
 };

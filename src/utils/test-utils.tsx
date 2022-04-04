@@ -3,10 +3,10 @@ import { render } from "@testing-library/react";
 import { ThemeProvider } from "styled-components";
 import "@testing-library/jest-dom/extend-expect";
 
-import { theme } from "../utils/theme";
+import { darkTheme } from "../utils/theme";
 
 const AllTheProviders = ({ children }: any) => {
-	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+	return <ThemeProvider theme={darkTheme}>{children}</ThemeProvider>;
 };
 
 const customRender = (ui: any, options?: any) =>
