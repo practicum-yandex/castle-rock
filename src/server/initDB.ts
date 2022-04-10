@@ -15,7 +15,7 @@ const sequelizeOptions: SequelizeOptions = {
 	dialectModule: pg,
 };
 
-const sequelize = new Sequelize(sequelizeOptions);
+const sequelize = new Sequelize('postgres://postgres:newPassword@postgres:5432/db-game', sequelizeOptions);
 
 export const User = sequelize.define("User", userModel, {});
 export const Thread = sequelize.define("Thread", threadModel, {});
