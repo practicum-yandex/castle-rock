@@ -56,7 +56,6 @@ services:
         - ./dist:/var/www/html/dist
         - ./logs/nginx:/var/log/nginx
         - ./nginx.conf:/etc/nginx/nginx.conf
-        - ./ssl:/etc/ssl
     depends_on:
       - my-app
 
