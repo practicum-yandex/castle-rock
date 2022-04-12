@@ -5,5 +5,6 @@ cd castle-rock
 git checkout main
 git pull
 
-docker-compose build
-docker-compose up
+sudo docker-compose stop
+sudo docker-compose build
+sudo docker-compose up
